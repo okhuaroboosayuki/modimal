@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+
+  /* State Colors */
+  --color-error: #c30000;
+  --color-error-light: #ed2e2e;
+  --color-error-bg: #fff2f2;
+  --color-warning: #e09126;
+  --color-warning-light: #e09126;
+  --color-warning-bg: #f7e4c9;
+  --color-success: #00966d;
+  --color-success-light: #00ba88;
+  --color-success-bg: #f3fdfa;
+
+  /* Neutral Colors */
+  --color-neutral-black: #0c0c0c;
+  --color-gray20: #202020;
+  --color-gray40: #404040;
+  --color-gray60: #606060;
+  --color-gray86: #868686;
+  --color-grayAD: #adadad;
+  --color-grayCB: #cbcbcb;
+  --color-grayDF: #dfdfdf;
+  --color-grayED: #ededed;
+  --color-grayF9: #f9f9f9;
+
+  /* Primary Colors */
+  --color-primary: #748c70;
+  --color-primary-900: #0d100c;
+  --color-primary-800: #272f25;
+  --color-primary-750: #343e32;
+  --color-primary-700: #404e3e;
+  --color-primary-600: #5a6d57;
+  --color-primary-400: #839980;
+  --color-primary-300: #93a690;
+  --color-primary-200: #a2b39f;
+  --color-primary-100: #b2bfaf;
+  --color-primary-50: #d1d9cf;
+  --color-primary-25: #f0f2ef;
+}
+
+@layer base {
+  body {
+    @apply bg-white;
+  }
+}
