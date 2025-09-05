@@ -1,6 +1,6 @@
-@import "tailwindcss";
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
 
 @theme {
   --font-montserrat: "Montserrat", sans-serif;
@@ -45,6 +45,20 @@
 
 @layer base {
   body {
-    @apply bg-white;
+    @apply font-montserrat bg-white min-[1740px]:w-full min-[1740px]:max-w-[1740px];
+  }
+}
+
+@layer components {
+  .icon {
+    & svg {
+      @apply h-[1.5rem] w-[1.5rem];
+    }
+  }
+}
+
+@layer utilities {
+  .transition-500-in-out {
+    @apply transition-all duration-500 ease-in-out;
   }
 }
