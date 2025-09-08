@@ -5,7 +5,7 @@ function Input({ type, name, placeholder, width }) {
       name={name}
       id={name}
       placeholder={placeholder}
-      className={`${width} border-none text-sm outline-none placeholder:text-xs`}
+      className={`${width} border-none text-[16px] outline-none placeholder:text-xs`}
     />
   );
 }
