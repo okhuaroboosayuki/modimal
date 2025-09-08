@@ -7,7 +7,7 @@ import {
 } from "react-icons/ri";
 import { GrPinterest } from "react-icons/gr";
 import Input from "../Input";
-import ChatBoxIcon from "./ChatBoxIcon";
+import ChatBoxIcon from "../icons/ChatBoxIcon";
 
 function Footer() {
   return (
