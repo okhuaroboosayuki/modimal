@@ -6,8 +6,8 @@ import {
   RiTiktokFill,
 } from "react-icons/ri";
 import { GrPinterest } from "react-icons/gr";
-import Input from "../Input";
-import ChatBoxIcon from "../icons/ChatBoxIcon";
+import Input from "./Input";
+import ChatBoxIcon from "./icons/ChatBoxIcon";
 
 function Footer() {
   return (
