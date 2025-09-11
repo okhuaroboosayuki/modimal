@@ -19,7 +19,7 @@ function Footer() {
         >
           <h5
             id="newsletter-form-heading"
-            className="text-[1.25rem] font-medium capitalize"
+            className="text-lg font-medium capitalize sm:text-[1.25rem]"
           >
             Join our club, get 15% off for your Birthday
           </h5>
@@ -49,12 +49,12 @@ function Footer() {
         </section>
 
         <nav className="grid grid-cols-2 items-start justify-center gap-[2.25rem] sm:w-full sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
-          <section className="flex flex-col items-start justify-center gap-1 sm:gap-6">
+          <section className="flex flex-col items-start justify-center gap-3 sm:gap-6">
             <h5 className="text-lg font-medium sm:text-[1.5rem]">
               About Modimal
             </h5>
 
-            <ul className="flex flex-col gap-2 text-base sm:text-lg">
+            <ul className="flex flex-col gap-2 text-sm sm:text-lg">
               <li>Collection</li>
               <li>Sustainability</li>
               <li>Support System</li>
@@ -63,12 +63,12 @@ function Footer() {
             </ul>
           </section>
 
-          <section className="flex flex-col items-start justify-center gap-1 sm:gap-6">
+          <section className="flex flex-col items-start justify-center gap-3 sm:gap-6">
             <h5 className="text-lg font-medium sm:text-[1.5rem]">
               Help & Support
             </h5>
 
-            <ul className="flex flex-col gap-2 text-base sm:text-lg">
+            <ul className="flex flex-col gap-2 text-sm sm:text-lg">
               <li>Orders & Shipping</li>
               <li>Returns & Refunds</li>
               <li>FAQs</li>
@@ -76,10 +76,10 @@ function Footer() {
             </ul>
           </section>
 
-          <section className="flex flex-col items-start justify-center gap-1 sm:gap-6">
+          <section className="flex flex-col items-start justify-center gap-3 sm:gap-6">
             <h5 className="text-lg font-medium sm:text-[1.5rem]">Join Up</h5>
 
-            <ul className="flex flex-col gap-2 text-base sm:text-lg">
+            <ul className="flex flex-col gap-2 text-sm sm:text-lg">
               <li>Modimal Club</li>
               <li>Careers</li>
               <li>Visit Us</li>
@@ -109,11 +109,9 @@ function Footer() {
           </ul>
 
           <p className="flex items-center gap-2 text-sm">
-            <span className="icon">
-              <RiCopyrightLine />
-            </span>
+            <RiCopyrightLine className="h-4 w-4 sm:h-6 sm:w-6" />
 
-            <span>
+            <span className="text-sm sm:text-base">
               {new Date().getFullYear()} Modimal. All Rights Reserved.
             </span>
           </p>
