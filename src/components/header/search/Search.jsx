@@ -1,10 +1,9 @@
 import { FiSearch } from "react-icons/fi";
 import { RiCloseFill } from "react-icons/ri";
-import Input from "../Input";
+import Input from "../../Input";
 
 function Search({ onSearch, ref }) {
   console.log(onSearch);
-  console.log(ref);
 
   return (
     <div

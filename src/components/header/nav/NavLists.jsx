@@ -1,6 +1,6 @@
-import Modal from "../Modal";
 import SubNavLists from "./SubNavLists";
 import NavTitle from "./NavTitle";
+import Modal from "../../Modal";
 
 function NavLists() {
   return (

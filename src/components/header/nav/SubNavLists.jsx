@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import NavImageCardContainer from "./NavImageCardContainer";
 import NavImageCard from "./NavImageCard";
 import {
@@ -6,7 +5,7 @@ import {
   newImageCards,
   plusSizeImageCards,
   sustainabilityImageCards,
-} from "./ImageCardDetails";
+} from "../ImageCardDetails";
 import SubNavListsSection from "./SubNavListsSection";
 import {
   categoryList,
@@ -14,7 +13,7 @@ import {
   moreList,
   sustainabilityList,
   trendingList,
-} from "./subNavTags";
+} from "../subNavTags";
 
 function SubNavLists({ menuName, ref }) {
   return (
