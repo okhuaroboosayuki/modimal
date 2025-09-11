@@ -6,5 +6,5 @@
 export function setDocumentOverFlow(isOpen) {
   isOpen
     ? (document.body.style.overflow = "hidden")
-    : (document.body.style.overflow = "");
+    : (document.body.style.overflow = "auto");
 }
