@@ -16,9 +16,12 @@ import {
   trendingList,
 } from "./subNavTags";
 
-function SubNavLists({ menuName }) {
+function SubNavLists({ menuName, ref }) {
   return (
-    <div className="hidden h-[500px] w-full items-start justify-between gap-14 bg-white px-14 pt-4 pb-14 md:flex xl:px-[108px]">
+    <div
+      className="hidden h-[500px] w-full items-start justify-between gap-14 bg-white px-14 pt-4 pb-14 md:flex xl:px-[108px]"
+      ref={ref}
+    >
       <nav className="grid grid-cols-3 gap-6 text-base capitalize lg:text-lg">
         {menuName === "sustainability" ? (
           <SubNavListsSection content={sustainabilityList} />

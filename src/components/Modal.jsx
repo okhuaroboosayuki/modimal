@@ -3,11 +3,13 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-// import { setDocumentOverFlow } from "../utils/setDocOverflow";
+import { setDocumentOverFlow } from "../utils/setDocOverflow";
 
 // 1. create modal context
 const ModalContext = createContext();
@@ -17,7 +19,7 @@ function Modal({ children }) {
   const [openName, setOpenName] = useState("");
 
   const close = () => {
-    // setDocumentOverFlow(false);
+    setDocumentOverFlow(false);
     setOpenName("");
   };
 
@@ -29,7 +31,7 @@ function Modal({ children }) {
 }
 
 // 3a. consume context and pass funtion to cloned child element that will have either the click or hover ability to open a modal window
-function Open({ opens: windowName, children, clickable = true }) {
+function Open({ opens: windowName, children }) {
   const { setOpenName, openName, close } = useContext(ModalContext);
 
   const openWindow = useCallback(() => {
@@ -39,19 +41,20 @@ function Open({ opens: windowName, children, clickable = true }) {
     }
 
     setOpenName(windowName);
-    // setDocumentOverFlow(true);
+    setDocumentOverFlow(true);
   }, [close, openName, setOpenName, windowName]);
 
   // clone the child element and add either onClick or onMouseEnter and onFocus event handler to open the modal window. useMemo used here to avoid unnecessary re-renders
   const clonedEl = useMemo(
     () =>
       cloneElement(children, {
-        [clickable ? "onClick" : "onMouseEnter"]: openWindow,
-        tabIndex: clickable ? undefined : 0,
-        onFocus: clickable ? undefined : openWindow,
-        [openName === "search" && "windowName"]: openName,
+        onClick: openWindow,
+        tabIndex: 0,
+        ...(openName === "search" || openName === "mobile-search"
+          ? { windowName: openName }
+          : {}),
       }),
-    [children, clickable, openName, openWindow],
+    [children, openName, openWindow],
   );
 
   return clonedEl;
@@ -59,17 +62,30 @@ function Open({ opens: windowName, children, clickable = true }) {
 
 // 3b. consume context and render modal window if the name matches the openName in context state
 function Window({ children, name }) {
+  const ref = useRef();
   const { openName, close } = useContext(ModalContext);
+
   const container = document.getElementById("header");
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) {
+        close();
+      }
+    }
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, [close]);
 
   const clonedEl = useMemo(
     () =>
       cloneElement(children, {
-        [name === "search"
+        [name === "search" || name === "mobile-search"
           ? "onSearch"
           : name === "mobile-menu"
             ? "onCloseMenu"
             : null]: close,
+        ref: ref,
       }),
     [children, close, name],
   );
@@ -77,7 +93,7 @@ function Window({ children, name }) {
   if (name !== openName) return null;
 
   return createPortal(
-    <div className="modal">
+    <div className="modal" role="dialog" aria-label={`${name} Modal`}>
       <>{clonedEl}</>
     </div>,
 

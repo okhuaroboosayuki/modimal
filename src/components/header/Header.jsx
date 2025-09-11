@@ -19,13 +19,16 @@ function Header() {
           Enjoy Free Shipping On All Orders
         </div>
 
-        <nav className="flex w-full items-center justify-between px-4 py-6 lg:justify-around">
+        <nav
+          className="relative flex w-full items-center justify-between px-4 py-6 lg:justify-around"
+          id="nav-container"
+        >
           <ul className="flex items-center justify-center gap-3 sm:gap-6 md:hidden">
             <li className="icon">
               <MdMenu width={24} height={24} className="cursor-pointer" />
             </li>
 
-            <SearchContainer />
+            <SearchContainer window={"mobile-search"} />
           </ul>
 
           <div>
@@ -35,7 +38,10 @@ function Header() {
           <NavLists />
 
           <ul className="flex items-center justify-center gap-3 sm:gap-6">
-            <SearchContainer customStyle={"hidden md:block"} />
+            <SearchContainer
+              customStyle={"hidden md:block"}
+              window={"search"}
+            />
 
             <li className="icon hidden md:block">
               <UserIcon className="cursor-pointer" />
