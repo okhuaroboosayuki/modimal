@@ -1,12 +1,11 @@
-import { IoMdSearch } from "react-icons/io";
 import { RiHeartLine } from "react-icons/ri";
-import { MdMenu } from "react-icons/md";
-import UserIcon from "../icons/UserIcon";
-import ShoppingBagIcon from "../icons/ShoppingBagIcon";
-import Logo from "../icons/Logo";
-import NavLists from "./NavLists";
 import Modal from "../Modal";
-import SearchContainer from "./SearchContainer";
+import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
+import SearchContainer from "./search/SearchContainer";
+import NavLists from "./nav/NavLists";
+import Logo from "./../icons/Logo";
+import UserIcon from "./../icons/UserIcon";
+import ShoppingBagIcon from "./../icons/ShoppingBagIcon";
 
 function Header() {
   return (
@@ -19,14 +18,9 @@ function Header() {
           Enjoy Free Shipping On All Orders
         </div>
 
-        <nav
-          className="relative flex w-full items-center justify-between px-4 py-6 lg:justify-around"
-          id="nav-container"
-        >
-          <ul className="flex items-center justify-center gap-3 sm:gap-6 md:hidden">
-            <li className="icon">
-              <MdMenu width={24} height={24} className="cursor-pointer" />
-            </li>
+        <nav className="relative flex w-full items-center justify-between px-4 py-6 lg:justify-around">
+          <ul className="flex items-center justify-center gap-3 sm:gap-6 lg:hidden">
+            <MobileMenuContainer />
 
             <SearchContainer window={"mobile-search"} />
           </ul>
@@ -39,11 +33,11 @@ function Header() {
 
           <ul className="flex items-center justify-center gap-3 sm:gap-6">
             <SearchContainer
-              customStyle={"hidden md:block"}
+              customStyle={"hidden lg:block"}
               window={"search"}
             />
 
-            <li className="icon hidden md:block">
+            <li className="icon hidden lg:block">
               <UserIcon className="cursor-pointer" />
             </li>
 

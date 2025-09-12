@@ -1,5 +1,6 @@
 export const sustainabilityList = {
   heading: "sustainability",
+  menu_name: "sustainability",
   tags: [
     "mission",
     "processing",
@@ -12,6 +13,7 @@ export const sustainabilityList = {
 
 export const categoryList = {
   heading: "category",
+  menu_name: "collection",
   tags: [
     "shop all",
     "tops & blouses",
@@ -26,6 +28,7 @@ export const categoryList = {
 
 export const trendingList = {
   heading: "trending",
+  menu_name: "new in",
   tags: ["plus size", "fall collection", "modiweek"],
 };
 
