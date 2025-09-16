@@ -1,5 +1,5 @@
 import Modal from "../../Modal";
-import Search from "./Search";
+import Search from "../../../features/products/Search";
 import SearchIcon from "./SearchIcon";
 
 function SearchContainer({ customStyle, window }) {
