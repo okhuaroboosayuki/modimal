@@ -7,7 +7,7 @@ function AppLayout() {
     <div className="flex h-screen w-full flex-col items-center justify-between">
       <Header />
 
-      <main className="w-full">
+      <main className="flex w-full items-center justify-center">
         <Outlet />
       </main>
 
