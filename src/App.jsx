@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import SearchPage from "./pages/SearchPage";
+import ProductDetailsLayout from "./components/ProductDetailsLayout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +23,10 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<Home />} />
-            <Route path="search" element={<SearchPage />} />
+
+            <Route element={<ProductDetailsLayout />}>
+              <Route path="search" element={<SearchPage />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
