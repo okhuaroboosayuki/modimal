@@ -6,7 +6,6 @@ export function useSearchProducts() {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
 
-  // Get all other filter parameters.
   const filters = {
     fabric: searchParams.getAll("fabric"),
     color: searchParams.getAll("color"),
@@ -14,14 +13,12 @@ export function useSearchProducts() {
     collection: searchParams.getAll("collection"),
   };
 
-  console.log(filters);
-
-  // // Get the sort parameter
   const sortBy = searchParams.get("sort");
 
   const { data, isPending: isSearching } = useQuery({
     queryKey: ["searchedProducts", searchQuery, sortBy, filters],
     queryFn: () => getProducts(searchQuery, sortBy, filters),
+    enabled: !!searchQuery,
   });
 
   return { data, isSearching };
