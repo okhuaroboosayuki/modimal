@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AppLayout from "./components/AppLayout";
-import Home from "./pages/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import AppLayout from "./components/AppLayout";
+import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
 import ProductDetailsLayout from "./components/ProductDetailsLayout";
 
@@ -19,6 +19,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
+
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
