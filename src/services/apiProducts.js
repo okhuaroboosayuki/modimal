@@ -68,6 +68,18 @@ export async function getProducts(searchValue, sortBy, filters) {
         return query;
       }
     }
+
+    // fabric filter
+    if (filters.fabric && filters.fabric.length > 0) {
+      if (filters.fabric.length === 1) {
+        query = query.or(`fabricDetails.cs.{"type": "${filters.fabric[0]}"}`);
+      }
+      if (filters.fabric.length > 1) {
+        filters.fabric.forEach((fabric) => {
+          query = query.or(`fabricDetails.cs.{"type": "${fabric}"}`);
+        });
+      }
+    }
   }
 
   const { data, error } = await query;
