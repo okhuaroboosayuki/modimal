@@ -18,7 +18,7 @@ function Header() {
           Enjoy Free Shipping On All Orders
         </div>
 
-        <nav className="relative flex w-full items-center justify-between px-4 py-6 lg:justify-around">
+        <nav className="relative flex w-full items-center justify-between px-5 py-6 md:px-13 lg:justify-around lg:px-4">
           <ul className="flex items-center justify-center gap-3 sm:gap-6 lg:hidden">
             <MobileMenuContainer />
 
