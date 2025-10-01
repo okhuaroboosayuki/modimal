@@ -5,7 +5,7 @@ import MobileAuthLink from "./MobileAuthLink";
 function MobileMenu({ ref }) {
   return (
     <nav
-      className="h-screen w-full overflow-y-scroll! bg-white px-5 py-10"
+      className="h-screen w-full overflow-y-scroll! bg-white px-5 py-10 md:px-13 lg:px-5"
       ref={ref}
     >
       <section className="flex h-full flex-col items-start justify-start gap-[68px] text-sm capitalize">
@@ -14,11 +14,11 @@ function MobileMenu({ ref }) {
 
           <MenuItem content={trendingList} />
 
+          <MenuItem content={sustainabilityList} />
+
           <MenuItem heading={"modiweek"} />
 
           <MenuItem heading={"plus size"} />
-
-          <MenuItem content={sustainabilityList} />
         </div>
 
         <div className="text-primary-600 border-t-grayCB flex w-full flex-row items-center justify-center gap-4 border-t pt-[14.48px] pb-14 leading-6 capitalize max-[390px]:flex-col max-md:justify-between">
