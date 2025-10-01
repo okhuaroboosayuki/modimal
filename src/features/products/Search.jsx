@@ -2,22 +2,20 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { RiCloseFill } from "react-icons/ri";
-import { useDebounce } from "../../hooks/useDebounce";
 import Input from "../../components/Input";
 
 function Search({ onSearch, ref }) {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const debounceQuery = useDebounce(searchQuery);
   const isSearchQueryEmpty = searchQuery.length == 0;
 
   const handleSearch = useCallback(() => {
-    if (debounceQuery.length > 0) {
-      navigate(`/search?q=${debounceQuery}`);
+    if (searchQuery.length > 0) {
+      navigate(`/search?q=${searchQuery.toLocaleLowerCase()}`);
       onSearch();
     }
-  }, [debounceQuery, navigate, onSearch]);
+  }, [searchQuery, navigate, onSearch]);
 
   const clearSearchInput = () => {
     setSearchQuery("");
