@@ -8,7 +8,11 @@ function SearchContainer({ customStyle, window }) {
       <Modal.Open opens={window}>
         <SearchIcon customStyle={customStyle} />
       </Modal.Open>
-      <Modal.Window name={window}>
+      <Modal.Window
+        name={window}
+        containerId={"header"}
+        styles={"header-modal"}
+      >
         <Search />
       </Modal.Window>
     </>

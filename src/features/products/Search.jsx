@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { RiCloseFill } from "react-icons/ri";
 import Input from "../../components/Input";
 
-function Search({ onSearch, ref }) {
+function Search({ closeModal, ref }) {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
@@ -13,9 +13,9 @@ function Search({ onSearch, ref }) {
   const handleSearch = useCallback(() => {
     if (searchQuery.length > 0) {
       navigate(`/search?q=${searchQuery.toLocaleLowerCase()}`);
-      onSearch();
+      closeModal();
     }
-  }, [searchQuery, navigate, onSearch]);
+  }, [searchQuery, navigate, closeModal]);
 
   const clearSearchInput = () => {
     setSearchQuery("");

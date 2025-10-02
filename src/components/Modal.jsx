@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { setDocumentOverFlow } from "./../utils/setDocOverflow";
 
 // 1. create modal context
 const ModalContext = createContext();
@@ -19,6 +20,7 @@ function Modal({ children }) {
 
   const close = () => {
     setOpenName("");
+    setDocumentOverFlow(false);
   };
 
   return (
@@ -39,6 +41,7 @@ function Open({ opens: windowName, children }) {
     }
 
     setOpenName(windowName);
+    setDocumentOverFlow(true);
   }, [close, openName, setOpenName, windowName]);
 
   // clone the child element and add either onClick or onMouseEnter and onFocus event handler to open the modal window. useMemo used here to avoid unnecessary re-renders
@@ -49,7 +52,8 @@ function Open({ opens: windowName, children }) {
         tabIndex: 0,
         ...(openName === "search" ||
         openName === "mobile-search" ||
-        openName === "mobile-menu"
+        openName === "mobile-menu" ||
+        openName === "mobile-filter"
           ? { windowName: openName }
           : {}),
       }),
@@ -60,11 +64,11 @@ function Open({ opens: windowName, children }) {
 }
 
 // 3b. consume context and render modal window if the name matches the openName in context state
-function Window({ children, name }) {
+function Window({ children, name, containerId, styles }) {
   const ref = useRef();
   const { openName, close } = useContext(ModalContext);
 
-  const container = document.getElementById("header");
+  const container = document.getElementById(containerId);
 
   useEffect(() => {
     function handleClick(e) {
@@ -79,11 +83,12 @@ function Window({ children, name }) {
   const clonedEl = useMemo(
     () =>
       cloneElement(children, {
-        [name === "search" || name === "mobile-search"
-          ? "onSearch"
-          : name === "mobile-menu"
-            ? "onCloseMenu"
-            : null]: close,
+        [name === "search" ||
+        name === "mobile-search" ||
+        name === "mobile-menu" ||
+        name === "mobile-filter"
+          ? "closeModal"
+          : null]: close,
         ref: ref,
       }),
     [children, close, name],
@@ -92,7 +97,7 @@ function Window({ children, name }) {
   if (name !== openName) return null;
 
   return createPortal(
-    <div className="modal" role="dialog" aria-label={`${name} Modal`}>
+    <div className={styles} role="dialog" aria-label={`${name} Modal`}>
       <>{clonedEl}</>
     </div>,
 
