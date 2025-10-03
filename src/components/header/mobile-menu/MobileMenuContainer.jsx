@@ -8,7 +8,11 @@ function MobileMenuContainer() {
       <Modal.Open opens={"mobile-menu"}>
         <MobileMenuIcon />
       </Modal.Open>
-      <Modal.Window name={"mobile-menu"}>
+      <Modal.Window
+        name={"mobile-menu"}
+        containerId={"header"}
+        styles={"header-modal"}
+      >
         <MobileMenu />
       </Modal.Window>
     </>

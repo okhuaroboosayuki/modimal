@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { HiMinus, HiPlusSmall } from "react-icons/hi2";
 import FilterCheckBox from "./FilterCheckBox";
 
 function FilterField({ filterName, filterOptions }) {
-  const [showOptions, setShowOptions] = useState(false);
+  const [searchParams] = useSearchParams();
+  const hasFilter = searchParams.has(filterName);
+
+  const [showOptions, setShowOptions] = useState(hasFilter);
 
   const toggleShowOptions = () => {
     setShowOptions((prev) => !prev);
@@ -33,8 +37,8 @@ function FilterField({ filterName, filterOptions }) {
           {filterOptions.map((option) => (
             <FilterCheckBox
               filterName={filterName}
-              text={option.label}
-              value={option.value}
+              paramName={option.label}
+              paramValue={option.value}
               key={option.label}
             />
           ))}

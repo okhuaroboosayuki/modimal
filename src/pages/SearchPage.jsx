@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { setProducts } from "../features/products/filterSlice";
+import MobileFilter from "../components/filter/MobileFilter";
+import Modal from "../components/Modal";
+import MobileFilterButton from "../components/filter/MobileFilterButton";
 
 function SearchPage() {
   const { data, isSearching } = useSearchProducts();
@@ -23,11 +26,24 @@ function SearchPage() {
   const totalItems = products.length || 0;
 
   return (
-    <>
+    <Modal>
       <div className="grid-head flex w-full flex-col items-center gap-10">
         <div>search input</div>
 
-        <p className="text-[20px]">{totalItems} items</p>
+        <p className="hidden text-[20px] lg:block">{totalItems} items</p>
+
+        <>
+          <Modal.Open opens={"mobile-filter"}>
+            <MobileFilterButton />
+          </Modal.Open>
+          <Modal.Window
+            name={"mobile-filter"}
+            containerId={"root"}
+            styles={"filter-modal"}
+          >
+            <MobileFilter />
+          </Modal.Window>
+        </>
       </div>
 
       {isSearching ? (
@@ -41,7 +57,7 @@ function SearchPage() {
       ) : (
         <ProductsList products={products} />
       )}
-    </>
+    </Modal>
   );
 }
 

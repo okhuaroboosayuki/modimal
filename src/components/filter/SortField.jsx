@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { HiMinus, HiPlusSmall } from "react-icons/hi2";
 import SortCheckBox from "./SortCheckBox";
+import { useSearchParams } from "react-router-dom";
 
 function SortField({ sortName, sortOptions }) {
-  const [showOptions, setShowOptions] = useState(false);
+  const [searchParams] = useSearchParams();
+  const hasSort = searchParams.has("sort");
+  const [showOptions, setShowOptions] = useState(hasSort);
 
   const toggleShowOptions = () => {
     setShowOptions((prev) => !prev);
@@ -32,8 +35,8 @@ function SortField({ sortName, sortOptions }) {
         <div className="transition-500-in-out py3 flex flex-col items-start gap-1 pl-4">
           {sortOptions.map((option) => (
             <SortCheckBox
-              text={option.label}
-              value={option.value}
+              paramName={option.label}
+              paramValue={option.value}
               key={option.label}
             />
           ))}

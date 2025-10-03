@@ -28,12 +28,23 @@ const filterSlice = createSlice({
         return acc;
       }, []);
     },
-    addToFilteredList: (state, action) => {
-      state.filteredList = [...state.filteredList, action.payload];
+    addToFilteredList: {
+      prepare(paramName, paramValue) {
+        return {
+          payload: { paramName, paramValue },
+        };
+      },
+
+      reducer(state, action) {
+        state.filteredList = [
+          ...state.filteredList,
+          { [action.payload.paramName]: action.payload.paramValue },
+        ];
+      },
     },
     removeFromFilteredList: (state, action) => {
       state.filteredList = state.filteredList.filter(
-        (item) => item !== action.payload,
+        (item) => !Object.prototype.hasOwnProperty.call(item, action.payload),
       );
     },
     clearFilteredList: (state) => {
