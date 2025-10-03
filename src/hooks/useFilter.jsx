@@ -61,14 +61,8 @@ function useFilter(paramName, paramValue, filterName = null) {
     setSearchParams(searchParams);
   };
 
-  // delete filterParam or sortParam from url and filteredList
+  // filtered list item remove logic
   const removeFilterParam = (paramKey) => {
-    if (sortValue) {
-      dispatch(removeFromFilteredList(paramKey));
-      searchParams.delete("sort");
-      setSearchParams(searchParams);
-    }
-
     // finding the value of the filter param to be removed
     const filterParamValue = filteredList.find(
       (item) => Object.keys(item)[0] === paramKey,
