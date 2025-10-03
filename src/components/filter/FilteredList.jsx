@@ -16,12 +16,14 @@ function FilteredList() {
             return (
               <li
                 key={paramValue}
-                onClick={() => removeFilterParam(paramName)}
                 className="bg-primary-50 flex w-full items-center justify-center gap-2 px-2 py-1 text-lg text-black capitalize"
               >
                 <span>{paramName}</span>
 
-                <span className="icon cursor-pointer">
+                <span
+                  className="icon cursor-pointer"
+                  onClick={() => removeFilterParam(paramName)}
+                >
                   <RiCloseFill />
                 </span>
               </li>
