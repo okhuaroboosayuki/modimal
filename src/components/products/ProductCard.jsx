@@ -9,8 +9,8 @@ function ProductCard({ product }) {
   ).url;
 
   return (
-    <div className="flex h-fit w-[26rem] flex-col items-start gap-4">
-      <div className="relative h-[27.375rem] w-full overflow-hidden">
+    <div className="flex h-fit w-full flex-col items-start gap-4">
+      <div className="relative w-full overflow-hidden max-sm:h-[15.3125rem] sm:h-[27.375rem]">
         <img
           src={productImageUrl}
           alt={`${productName} product image`}
@@ -18,7 +18,7 @@ function ProductCard({ product }) {
           className="absolute top-0 left-0 h-full w-full object-center"
         />
 
-        <div className="relative flex items-center justify-between px-6 pt-6">
+        <div className="relative flex items-center justify-between px-2 pt-2 md:px-6 md:pt-6">
           <span className="bg-white px-4 py-2 text-sm">new</span>
 
           <span className="icon">
@@ -27,24 +27,30 @@ function ProductCard({ product }) {
         </div>
       </div>
 
-      <div className="flex w-full items-start justify-between text-base">
-        <div className="flex flex-col items-start gap-2">
-          <h2 className="font-semibold">{productName}</h2>
+      <div className="flex w-full items-start justify-between text-sm sm:text-base">
+        <div className="flex w-full flex-col items-start gap-2">
+          <div className="flex w-full flex-col justify-between sm:flex-row">
+            <div className="flex w-full flex-col items-start gap-2">
+              <h2 className="font-semibold">{productName}</h2>
 
-          <p className="font-light">{productTag}</p>
+              <p className="font-light">{productTag}</p>
+            </div>
+
+            <span className="self-end font-semibold">
+              {formatCurrency(price)}
+            </span>
+          </div>
 
           <div className="flex items-center gap-2">
             {availableColors.map((color) => (
               <span
                 key={color}
                 className="h-6 w-6 rounded-[100%]"
-                style={{ backgroundColor: color, border: `1px solid ${color}` }}
+                style={{ backgroundColor: color, border: `1px solid #606060` }}
               ></span>
             ))}
           </div>
         </div>
-
-        <span className="font-semibold">{formatCurrency(price)}</span>
       </div>
     </div>
   );
