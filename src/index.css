@@ -41,6 +41,18 @@
   --color-primary-100: #b2bfaf;
   --color-primary-50: #d1d9cf;
   --color-primary-25: #f0f2ef;
+
+  /* animations */
+  --animate-spin: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }
 
 @layer base {
@@ -114,6 +126,27 @@
 
     & input[type="checkbox"]:checked + .box {
       @apply bg-primary-600;
+    }
+  }
+
+  .lds-ring {
+    @apply relative box-border inline-block h-[80px] w-[80px];
+
+    & div {
+      @apply border-primary absolute m-2 box-border block h-[64px] w-[64px] animate-spin rounded-[50%] border-8;
+      border-color: #748c70 transparent transparent transparent;
+    }
+
+    & div:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+
+    & div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+
+    &div:nth-child(3) {
+      animation-delay: -0.15s;
     }
   }
 }

@@ -7,6 +7,7 @@ import { setProducts } from "../features/products/filterSlice";
 import MobileFilter from "../components/filter/MobileFilter";
 import Modal from "../components/Modal";
 import MobileFilterButton from "../components/filter/MobileFilterButton";
+import { LoadingSpinner } from "../components/Loaders";
 
 function SearchPage() {
   const { data, isSearching } = useSearchProducts();
@@ -47,9 +48,7 @@ function SearchPage() {
       </div>
 
       {isSearching ? (
-        <div className="flex w-full items-center justify-center">
-          Searching...
-        </div>
+        <LoadingSpinner />
       ) : !products || products.length === 0 ? (
         <p className="flex w-full items-center justify-center">
           No products available.
