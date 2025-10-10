@@ -15,7 +15,7 @@ import {
   trendingList,
 } from "../subNavTags";
 
-function SubNavLists({ menuName, ref }) {
+function SubNavLists({ menuName, ref, closeModal }) {
   return (
     <div
       className="hidden h-[500px] w-full items-start justify-between gap-14 bg-white px-14 pt-4 pb-14 md:flex xl:px-[108px]"
@@ -23,20 +23,35 @@ function SubNavLists({ menuName, ref }) {
     >
       <nav className="grid grid-cols-3 gap-6 text-base capitalize lg:text-lg">
         {menuName === "sustainability" ? (
-          <SubNavListsSection content={sustainabilityList} />
+          <SubNavListsSection
+            content={sustainabilityList}
+            onCloseModal={closeModal}
+          />
         ) : (
           <>
-            <SubNavListsSection content={categoryList} />
+            <SubNavListsSection
+              content={categoryList}
+              onCloseModal={closeModal}
+            />
 
             {menuName === "new-in" && (
-              <SubNavListsSection content={trendingList} />
+              <SubNavListsSection
+                content={trendingList}
+                onCloseModal={closeModal}
+              />
             )}
 
             {menuName !== "plus-size" && menuName !== "new-in" && (
               <>
-                <SubNavListsSection content={featuredList} />
+                <SubNavListsSection
+                  content={featuredList}
+                  onCloseModal={closeModal}
+                />
 
-                <SubNavListsSection content={moreList} />
+                <SubNavListsSection
+                  content={moreList}
+                  onCloseModal={closeModal}
+                />
               </>
             )}
           </>

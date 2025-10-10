@@ -3,7 +3,7 @@ import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
-function MenuItem({ content, heading }) {
+function MenuItem({ content, heading, onCloseModal }) {
   const [showList, setShowList] = useState(false);
 
   const linkPath = heading?.split(" ").join("-");
@@ -43,7 +43,11 @@ function MenuItem({ content, heading }) {
 
             return (
               <li key={index}>
-                <Link to={path} className="focus:underline">
+                <Link
+                  to={path}
+                  onClick={onCloseModal}
+                  className="focus:underline"
+                >
                   {tag}
                 </Link>
               </li>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { RiHeartLine } from "react-icons/ri";
 import Modal from "../Modal";
 import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
@@ -25,9 +26,9 @@ function Header() {
             <SearchContainer window={"mobile-search"} />
           </ul>
 
-          <div>
+          <Link to={"/"}>
             <Logo className={"w-[150px] lg:w-full"} />
-          </div>
+          </Link>
 
           <NavLists />
 
