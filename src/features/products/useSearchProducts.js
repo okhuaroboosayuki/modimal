@@ -4,7 +4,7 @@ import { getProducts } from "../../services/apiProducts";
 
 export function useSearchProducts() {
   const [searchParams] = useSearchParams();
-  const searchQuery = searchParams.get("q");
+  const searchValue = searchParams.get("q");
 
   const filters = {
     fabric: searchParams.getAll("fabric"),
@@ -16,9 +16,9 @@ export function useSearchProducts() {
   const sortBy = searchParams.get("sort");
 
   const { data, isPending: isSearching } = useQuery({
-    queryKey: ["searchedProducts", searchQuery, sortBy, filters],
-    queryFn: () => getProducts(searchQuery, sortBy, filters),
-    enabled: !!searchQuery,
+    queryKey: ["searchedProducts", searchValue, sortBy, filters],
+    queryFn: () => getProducts({ searchValue, sortBy, filters }),
+    enabled: !!searchValue,
   });
 
   return { data, isSearching };
