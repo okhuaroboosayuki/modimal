@@ -1,11 +1,15 @@
 import supabase from "./supabase";
 
 // get all products or search, sort, filter
-export async function getProducts(searchValue, sortBy, filters) {
+export async function getProducts({
+  searchValue = null,
+  sortBy = null,
+  filters = {},
+}) {
   let query = supabase.from("products").select("*");
 
   //if searching
-  if (searchValue) {
+  if (searchValue !== null) {
     query = query.or(
       `productName.ilike.%${searchValue}%, category.ilike.%${searchValue}%, productTag.ilike.%${searchValue}%, fabricDetails.cs.{"type": "${searchValue}"}, fabricDetails.cs.{"tags": ["${searchValue}"]}, modiweek.ilike.%${searchValue}%, availableColors.cs.{"${searchValue}"}`,
     );
