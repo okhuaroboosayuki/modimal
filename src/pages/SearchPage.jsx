@@ -8,6 +8,8 @@ import MobileFilter from "../components/filter/MobileFilter";
 import Modal from "../components/Modal";
 import MobileFilterButton from "../components/filter/MobileFilterButton";
 import { LoadingSpinner } from "../components/Loaders";
+import EmptyProduct from "../components/products/EmptyProduct";
+import FilterContainer from "../components/filter/FilterContainer";
 
 function SearchPage() {
   const { data, isSearching } = useSearchProducts();
@@ -28,34 +30,40 @@ function SearchPage() {
 
   return (
     <Modal>
-      <div className="grid-head flex w-full flex-col items-center gap-10">
-        <div>search input</div>
+      <section className="product-container">
+        <FilterContainer />
 
-        <p className="hidden text-[20px] lg:block">{totalItems} items</p>
+        <section className="grid-head flex w-full flex-col items-center gap-10">
+          <div>search input</div>
 
-        <>
-          <Modal.Open opens={"mobile-filter"}>
-            <MobileFilterButton />
-          </Modal.Open>
-          <Modal.Window
-            name={"mobile-filter"}
-            containerId={"root"}
-            styles={"filter-modal"}
-          >
-            <MobileFilter />
-          </Modal.Window>
-        </>
-      </div>
+          <p className="hidden text-[20px] lg:block">{totalItems} items</p>
 
-      {isSearching ? (
-        <LoadingSpinner />
-      ) : !products || products.length === 0 ? (
-        <p className="flex w-full items-center justify-center">
-          No products available.
-        </p>
-      ) : (
-        <ProductsList products={products} />
-      )}
+          <>
+            <Modal.Open opens={"mobile-filter"}>
+              <MobileFilterButton />
+            </Modal.Open>
+            <Modal.Window
+              name={"mobile-filter"}
+              containerId={"root"}
+              styles={"filter-modal"}
+            >
+              <MobileFilter />
+            </Modal.Window>
+          </>
+        </section>
+
+        {isSearching ? (
+          <div className="grid-body mt-9 w-full">
+            <LoadingSpinner />
+          </div>
+        ) : !products || products.length === 0 ? (
+          <div className="grid-body mt-9 w-full">
+            <EmptyProduct />
+          </div>
+        ) : (
+          <ProductsList products={products} />
+        )}
+      </section>
     </Modal>
   );
 }
