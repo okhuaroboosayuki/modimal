@@ -9,7 +9,6 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import { setDocumentOverFlow } from "./../utils/setDocOverflow";
 
 // 1. create modal context
 const ModalContext = createContext();
@@ -20,7 +19,6 @@ function Modal({ children }) {
 
   const close = () => {
     setOpenName("");
-    setDocumentOverFlow(false);
   };
 
   return (
@@ -41,7 +39,6 @@ function Open({ opens: windowName, children }) {
     }
 
     setOpenName(windowName);
-    setDocumentOverFlow(true);
   }, [close, openName, setOpenName, windowName]);
 
   // clone the child element and add either onClick or onMouseEnter and onFocus event handler to open the modal window. useMemo used here to avoid unnecessary re-renders
@@ -81,17 +78,8 @@ function Window({ children, name, containerId, styles }) {
   }, [close]);
 
   const clonedEl = useMemo(
-    () =>
-      cloneElement(children, {
-        [name === "search" ||
-        name === "mobile-search" ||
-        name === "mobile-menu" ||
-        name === "mobile-filter"
-          ? "closeModal"
-          : null]: close,
-        ref: ref,
-      }),
-    [children, close, name],
+    () => cloneElement(children, { closeModal: close, ref: ref }),
+    [children, close],
   );
 
   if (name !== openName) return null;
