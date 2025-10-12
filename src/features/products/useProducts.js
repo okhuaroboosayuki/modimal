@@ -1,18 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../services/apiProducts";
-import { useSearchParams } from "react-router-dom";
+import useUrlParams from "../../hooks/useUrlParams";
 
 export function useProducts() {
-  const [searchParams] = useSearchParams();
-
-  const filters = {
-    fabric: searchParams.getAll("fabric"),
-    color: searchParams.getAll("color"),
-    size: searchParams.getAll("size"),
-    collection: searchParams.getAll("collection"),
-  };
-
-  const sortBy = searchParams.get("sort");
+  const { filters, sortBy } = useUrlParams();
 
   const { data, isPending: isAllProductLoading } = useQuery({
     queryKey: ["all-products", sortBy, filters],
