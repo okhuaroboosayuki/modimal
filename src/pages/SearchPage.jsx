@@ -3,7 +3,7 @@ import ProductsList from "../components/products/ProductsList";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import { setProducts } from "../features/products/filterSlice";
+import { setProducts } from "../features/filter/filterSlice";
 import MobileFilter from "../components/filter/MobileFilter";
 import Modal from "../components/Modal";
 import MobileFilterButton from "../components/filter/MobileFilterButton";

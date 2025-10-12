@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useProducts } from "../features/products/useProducts";
-import { setProducts } from "../features/products/filterSlice";
+import { setProducts } from "../features/filter/filterSlice";
 import EmptyProduct from "../components/products/EmptyProduct";
 import ProductsList from "../components/products/ProductsList";
 import shopAllImage from "/images/frame-427319608.png";

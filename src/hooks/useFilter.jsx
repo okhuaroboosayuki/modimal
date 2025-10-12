@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import {
   addToFilteredList,
   removeFromFilteredList,
-} from "../features/products/filterSlice";
+} from "../features/filter/filterSlice";
 
 function useFilter(paramName, paramValue, filterName = null) {
   const [searchParams, setSearchParams] = useSearchParams();
