@@ -31,28 +31,26 @@ function SearchPage() {
   return (
     <Modal>
       <section className="product-container">
-        {!isSearching && <FilterContainer />}
+        <FilterContainer />
 
-        {!isSearching && (
-          <section className="grid-head flex w-full flex-col items-center gap-10">
-            <div>search input</div>
+        <section className="grid-head flex w-full flex-col items-center gap-10">
+          <div>search input</div>
 
-            <p className="hidden text-[20px] lg:block">{totalItems} items</p>
+          <p className="hidden text-[20px] lg:block">{totalItems} items</p>
 
-            <>
-              <Modal.Open opens={"mobile-filter"}>
-                <MobileFilterButton />
-              </Modal.Open>
-              <Modal.Window
-                name={"mobile-filter"}
-                containerId={"root"}
-                styles={"filter-modal"}
-              >
-                <MobileFilter />
-              </Modal.Window>
-            </>
-          </section>
-        )}
+          <>
+            <Modal.Open opens={"mobile-filter"}>
+              <MobileFilterButton />
+            </Modal.Open>
+            <Modal.Window
+              name={"mobile-filter"}
+              containerId={"root"}
+              styles={"filter-modal"}
+            >
+              <MobileFilter />
+            </Modal.Window>
+          </>
+        </section>
 
         {isSearching ? (
           <div className="grid-body mt-9 w-full">

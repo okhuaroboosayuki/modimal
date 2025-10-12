@@ -28,33 +28,31 @@ function AllProducts() {
   return (
     <Modal>
       <section className="product-container">
-        {!isAllProductLoading && <FilterContainer />}
+        <FilterContainer />
 
-        {!isAllProductLoading && (
-          <section className="grid-head flex w-full flex-col items-center justify-center gap-10">
-            <div className="w-full">
-              <img
-                src={shopAllImage}
-                alt="Two women wearing minimalist green and white outfits outdoors — one in an olive wrap blouse smiling under the sun, and the other in olive trousers and a white top holding a woven bag outside a modern house."
-                loading="lazy"
-                className="w-full"
-              />
-            </div>
+        <section className="grid-head flex w-full flex-col items-center justify-center gap-10">
+          <div className="w-full">
+            <img
+              src={shopAllImage}
+              alt="Two women wearing minimalist green and white outfits outdoors — one in an olive wrap blouse smiling under the sun, and the other in olive trousers and a white top holding a woven bag outside a modern house."
+              loading="lazy"
+              className="w-full"
+            />
+          </div>
 
-            <>
-              <Modal.Open opens={"mobile-filter"}>
-                <MobileFilterButton />
-              </Modal.Open>
-              <Modal.Window
-                name={"mobile-filter"}
-                containerId={"root"}
-                styles={"filter-modal"}
-              >
-                <MobileFilter />
-              </Modal.Window>
-            </>
-          </section>
-        )}
+          <>
+            <Modal.Open opens={"mobile-filter"}>
+              <MobileFilterButton />
+            </Modal.Open>
+            <Modal.Window
+              name={"mobile-filter"}
+              containerId={"root"}
+              styles={"filter-modal"}
+            >
+              <MobileFilter />
+            </Modal.Window>
+          </>
+        </section>
 
         {isAllProductLoading ? (
           <div className="grid-body mt-9 w-full">
