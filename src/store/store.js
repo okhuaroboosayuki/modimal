@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filterReducer from "../features/products/filterSlice";
+import filterReducer from "../features/filter/filterSlice";
 import modalReducer from "../features/modal/modalSlice";
 
 const store = configureStore({
