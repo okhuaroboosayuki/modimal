@@ -78,8 +78,13 @@ function Window({ children, name, containerId, styles }) {
   }, [close]);
 
   const clonedEl = useMemo(
-    () => cloneElement(children, { closeModal: close, ref: ref }),
-    [children, close],
+    () =>
+      cloneElement(children, {
+        closeModal: close,
+        ref: ref,
+        modalName: openName,
+      }),
+    [children, close, openName],
   );
 
   if (name !== openName) return null;

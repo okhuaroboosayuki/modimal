@@ -8,7 +8,7 @@ import Logo from "./../icons/Logo";
 import UserIcon from "./../icons/UserIcon";
 import ShoppingBagIcon from "./../icons/ShoppingBagIcon";
 
-function Header() {
+function Header({ modalName }) {
   return (
     <Modal>
       <header
@@ -21,7 +21,7 @@ function Header() {
 
         <nav className="relative flex w-full items-center justify-between px-5 py-6 md:px-13 lg:justify-around lg:px-4">
           <ul className="flex items-center justify-center gap-3 sm:gap-6 lg:hidden">
-            <MobileMenuContainer />
+            <MobileMenuContainer modalName={modalName} />
 
             <SearchContainer window={"mobile-search"} />
           </ul>

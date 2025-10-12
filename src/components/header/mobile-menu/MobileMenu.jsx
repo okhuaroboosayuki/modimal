@@ -1,37 +1,47 @@
 import MenuItem from "./MenuItem";
 import { categoryList, sustainabilityList, trendingList } from "../subNavTags";
 import MobileAuthLink from "./MobileAuthLink";
+import Header from "../Header";
 
-function MobileMenu({ ref, closeModal }) {
+function MobileMenu({ ref, closeModal, modalName }) {
   return (
-    <nav
-      className="h-screen w-full overflow-y-scroll! bg-white px-5 py-10 md:px-13 lg:px-5"
-      ref={ref}
-    >
-      <section className="flex h-full flex-col items-start justify-start gap-[68px] text-sm capitalize">
-        <div className="flex w-full flex-col items-start gap-8">
-          <MenuItem content={categoryList} onCloseModal={closeModal} />
+    <>
+      <Header modalName={modalName} />
 
-          <MenuItem content={trendingList} onCloseModal={closeModal} />
+      <div className="w-full px-5">
+        <nav
+          className="h-screen w-full overflow-y-scroll! bg-white px-5 py-10 md:px-13 lg:px-5"
+          ref={ref}
+        >
+          <section className="flex h-full flex-col items-start justify-start gap-[68px] text-sm capitalize">
+            <div className="flex w-full flex-col items-start gap-8">
+              <MenuItem content={categoryList} onCloseModal={closeModal} />
 
-          <MenuItem content={sustainabilityList} onCloseModal={closeModal} />
+              <MenuItem content={trendingList} onCloseModal={closeModal} />
 
-          <MenuItem heading={"modiweek"} />
+              <MenuItem
+                content={sustainabilityList}
+                onCloseModal={closeModal}
+              />
 
-          <MenuItem heading={"plus size"} />
-        </div>
+              <MenuItem heading={"modiweek"} />
 
-        <div className="text-primary-600 border-t-grayCB flex w-full flex-row items-center justify-center gap-4 border-t pt-[14.48px] pb-14 leading-6 capitalize max-[390px]:flex-col max-md:justify-between">
-          <MobileAuthLink text={"log in"} link={"/login"} />
+              <MenuItem heading={"plus size"} />
+            </div>
 
-          <MobileAuthLink
-            text={"create account"}
-            link={"/signup"}
-            hasIcon={false}
-          />
-        </div>
-      </section>
-    </nav>
+            <div className="text-primary-600 border-t-grayCB flex w-full flex-row items-center justify-center gap-4 border-t pt-[14.48px] pb-14 leading-6 capitalize max-[390px]:flex-col max-md:justify-between">
+              <MobileAuthLink text={"log in"} link={"/login"} />
+
+              <MobileAuthLink
+                text={"create account"}
+                link={"/signup"}
+                hasIcon={false}
+              />
+            </div>
+          </section>
+        </nav>
+      </div>
+    </>
   );
 }
 
