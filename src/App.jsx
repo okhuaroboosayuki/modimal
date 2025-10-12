@@ -31,8 +31,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="search" element={<SearchPage />} />
               <Route path="shop-all" element={<AllProducts />} />
-              <Route path="*" element={<NotFound />} />
             </Route>
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
