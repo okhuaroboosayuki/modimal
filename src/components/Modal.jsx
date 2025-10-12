@@ -9,6 +9,8 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { useDispatch } from "react-redux";
+import { setCloseModal, setModalOpen } from "../features/modal/modalSlice";
 
 // 1. create modal context
 const ModalContext = createContext();
@@ -16,9 +18,11 @@ const ModalContext = createContext();
 // 2. wrap child(ren) with the context provider
 function Modal({ children }) {
   const [openName, setOpenName] = useState("");
+  const dispatch = useDispatch();
 
   const close = () => {
     setOpenName("");
+    dispatch(setCloseModal());
   };
 
   return (
@@ -31,6 +35,7 @@ function Modal({ children }) {
 // 3a. consume context and pass funtion to cloned child element that will have either the click or hover ability to open a modal window
 function Open({ opens: windowName, children }) {
   const { setOpenName, openName, close } = useContext(ModalContext);
+  const dispatch = useDispatch();
 
   const openWindow = useCallback(() => {
     if (openName === windowName) {
@@ -39,7 +44,8 @@ function Open({ opens: windowName, children }) {
     }
 
     setOpenName(windowName);
-  }, [close, openName, setOpenName, windowName]);
+    dispatch(setModalOpen());
+  }, [close, dispatch, openName, setOpenName, windowName]);
 
   // clone the child element and add either onClick or onMouseEnter and onFocus event handler to open the modal window. useMemo used here to avoid unnecessary re-renders
   const clonedEl = useMemo(
@@ -78,13 +84,8 @@ function Window({ children, name, containerId, styles }) {
   }, [close]);
 
   const clonedEl = useMemo(
-    () =>
-      cloneElement(children, {
-        closeModal: close,
-        ref: ref,
-        modalName: openName,
-      }),
-    [children, close, openName],
+    () => cloneElement(children, { closeModal: close, ref: ref }),
+    [children, close],
   );
 
   if (name !== openName) return null;

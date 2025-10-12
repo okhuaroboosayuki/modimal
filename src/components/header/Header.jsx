@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { RiHeartLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import Modal from "../Modal";
 import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
 import SearchContainer from "./search/SearchContainer";
@@ -8,11 +9,13 @@ import Logo from "./../icons/Logo";
 import UserIcon from "./../icons/UserIcon";
 import ShoppingBagIcon from "./../icons/ShoppingBagIcon";
 
-function Header({ modalName }) {
+function Header() {
+  const { isModalOpen } = useSelector((store) => store.modalOpen);
+
   return (
     <Modal>
       <header
-        className="flex w-full flex-col items-center justify-center"
+        className={`flex ${isModalOpen ? "fixed" : "relative"} z-50 w-full flex-col items-center justify-center bg-white`}
         id="header"
       >
         <div className="bg-primary-600 w-full p-1 text-center text-xs leading-normal text-white">
@@ -21,7 +24,7 @@ function Header({ modalName }) {
 
         <nav className="relative flex w-full items-center justify-between px-5 py-6 md:px-13 lg:justify-around lg:px-4">
           <ul className="flex items-center justify-center gap-3 sm:gap-6 lg:hidden">
-            <MobileMenuContainer modalName={modalName} />
+            <MobileMenuContainer />
 
             <SearchContainer window={"mobile-search"} />
           </ul>

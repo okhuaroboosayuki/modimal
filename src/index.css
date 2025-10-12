@@ -74,14 +74,14 @@
   }
 
   .header-modal {
-    @apply absolute top-[15%] left-0 z-50 flex h-screen min-h-0 w-full items-start justify-center overflow-y-auto max-[321px]:top-[25%]! max-sm:top-[15%] lg:top-[13%];
+    @apply fixed top-[14%] left-0 z-50 flex h-screen min-h-0 w-full items-start justify-center overflow-y-auto;
     background-color: rgba(0, 0, 0, 0.3);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
 
   .filter-modal {
-    @apply absolute top-0 left-0 z-50 h-screen w-full overflow-y-scroll bg-white px-5 pb-12;
+    @apply fixed inset-0 z-50 h-screen w-full overflow-y-scroll bg-white pb-12;
   }
 
   .link-hover {

@@ -2,16 +2,16 @@ import Modal from "../../Modal";
 import MobileMenu from "./MobileMenu";
 import MobileMenuIcon from "./MobileMenuIcon";
 
-function MobileMenuContainer({ modalName }) {
+function MobileMenuContainer() {
   return (
     <>
       <Modal.Open opens={"mobile-menu"}>
-        <MobileMenuIcon modalName={modalName} />
+        <MobileMenuIcon />
       </Modal.Open>
       <Modal.Window
         name={"mobile-menu"}
         containerId={"header"}
-        styles={"filter-modal"}
+        styles={"header-modal"}
       >
         <MobileMenu />
       </Modal.Window>
