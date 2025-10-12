@@ -5,7 +5,7 @@ import { setProducts } from "../features/filter/filterSlice";
 import EmptyProduct from "../components/products/EmptyProduct";
 import ProductsList from "../components/products/ProductsList";
 import shopAllImage from "/images/frame-427319608.png";
-import Modal from "../components/Modal";
+import Modal from "../features/modal/Modal";
 import MobileFilter from "../components/filter/MobileFilter";
 import MobileFilterButton from "../components/filter/MobileFilterButton";
 import { LoadingSpinner } from "../components/Loaders";

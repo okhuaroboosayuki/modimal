@@ -10,7 +10,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch } from "react-redux";
-import { setCloseModal, setModalOpen } from "../features/modal/modalSlice";
+import { setCloseModal, setModalOpen } from "./modalSlice";
 
 // 1. create modal context
 const ModalContext = createContext();

@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { setProducts } from "../features/filter/filterSlice";
 import MobileFilter from "../components/filter/MobileFilter";
-import Modal from "../components/Modal";
+import Modal from "../features/modal/Modal";
 import MobileFilterButton from "../components/filter/MobileFilterButton";
 import { LoadingSpinner } from "../components/Loaders";
 import EmptyProduct from "../components/products/EmptyProduct";

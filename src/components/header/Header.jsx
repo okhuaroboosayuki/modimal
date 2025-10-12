@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { RiHeartLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
-import Modal from "../Modal";
+import Modal from "../../features/modal/Modal";
 import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
 import SearchContainer from "./search/SearchContainer";
 import NavLists from "./nav/NavLists";

@@ -1,4 +1,4 @@
-import Modal from "../../Modal";
+import Modal from "../../../features/modal/Modal";
 import Search from "../../../features/products/Search";
 import SearchIcon from "./SearchIcon";
 

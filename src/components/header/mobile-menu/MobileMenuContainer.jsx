@@ -1,4 +1,4 @@
-import Modal from "../../Modal";
+import Modal from "../../../features/modal/Modal";
 import MobileMenu from "./MobileMenu";
 import MobileMenuIcon from "./MobileMenuIcon";
 
