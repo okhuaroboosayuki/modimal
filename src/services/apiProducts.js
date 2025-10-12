@@ -1,6 +1,7 @@
+import { applyFilters, applySort } from "../utils/queryHelpers";
 import supabase from "./supabase";
 
-// get all products or search, sort, filter
+// get all products or search for a product,
 export async function getProducts({
   searchValue = null,
   sortBy = null,
@@ -15,76 +16,9 @@ export async function getProducts({
     );
   }
 
-  // sorting
-  if (sortBy) {
-    if (sortBy === "featured") {
-      query = query.order("modiweek", { ascending: true });
-    }
-    if (sortBy === "bestseller") {
-      query = query.order("totalSold", { ascending: false });
-    }
-    if (sortBy === "price-asc") {
-      query = query.order("price", { ascending: true });
-    }
-    if (sortBy === "price-desc") {
-      query = query.order("price", { ascending: false });
-    }
-  }
-
-  // filtering
-  if (filters) {
-    // size filter
-    if (filters.size && filters.size.length > 0) {
-      if (filters.size.length === 1) {
-        query = query.or(`availableSizes.cs.[{"size": "${filters.size[0]}"}]`);
-      }
-      if (filters.size.length > 1) {
-        filters.size.forEach((size) => {
-          query = query.or(`availableSizes.cs.[{"size": "${size}"}]`);
-        });
-      }
-    }
-
-    // color filter
-    if (filters.color && filters.color.length > 0) {
-      if (filters.color.length === 1) {
-        query = query.or(`availableColors.cs.{"${filters.color[0]}"}`);
-      }
-      if (filters.color.length > 1) {
-        filters.color.forEach((color) => {
-          query = query.or(`availableColors.cs.{"${color}"}`);
-        });
-      }
-    }
-
-    // collection filter
-    if (filters.collection && filters.collection.length > 0) {
-      if (filters.collection.length === 1) {
-        if (filters.collection[0] === "inStock") {
-          query = query.gt("stockQuantity", 0);
-        }
-        if (filters.collection[0] === "outOfStock") {
-          query = query.eq("stockQuantity", 0);
-        }
-      }
-
-      if (filters.collection.length > 1) {
-        return query;
-      }
-    }
-
-    // fabric filter
-    if (filters.fabric && filters.fabric.length > 0) {
-      if (filters.fabric.length === 1) {
-        query = query.or(`fabricDetails.cs.{"type": "${filters.fabric[0]}"}`);
-      }
-      if (filters.fabric.length > 1) {
-        filters.fabric.forEach((fabric) => {
-          query = query.or(`fabricDetails.cs.{"type": "${fabric}"}`);
-        });
-      }
-    }
-  }
+  // Apply sorting and filters
+  query = applySort(query, sortBy);
+  query = applyFilters(query, filters);
 
   const { data, error } = await query;
 
