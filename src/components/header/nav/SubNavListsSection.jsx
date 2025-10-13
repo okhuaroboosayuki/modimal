@@ -11,7 +11,7 @@ function SubNavListsSection({ content, onCloseModal }) {
 
           return (
             <li key={index}>
-              <Link to={path} onClick={onCloseModal}>
+              <Link to={`/${path}`} onClick={onCloseModal}>
                 {tag}
               </Link>
             </li>
