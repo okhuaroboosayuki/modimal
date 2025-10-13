@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 import { useProducts } from "../features/products/useProducts";
 import { setProducts } from "../features/filter/filterSlice";
 import EmptyProduct from "../components/products/EmptyProduct";
@@ -24,6 +25,10 @@ function AllProducts() {
   }, [data, dispatch]);
 
   const products = data?.data || [];
+
+  if (data && products.length === 0) {
+    toast.error(`Products could not be loaded`);
+  }
 
   return (
     <Modal>

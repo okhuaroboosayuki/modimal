@@ -1,8 +1,9 @@
+import { useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 import { useSearchProducts } from "../features/products/useSearchProducts";
 import ProductsList from "../components/products/ProductsList";
-import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import { useEffect, useRef } from "react";
 import { setProducts } from "../features/filter/filterSlice";
 import MobileFilter from "../components/filter/MobileFilter";
 import Modal from "../features/modal/Modal";
@@ -27,6 +28,10 @@ function SearchPage() {
 
   const products = data?.data || [];
   const totalItems = products.length || 0;
+
+  if (data && products.length === 0) {
+    toast.error(`Products with "${searchQuery}" are unavailable`);
+  }
 
   return (
     <Modal>
