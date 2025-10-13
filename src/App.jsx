@@ -10,6 +10,13 @@ import NotFound from "./pages/NotFound";
 const Home = lazy(() => import("./pages/Home"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
+const TopsAndBlouses = lazy(() => import("./pages/TopsAndBlouses"));
+const Pants = lazy(() => import("./pages/Pants"));
+const DressesAndJumpsuits = lazy(() => import("./pages/DressesAndJumpsuits"));
+const OutwearAndJackets = lazy(() => import("./pages/OutwearAndJackets"));
+const Pullovers = lazy(() => import("./pages/Pullovers"));
+const Tees = lazy(() => import("./pages/Tees"));
+const ShortsAndSkirts = lazy(() => import("./pages/ShortsAndSkirts"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +38,16 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="search" element={<SearchPage />} />
               <Route path="shop-all" element={<AllProducts />} />
+              <Route path="tops-&-blouses" element={<TopsAndBlouses />} />
+              <Route path="pants" element={<Pants />} />
+              <Route
+                path="dresses-&-jumpsuits"
+                element={<DressesAndJumpsuits />}
+              />
+              <Route path="outwear-&-jackets" element={<OutwearAndJackets />} />
+              <Route path="pullovers" element={<Pullovers />} />
+              <Route path="tees" element={<Tees />} />
+              <Route path="shorts-&-skirts" element={<ShortsAndSkirts />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
