@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import supabase from "./supabase";
 import { applyFilters, applySort } from "../utils/queryHelpers";
+import { subDays } from "date-fns";
 
 // get all products or search for a product,
 export async function getProducts({
@@ -21,7 +22,7 @@ export async function getProducts({
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
 
-  const { data, error } = await query;
+  const { data, error } = await query.order("created_at", { ascending: false });
 
   if (error) {
     console.error(error);
@@ -36,8 +37,6 @@ export async function getProductsByCategory(
   category,
   { sortBy = null, filters = {} },
 ) {
-  console.log(category);
-
   let query = supabase.from("products").select("*");
 
   if (category) {
@@ -47,7 +46,27 @@ export async function getProductsByCategory(
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
 
-  const { data, error } = await query;
+  const { data, error } = await query.order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    toast.error("Products could not be loaded");
+  }
+
+  return { data };
+}
+
+// get new products
+export async function getNewProducts({ sortBy = null, filters = {} }) {
+  let query = supabase.from("products").select("*");
+
+  const sevenDaysAgo = subDays(new Date(), 7).toISOString();
+
+  query = query.gte("created_at", sevenDaysAgo);
+  query = applySort(query, sortBy);
+  query = applyFilters(query, filters);
+
+  const { data, error } = await query.order("created_at", { ascending: false });
 
   if (error) {
     console.error(error);
