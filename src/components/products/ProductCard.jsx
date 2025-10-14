@@ -1,12 +1,22 @@
 import { formatCurrency } from "../../utils/numberFormatter";
 import HeartIcon from "../icons/HeartIcon";
+import { isDaysUpToOneWeek } from "../../utils/dateFormatters";
 
 function ProductCard({ product }) {
-  const { availableColors, price, productImages, productTag, productName } =
-    product;
+  const {
+    created_at,
+    availableColors,
+    price,
+    productImages,
+    productTag,
+    productName,
+  } = product;
+
   const productImageUrl = productImages.find(
     (image) => image.type === "poster",
   ).url;
+
+  const isProductNew = isDaysUpToOneWeek(created_at);
 
   return (
     <div className="flex h-fit w-full flex-col items-start gap-4">
@@ -19,7 +29,11 @@ function ProductCard({ product }) {
         />
 
         <div className="relative flex items-center justify-between px-2 pt-2 md:px-6 md:pt-6">
-          <span className="bg-white px-4 py-2 text-sm">new</span>
+          <div>
+            {isProductNew && (
+              <span className="bg-white px-4 py-2 text-sm">new</span>
+            )}
+          </div>
 
           <span className="icon">
             <HeartIcon className={"cursor-pointer"} />
