@@ -17,6 +17,7 @@ const OutwearAndJackets = lazy(() => import("./pages/OutwearAndJackets"));
 const Pullovers = lazy(() => import("./pages/Pullovers"));
 const Tees = lazy(() => import("./pages/Tees"));
 const ShortsAndSkirts = lazy(() => import("./pages/ShortsAndSkirts"));
+const NewProducts = lazy(() => import("./pages/NewProducts"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,7 @@ function App() {
               <Route path="pullovers" element={<Pullovers />} />
               <Route path="tees" element={<Tees />} />
               <Route path="shorts-&-skirts" element={<ShortsAndSkirts />} />
+              <Route path="new-in" element={<NewProducts />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
