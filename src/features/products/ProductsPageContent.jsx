@@ -11,7 +11,7 @@ import { LoadingSpinner } from "../../components/Loaders";
 import MobileFilter from "../../components/filter/MobileFilter";
 import MobileFilterButton from "../../components/filter/MobileFilterButton";
 
-function ProductsPageContent({ data, loader }) {
+function ProductsPageContent({ data, loader, totalItems, heroImage }) {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const hasDispatched = useRef(false);
@@ -45,6 +45,24 @@ function ProductsPageContent({ data, loader }) {
         <FilterContainer />
 
         <section className="grid-head flex w-full flex-col items-center justify-center gap-10">
+          {heroImage && (
+            <div className="w-full">
+              <img
+                src={heroImage}
+                alt="Two women wearing minimalist green and white outfits outdoors — one in an olive wrap blouse smiling under the sun, and the other in olive trousers and a white top holding a woven bag outside a modern house."
+                loading="lazy"
+                className="w-full"
+              />
+            </div>
+          )}
+
+          {totalItems && (
+            <>
+              <div>search input</div>
+
+              <p className="hidden text-[20px] lg:block">{totalItems} items</p>
+            </>
+          )}
           <>
             <Modal.Open opens={"mobile-filter"}>
               <MobileFilterButton />
