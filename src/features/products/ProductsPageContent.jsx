@@ -34,10 +34,12 @@ function ProductsPageContent({ data, loader, heroImage }) {
   }, [data, dispatch, searchQuery]);
 
   const products = data?.data || [];
-  const totalItems = searchQuery && products.length;
+  const totalItems = searchQuery && products?.length;
 
   if (data && products.length === 0) {
-    toast.error(`Products could not be loaded`);
+    toast.error(
+      `No ${searchQuery ? `"` + searchQuery + `"` : ""} products available`,
+    );
   }
 
   return (
@@ -57,12 +59,14 @@ function ProductsPageContent({ data, loader, heroImage }) {
             </div>
           )}
 
-          {totalItems && (
+          {totalItems ? (
             <>
               <div>search input</div>
 
               <p className="hidden text-[20px] lg:block">{totalItems} items</p>
             </>
+          ) : (
+            ""
           )}
           <>
             <Modal.Open opens={"mobile-filter"}>
