@@ -4,15 +4,7 @@ import { useSearchProducts } from "../features/products/useSearchProducts";
 function SearchPage() {
   const { data, isSearching } = useSearchProducts();
 
-  const totalItems = data?.data.length || 0;
-
-  return (
-    <ProductsPageContent
-      data={data}
-      loader={isSearching}
-      totalItems={totalItems}
-    />
-  );
+  return <ProductsPageContent data={data} loader={isSearching} />;
 }
 
 export default SearchPage;

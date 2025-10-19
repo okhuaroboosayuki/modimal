@@ -11,7 +11,7 @@ import { LoadingSpinner } from "../../components/Loaders";
 import MobileFilter from "../../components/filter/MobileFilter";
 import MobileFilterButton from "../../components/filter/MobileFilterButton";
 
-function ProductsPageContent({ data, loader, totalItems, heroImage }) {
+function ProductsPageContent({ data, loader, heroImage }) {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const hasDispatched = useRef(false);
@@ -34,6 +34,7 @@ function ProductsPageContent({ data, loader, totalItems, heroImage }) {
   }, [data, dispatch, searchQuery]);
 
   const products = data?.data || [];
+  const totalItems = searchQuery && products.length;
 
   if (data && products.length === 0) {
     toast.error(`Products could not be loaded`);
