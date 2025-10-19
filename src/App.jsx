@@ -60,6 +60,7 @@ function App() {
               <Route path="occasion-wear" element={<Modiweek />} />
               <Route path="matching-set" element={<Modiweek />} />
               <Route path="fall-collection" element={<AllProducts />} />
+              <Route path="suiting" element={<NewProducts />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
