@@ -64,8 +64,10 @@ function SubNavLists({ menuName, ref, closeModal }) {
             <NavImageCard
               src={card.image}
               alt={card.alt}
+              url={card.url}
               title={card.title}
               key={card.title}
+              onCloseModal={closeModal}
             />
           ))}
         </NavImageCardContainer>
@@ -77,8 +79,10 @@ function SubNavLists({ menuName, ref, closeModal }) {
             <NavImageCard
               src={card.image}
               alt={card.alt}
+              url={card.url}
               title={card.title}
               key={card.title}
+              onCloseModal={closeModal}
             />
           ))}
         </NavImageCardContainer>
@@ -90,8 +94,10 @@ function SubNavLists({ menuName, ref, closeModal }) {
             <NavImageCard
               src={card.image}
               alt={card.alt}
+              url={card.url}
               title={card.title}
               key={card.title}
+              onCloseModal={closeModal}
             />
           ))}
         </NavImageCardContainer>
@@ -100,7 +106,12 @@ function SubNavLists({ menuName, ref, closeModal }) {
       {menuName === "sustainability" && (
         <NavImageCardContainer>
           {sustainabilityImageCards.map((card) => (
-            <NavImageCard src={card.image} alt={card.alt} key={card.alt} />
+            <NavImageCard
+              src={card.image}
+              alt={card.alt}
+              key={card.alt}
+              onCloseModal={closeModal}
+            />
           ))}
         </NavImageCardContainer>
       )}
