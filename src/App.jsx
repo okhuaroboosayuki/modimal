@@ -18,6 +18,9 @@ const Pullovers = lazy(() => import("./pages/Pullovers"));
 const Tees = lazy(() => import("./pages/Tees"));
 const ShortsAndSkirts = lazy(() => import("./pages/ShortsAndSkirts"));
 const NewProducts = lazy(() => import("./pages/NewProducts"));
+const Modiweek = lazy(() => import("./pages/Modiweek"));
+const PlusSize = lazy(() => import("./pages/PlusSize"));
+const BestSeller = lazy(() => import("./pages/BestSeller"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,6 +53,13 @@ function App() {
               <Route path="tees" element={<Tees />} />
               <Route path="shorts-&-skirts" element={<ShortsAndSkirts />} />
               <Route path="new-in" element={<NewProducts />} />
+              <Route path="modiweek" element={<Modiweek />} />
+              <Route path="plus-size" element={<PlusSize />} />
+              <Route path="best-seller" element={<BestSeller />} />
+              <Route path="bundles" element={<AllProducts />} />
+              <Route path="occasion-wear" element={<Modiweek />} />
+              <Route path="matching-set" element={<Modiweek />} />
+              <Route path="fall-collection" element={<AllProducts />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
