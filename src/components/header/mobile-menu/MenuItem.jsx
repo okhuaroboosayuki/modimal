@@ -15,7 +15,11 @@ function MenuItem({ content, heading, onCloseModal }) {
   return (
     <div className="pb w-full gap-2 border-b">
       {heading && (
-        <Link to={linkPath} className="flex justify-between">
+        <Link
+          to={linkPath}
+          onClick={onCloseModal}
+          className="flex justify-between"
+        >
           <h5>{heading}</h5>
 
           <span className="icon">

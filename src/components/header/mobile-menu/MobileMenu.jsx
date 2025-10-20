@@ -16,18 +16,23 @@ function MobileMenu({ ref, closeModal }) {
 
           <MenuItem content={sustainabilityList} onCloseModal={closeModal} />
 
-          <MenuItem heading={"modiweek"} />
+          <MenuItem heading={"modiweek"} onCloseModal={closeModal} />
 
-          <MenuItem heading={"plus size"} />
+          <MenuItem heading={"plus size"} onCloseModal={closeModal} />
         </div>
 
         <div className="text-primary-600 border-t-grayCB flex w-full flex-row items-center justify-center gap-4 border-t pt-[14.48px] pb-14 leading-6 capitalize max-[390px]:flex-col max-md:justify-between">
-          <MobileAuthLink text={"log in"} link={"/login"} />
+          <MobileAuthLink
+            text={"log in"}
+            link={"/login"}
+            onCloseModal={closeModal}
+          />
 
           <MobileAuthLink
             text={"create account"}
             link={"/signup"}
             hasIcon={false}
+            onCloseModal={closeModal}
           />
         </div>
       </section>
