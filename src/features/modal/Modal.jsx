@@ -83,6 +83,10 @@ function Window({ children, name, containerId, styles }) {
     return () => document.removeEventListener("click", handleClick, true);
   }, [close]);
 
+  window.addEventListener("resize", () => {
+    close();
+  });
+
   const clonedEl = useMemo(
     () => cloneElement(children, { closeModal: close, ref: ref }),
     [children, close],
