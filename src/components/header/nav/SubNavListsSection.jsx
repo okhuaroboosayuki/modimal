@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function SubNavListsSection({ content, onCloseModal }) {
   return (
@@ -11,9 +11,9 @@ function SubNavListsSection({ content, onCloseModal }) {
 
           return (
             <li key={index}>
-              <Link to={`/${path}`} onClick={onCloseModal}>
+              <NavLink to={`/${path}`} onClick={onCloseModal}>
                 {tag}
-              </Link>
+              </NavLink>
             </li>
           );
         })}

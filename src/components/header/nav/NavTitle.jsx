@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavTitle({ title, onClick }) {
   if (!onClick) {
     return (
-      <Link
+      <NavLink
         to={`/${title}`}
         className="transition-500-in-out hover:text-neutral-black capitalize"
       >
         {title}
-      </Link>
+      </NavLink>
     );
   }
 

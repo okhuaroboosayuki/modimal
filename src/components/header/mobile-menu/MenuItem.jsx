@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { RiArrowDownSLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function MenuItem({ content, heading, onCloseModal }) {
   const [showList, setShowList] = useState(false);
@@ -15,7 +15,7 @@ function MenuItem({ content, heading, onCloseModal }) {
   return (
     <div className="pb w-full gap-2 border-b">
       {heading && (
-        <Link
+        <NavLink
           to={linkPath}
           onClick={onCloseModal}
           className="flex justify-between"
@@ -25,39 +25,42 @@ function MenuItem({ content, heading, onCloseModal }) {
           <span className="icon">
             <HiOutlineArrowLongRight />
           </span>
-        </Link>
+        </NavLink>
       )}
 
       {content && (
-        <div className="flex justify-between" onClick={toggleShowList}>
-          <h5>{content.menu_name}</h5>
+        <>
+          <div className="flex justify-between" onClick={toggleShowList}>
+            <h5>{content.menu_name}</h5>
 
-          <span className="icon">
-            <RiArrowDownSLine
-              className={`${showList && "-rotate-180"} transition-500-in-out`}
-            />
-          </span>
-        </div>
-      )}
+            <span className="icon">
+              <RiArrowDownSLine
+                className={`${showList && "-rotate-180"} transition-500-in-out`}
+              />
+            </span>
+          </div>
 
-      {content && showList && (
-        <ul className="text-gray40 flex flex-col items-start gap-4 py-4 pl-8.5 font-light">
-          {content.tags.map((tag, index) => {
-            const path = tag.split(" ").join("-");
+          {showList && (
+            <ul className="text-gray40 flex flex-col items-start gap-4 py-4 pl-8.5 font-light">
+              {content.tags.map((tag, index) => {
+                const path = tag.split(" ").join("-");
 
-            return (
-              <li key={index}>
-                <Link
-                  to={path}
-                  onClick={onCloseModal}
-                  className="focus:underline"
-                >
-                  {tag}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                return (
+                  <li key={index}>
+                    <NavLink
+                      to={`/${path}`}
+                      viewTransition="true"
+                      onClick={onCloseModal}
+                      className="focus:underline"
+                    >
+                      {tag}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </>
       )}
     </div>
   );

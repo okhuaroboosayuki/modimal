@@ -64,6 +64,10 @@
     -webkit-appearance: none;
     appearance: none;
   }
+
+  a.active {
+    @apply text-primary-900 font-medium;
+  }
 }
 
 @layer components {
