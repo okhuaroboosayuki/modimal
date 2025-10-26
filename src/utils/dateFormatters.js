@@ -1,6 +1,6 @@
 import { differenceInDays } from "date-fns";
 
-export function isDaysUpToOneWeek(createdAt) {
+export function isDaysUpToTwoWeeks(createdAt) {
   const diffInDays = differenceInDays(new Date(), createdAt);
-  return diffInDays <= 7;
+  return diffInDays <= 14;
 }

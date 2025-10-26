@@ -1,6 +1,6 @@
 import { formatCurrency } from "../../utils/numberFormatter";
 import HeartIcon from "../icons/HeartIcon";
-import { isDaysUpToOneWeek } from "../../utils/dateFormatters";
+import { isDaysUpToTwoWeeks } from "../../utils/dateFormatters";
 
 function ProductCard({ product }) {
   const {
@@ -16,7 +16,7 @@ function ProductCard({ product }) {
     (image) => image.type === "poster",
   ).url;
 
-  const isProductNew = isDaysUpToOneWeek(created_at);
+  const isProductNew = isDaysUpToTwoWeeks(created_at);
 
   return (
     <div className="flex h-fit w-full flex-col items-start gap-4">
