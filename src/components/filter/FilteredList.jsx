@@ -1,16 +1,14 @@
 import { RiCloseFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
 import useFilter from "../../hooks/useFilter";
 
-function FilteredList() {
-  const { filteredList } = useSelector((store) => store.productFilter);
+function FilteredList({ list }) {
   const { removeFilterParam } = useFilter();
 
   return (
     <>
-      {filteredList.length > 0 && (
+      {list.length > 0 && (
         <ul className="flex w-[300px] flex-col items-start gap-2">
-          {filteredList.map((item) => {
+          {list.map((item) => {
             const [[paramName, paramValue]] = Object.entries(item);
 
             return (

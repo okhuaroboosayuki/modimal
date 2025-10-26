@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import {
   addToFilteredList,
+  clearFilteredList,
   removeFromFilteredList,
 } from "../features/filter/filterSlice";
 
@@ -87,11 +88,24 @@ function useFilter(paramName, paramValue, filterName = null) {
     dispatch(removeFromFilteredList(paramKey));
   };
 
+  const clearAllFilters = () => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    for (const key of Array.from(params.keys())) {
+      if (key === "q") continue;
+      params.delete(key);
+    }
+
+    setSearchParams(params);
+    dispatch(clearFilteredList());
+  };
+
   return {
     isInList,
     handleSortParamClick,
     handleFilterParamClick,
     removeFilterParam,
+    clearAllFilters,
   };
 }
 
