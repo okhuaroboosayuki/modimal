@@ -12,5 +12,19 @@ export function LoadingSpinner() {
 }
 
 export function PageLoader() {
-  return <div>loading...</div>;
+  const brandName = "MODIMAL".split("");
+
+  return (
+    <div className="flex h-screen w-full items-center justify-center">
+      {brandName.map((char, index) => (
+        <span
+          key={index}
+          className="text-primary animate-wave inline-block text-3xl font-bold"
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
+          {char}
+        </span>
+      ))}
+    </div>
+  );
 }
