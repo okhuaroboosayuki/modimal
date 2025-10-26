@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setProducts } from "../filter/filterSlice";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { setProducts } from "../filter/filterSlice";
+import { clearSearchQuerySate } from "../search/searchSlice";
 import FilterContainer from "../../components/filter/FilterContainer";
 import Modal from "./../modal/Modal";
+import Search from "../search/Search";
 import ProductsList from "./../../components/products/ProductsList";
 import EmptyProduct from "../../components/products/EmptyProduct";
 import { LoadingSpinner } from "../../components/Loaders";
@@ -14,6 +16,8 @@ import MobileFilterButton from "../../components/filter/MobileFilterButton";
 function ProductsPageContent({ data, loader, heroImage }) {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
+  const { searchQueryState } = useSelector((store) => store.searchReducer);
+
   const hasDispatched = useRef(false);
   const searchQuery = searchParams.get("q");
   const previousSearchQuery = useRef(null);
@@ -28,8 +32,9 @@ function ProductsPageContent({ data, loader, heroImage }) {
     }
 
     if (data && !hasDispatched.current) {
-      dispatch(setProducts(data));
+      dispatch(clearSearchQuerySate());
       hasDispatched.current = true;
+      dispatch(setProducts(data));
     }
   }, [data, dispatch, searchQuery]);
 
@@ -59,11 +64,15 @@ function ProductsPageContent({ data, loader, heroImage }) {
             </div>
           )}
 
-          {totalItems ? (
+          {searchQueryState || searchQuery ? (
             <>
-              <div>search input</div>
+              <Search height="0" />
 
-              <p className="hidden text-[20px] lg:block">{totalItems} items</p>
+              {products.length !== 0 && (
+                <p className="hidden text-[20px] lg:block">
+                  {totalItems} items
+                </p>
+              )}
             </>
           ) : (
             ""
