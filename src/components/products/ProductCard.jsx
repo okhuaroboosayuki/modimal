@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
 import { formatCurrency } from "../../utils/numberFormatter";
 import HeartIcon from "../icons/HeartIcon";
 import { isDaysUpToTwoWeeks } from "../../utils/dateFormatters";
+import ColorWidget from "../ColorWidget";
 
 function ProductCard({ product }) {
   const {
+    id,
     created_at,
     availableColors,
     price,
@@ -21,12 +24,17 @@ function ProductCard({ product }) {
   return (
     <div className="flex h-fit w-full flex-col items-start gap-4">
       <div className="relative w-full overflow-hidden max-sm:h-[15.3125rem] sm:h-[27.375rem]">
-        <img
-          src={productImageUrl}
-          alt={`${productName} product image`}
-          loading="lazy"
-          className="absolute top-0 left-0 h-full w-full object-center"
-        />
+        <Link
+          to={`/product/${id}`}
+          className="absolute top-0 left-0 h-full w-full"
+        >
+          <img
+            src={productImageUrl}
+            alt={`${productName} product image`}
+            loading="lazy"
+            className="h-full w-full object-center"
+          />
+        </Link>
 
         <div className="relative flex items-center justify-between px-2 pt-2 md:px-6 md:pt-6">
           <div>
@@ -45,7 +53,9 @@ function ProductCard({ product }) {
         <div className="flex w-full flex-col items-start gap-2">
           <div className="flex w-full flex-col justify-between sm:flex-row">
             <div className="flex w-full flex-col items-start gap-2">
-              <h2 className="font-semibold">{productName}</h2>
+              <Link to={`/product/${id}`} className="font-semibold">
+                {productName}
+              </Link>
 
               <p className="font-light">{productTag}</p>
             </div>
@@ -57,11 +67,7 @@ function ProductCard({ product }) {
 
           <div className="flex items-center gap-2">
             {availableColors.map((color) => (
-              <span
-                key={color}
-                className="h-6 w-6 rounded-[100%]"
-                style={{ backgroundColor: color, border: `1px solid #606060` }}
-              ></span>
+              <ColorWidget key={color} color={color} />
             ))}
           </div>
         </div>
