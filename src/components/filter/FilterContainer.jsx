@@ -1,5 +1,8 @@
 import { RiCloseFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { clearFilteredList } from "../../features/filter/filterSlice";
 import FilteredList from "./FilteredList";
 import Filters from "./Filters";
 import useFilter from "../../hooks/useFilter";
@@ -8,6 +11,13 @@ import Button from "../Button";
 function FilterContainer({ closeModal }) {
   const { filteredList } = useSelector((store) => store.productFilter);
   const { clearAllFilters } = useFilter();
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  // Clear filtered list when navigation occurs
+  useEffect(() => {
+    dispatch(clearFilteredList());
+  }, [location.pathname, dispatch]);
 
   return (
     <aside
