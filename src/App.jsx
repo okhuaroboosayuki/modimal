@@ -22,11 +22,16 @@ const NewProducts = lazy(() => import("./pages/NewProducts"));
 const Modiweek = lazy(() => import("./pages/Modiweek"));
 const PlusSize = lazy(() => import("./pages/PlusSize"));
 const BestSeller = lazy(() => import("./pages/BestSeller"));
+const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      staleTime: 60 * 1000, // 60 seconds
+      gcTime: 5 * 60 * 1000, // 5 minutes (garbage collection time)
+      retry: 1, // Reduce retry attempts
+      refetchOnWindowFocus: false, // Don't refetch when window regains focus
+      refetchOnReconnect: true, // Refetch when reconnecting
     },
   },
 });
@@ -62,6 +67,7 @@ function App() {
               <Route path="matching-set" element={<Modiweek />} />
               <Route path="fall-collection" element={<AllProducts />} />
               <Route path="suiting" element={<NewProducts />} />
+              <Route path="product/:productId" element={<SingleProduct />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

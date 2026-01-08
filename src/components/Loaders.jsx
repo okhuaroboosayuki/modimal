@@ -12,7 +12,7 @@ export function LoadingSpinner() {
 }
 
 export function PageLoader() {
-  const brandName = "MODIMAL".split("");
+  const brandName = "modimal".split("");
 
   return (
     <div className="flex h-screen w-full items-center justify-center">
