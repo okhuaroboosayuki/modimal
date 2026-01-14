@@ -14,7 +14,7 @@ function MenuItem({ content, heading, onCloseModal }) {
     setShowList((prev) => !prev);
   };
 
-  const handleNavigate = (e) => {
+  const handleNavigate = () => {
     // Close modal before navigation to prevent re-renders during transition
     onCloseModal();
   };
