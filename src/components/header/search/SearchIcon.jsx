@@ -1,15 +1,22 @@
 import { IoMdSearch } from "react-icons/io";
 import { RiCloseFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSearchQuerySate } from "../../../features/search/searchSlice";
+import { setCloseModal } from "../../../features/modal/modalSlice";
 
 function SearchIcon({ windowName, onClick, customStyle }) {
   const { searchQueryState } = useSelector((store) => store.searchReducer);
+  const dispatch = useDispatch();
 
   const isWindowNameSearch =
     windowName === "search" || windowName === "mobile-search";
 
-  const handleSearchClick = () => {
-    if (!searchQueryState) {
+  const handleSearchClick = (e) => {
+    if (searchQueryState) {
+      e.stopPropagation();
+      dispatch(clearSearchQuerySate());
+      dispatch(setCloseModal());
+    } else {
       onClick();
     }
   };

@@ -3,7 +3,10 @@ import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { setProducts } from "../filter/filterSlice";
-import { clearSearchQuerySate } from "../search/searchSlice";
+import {
+  clearSearchQuerySate,
+  setSearchQueryState,
+} from "../search/searchSlice";
 import FilterContainer from "../../components/filter/FilterContainer";
 import Modal from "./../modal/Modal";
 import Search from "../search/Search";
@@ -26,6 +29,7 @@ function ProductsPageContent({ data, loader, heroImage }) {
     if (searchQuery) {
       if (data && searchQuery !== previousSearchQuery.current) {
         dispatch(setProducts(data));
+        dispatch(setSearchQueryState(searchQuery));
         previousSearchQuery.current = searchQuery;
         return;
       }
@@ -64,18 +68,10 @@ function ProductsPageContent({ data, loader, heroImage }) {
             </div>
           )}
 
-          {searchQueryState || searchQuery ? (
-            <>
-              <Search height="0" />
+          {searchQueryState && <Search height="0" />}
 
-              {products.length !== 0 && (
-                <p className="hidden text-[20px] lg:block">
-                  {totalItems} items
-                </p>
-              )}
-            </>
-          ) : (
-            ""
+          {searchQuery && products.length !== 0 && (
+            <p className="hidden text-[20px] lg:block">{totalItems} items</p>
           )}
           <>
             <Modal.Open opens={"mobile-filter"}>
