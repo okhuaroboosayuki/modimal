@@ -2,11 +2,9 @@ import { useState } from "react";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
-import { usePrefetchNavigation } from "../../../hooks/usePrefetchNavigation";
 
 function MenuItem({ content, heading, onCloseModal }) {
   const [showList, setShowList] = useState(false);
-  const { prefetchProducts } = usePrefetchNavigation();
 
   const linkPath = heading?.split(" ").join("-");
 
@@ -19,18 +17,12 @@ function MenuItem({ content, heading, onCloseModal }) {
     onCloseModal();
   };
 
-  const handleMouseEnter = (path) => {
-    // Prefetch data on hover for faster navigation
-    prefetchProducts(path);
-  };
-
   return (
     <div className="pb w-full gap-2 border-b">
       {heading && (
         <NavLink
           to={linkPath}
           onClick={handleNavigate}
-          onMouseEnter={() => handleMouseEnter(linkPath)}
           className="flex justify-between"
         >
           <h5>{heading}</h5>
@@ -63,7 +55,6 @@ function MenuItem({ content, heading, onCloseModal }) {
                     <NavLink
                       to={`/${path}`}
                       viewTransition="true"
-                      onMouseEnter={() => handleMouseEnter(path)}
                       onClick={handleNavigate}
                       className="focus:underline"
                     >
