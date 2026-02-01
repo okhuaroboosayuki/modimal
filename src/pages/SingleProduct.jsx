@@ -1,5 +1,5 @@
-import Product from "../components/products/Product";
-import { useProduct } from "../features/products/useProduct";
+import Product from "../features/products/Product";
+import { useProduct } from "./../features/products/useProduct";
 
 function SingleProduct() {
   const { data, isProductLoading } = useProduct();
