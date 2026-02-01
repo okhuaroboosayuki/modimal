@@ -3,6 +3,9 @@ import { formatCurrency } from "../../utils/numberFormatter";
 import HeartIcon from "../icons/HeartIcon";
 import { isDaysUpToTwoWeeks } from "../../utils/dateFormatters";
 import ColorWidget from "../ColorWidget";
+import useImageStatus from "../../hooks/useImageStatus";
+import { SmallLoader } from "../Loaders";
+import { ProductImgLoadMsg } from "./EmptyProduct";
 
 function ProductCard({ product }) {
   const {
@@ -19,34 +22,44 @@ function ProductCard({ product }) {
     (image) => image.type === "poster",
   ).url;
 
+  const { imgLoading, imgLoadError } = useImageStatus(productImageUrl);
+
   const isProductNew = isDaysUpToTwoWeeks(created_at);
 
   return (
     <div className="flex h-fit w-full flex-col items-start gap-4">
       <div className="relative w-full overflow-hidden max-sm:h-[15.3125rem] sm:h-[27.375rem]">
-        <Link
-          to={`/product/${id}`}
-          className="absolute top-0 left-0 h-full w-full"
-        >
-          <img
-            src={productImageUrl}
-            alt={`${productName} product image`}
-            loading="lazy"
-            className="h-full w-full object-center"
-          />
-        </Link>
+        {imgLoading ? (
+          <SmallLoader />
+        ) : imgLoadError ? (
+          <ProductImgLoadMsg />
+        ) : (
+          <>
+            <Link
+              to={`/product/${id}`}
+              className="absolute top-0 left-0 h-full w-full"
+            >
+              <img
+                src={productImageUrl}
+                alt={`${productName} product image`}
+                loading="lazy"
+                className="h-full w-full object-center"
+              />
+            </Link>
 
-        <div className="relative flex items-center justify-between px-2 pt-2 md:px-6 md:pt-6">
-          <div>
-            {isProductNew && (
-              <span className="bg-white px-4 py-2 text-sm">new</span>
-            )}
-          </div>
+            <div className="relative flex items-center justify-between px-2 pt-2 md:px-6 md:pt-6">
+              <div>
+                {isProductNew && (
+                  <span className="bg-white px-4 py-2 text-sm">new</span>
+                )}
+              </div>
 
-          <span className="icon">
-            <HeartIcon className={"cursor-pointer"} />
-          </span>
-        </div>
+              <span className="icon">
+                <HeartIcon className={"cursor-pointer"} />
+              </span>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="flex w-full items-start justify-between text-sm sm:text-base">
