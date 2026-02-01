@@ -7,3 +7,7 @@ function EmptyProduct() {
 }
 
 export default EmptyProduct;
+
+export function ProductImgLoadMsg() {
+  return <p className="flex h-full w-full">Could not load product image.</p>;
+}
