@@ -28,3 +28,15 @@ export function PageLoader() {
     </div>
   );
 }
+
+export function SmallLoader() {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="small-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  );
+}

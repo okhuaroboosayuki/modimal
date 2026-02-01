@@ -164,6 +164,27 @@
       animation-delay: -0.15s;
     }
   }
+
+  .small-loader {
+    @apply relative box-border inline-block h-6 w-6;
+
+    & div {
+      @apply border-neutral-black absolute m-1 box-border block h-4 w-4 animate-spin rounded-[50%] border-4;
+      border-color: #748c70 transparent transparent transparent;
+    }
+
+    & div:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+
+    & div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+
+    &div:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+  }
 }
 
 @layer utilities {
