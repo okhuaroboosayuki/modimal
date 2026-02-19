@@ -54,17 +54,15 @@ function ProductCard({
               />
             </Link>
 
-            <div className="relative flex items-center justify-between px-2 pt-2 md:px-6 md:pt-6">
-              <div>
-                {isProductNew && (
-                  <span className="bg-white px-4 py-2 text-sm">new</span>
-                )}
-              </div>
-
-              <span className="icon">
-                <HeartIcon className={"cursor-pointer"} />
-              </span>
+            <div className="absolute top-2.5 left-2 md:top-6 md:left-4">
+              {isProductNew && (
+                <span className="bg-white px-4 py-2 text-sm">new</span>
+              )}
             </div>
+
+            <span className="icon absolute top-2.5 right-2 md:top-6 md:right-4">
+              <HeartIcon className={"cursor-pointer"} />
+            </span>
           </>
         )}
       </div>
