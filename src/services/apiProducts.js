@@ -147,9 +147,9 @@ export async function getProductsByBestSeller({ sortBy, filters }) {
       "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
     );
 
-  query = query.order("totalSold", { ascending: false });
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
+  query = query.order("totalSold", { ascending: false });
 
   const { data, error } = await query;
 
