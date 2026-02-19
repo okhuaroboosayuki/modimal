@@ -7,7 +7,10 @@ import useImageStatus from "../../hooks/useImageStatus";
 import { SmallLoader } from "../Loaders";
 import { ProductImgLoadMsg } from "./EmptyProduct";
 
-function ProductCard({ product }) {
+function ProductCard({
+  product,
+  heightInSmallScreens = "max-sm:h-[15.3125rem]",
+}) {
   const {
     id,
     created_at,
@@ -28,7 +31,9 @@ function ProductCard({ product }) {
 
   return (
     <div className="flex h-fit w-full flex-col items-start gap-4">
-      <div className="relative w-full overflow-hidden max-sm:h-[15.3125rem] sm:h-[27.375rem]">
+      <div
+        className={`relative w-full overflow-hidden ${heightInSmallScreens} sm:h-[27.375rem]`}
+      >
         {imgLoading ? (
           <SmallLoader />
         ) : imgLoadError ? (
@@ -38,12 +43,14 @@ function ProductCard({ product }) {
             <Link
               to={`/product/${id}`}
               className="absolute top-0 left-0 h-full w-full"
+              draggable="false"
             >
               <img
                 src={productImageUrl}
                 alt={`${productName} product image`}
                 loading="lazy"
                 className="h-full w-full object-center"
+                draggable="false"
               />
             </Link>
 

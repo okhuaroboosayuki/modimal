@@ -191,4 +191,22 @@
   .transition-500-in-out {
     @apply transition-all duration-500 ease-in-out;
   }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  .drag-scroll {
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+  }
+
+  .drag-scroll:active {
+    cursor: grabbing;
+  }
 }

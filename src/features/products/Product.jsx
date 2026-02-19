@@ -1,12 +1,15 @@
+import { useRelatedProducts } from "./useRelatedProducts";
 import { LoadingSpinner } from "../../components/Loaders";
 import ProductDetailsAccordion from "../../components/products/ProductDetailsAccordion";
 import ProductBreadCrumbs from "../../components/products/ProductBreadCrumbs";
 import ProductImageCarousel from "./ProductImageCarousel";
 import ProductInfo from "../../components/products/ProductInfo";
 import AccordionGroup from "./AccordionGroup";
+import RelatedProducts from "./RelatedProducts";
 
 function Product({ data, loader }) {
   const {
+    id,
     productName,
     description,
     category,
@@ -16,6 +19,12 @@ function Product({ data, loader }) {
     productDetails,
     fabricDetails,
   } = data?.data[0] || {};
+
+  const { relatedProducts, isRelatedProductLoading } =
+    useRelatedProducts(category);
+
+  const relatedProductsData =
+    relatedProducts?.data?.filter((product) => product.id !== id) || [];
 
   return (
     <section className="flex w-full flex-col gap-2 py-8 sm:gap-12">
@@ -66,6 +75,12 @@ function Product({ data, loader }) {
               clickable={false}
             />
           </section>
+
+          {/* other product offerings */}
+          <RelatedProducts
+            isLoading={isRelatedProductLoading}
+            relatedProducts={relatedProductsData}
+          />
         </section>
       )}
     </section>
