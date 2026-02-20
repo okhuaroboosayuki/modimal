@@ -16,7 +16,15 @@ import { LoadingSpinner } from "../../components/Loaders";
 import MobileFilter from "../../components/filter/MobileFilter";
 import MobileFilterButton from "../../components/filter/MobileFilterButton";
 
-function ProductsPageContent({ data, loader, heroImage }) {
+function ProductsPageContent({
+  data,
+  totalCount,
+  isLoading,
+  heroImage,
+  hasNextPage,
+  isFetchingNextPage,
+  fetchNextPage,
+}) {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { searchQueryState } = useSelector((store) => store.searchReducer);
@@ -28,6 +36,7 @@ function ProductsPageContent({ data, loader, heroImage }) {
   useEffect(() => {
     if (searchQuery) {
       if (data && searchQuery !== previousSearchQuery.current) {
+        hasDispatched.current = true;
         dispatch(setProducts(data));
         dispatch(setSearchQueryState(searchQuery));
         previousSearchQuery.current = searchQuery;
@@ -42,10 +51,10 @@ function ProductsPageContent({ data, loader, heroImage }) {
     }
   }, [data, dispatch, searchQuery]);
 
-  const products = data?.data || [];
-  const totalItems = searchQuery && products?.length;
+  const products = data || [];
+  const totalItems = searchQuery && totalCount;
 
-  if (data && products.length === 0) {
+  if (!isLoading && data && products.length === 0) {
     toast.error(
       `No ${searchQuery ? `"` + searchQuery + `"` : ""} products available`,
     );
@@ -87,7 +96,7 @@ function ProductsPageContent({ data, loader, heroImage }) {
           </>
         </section>
 
-        {loader ? (
+        {isLoading ? (
           <div className="grid-body mt-9 w-full">
             <LoadingSpinner />
           </div>
@@ -96,7 +105,12 @@ function ProductsPageContent({ data, loader, heroImage }) {
             <EmptyProduct />
           </div>
         ) : (
-          <ProductsList products={products} />
+          <ProductsList
+            products={products}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            fetchNextPage={fetchNextPage}
+          />
         )}
       </section>
     </Modal>

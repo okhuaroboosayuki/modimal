@@ -8,32 +8,47 @@ export async function getProducts({
   searchValue = null,
   sortBy = null,
   filters = {},
+  page = 0,
+  pageSize = 12,
 }) {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+
   let query;
 
   //if searching
   if (searchValue !== null) {
-    query = supabase.rpc("search_products", { search: `${searchValue}` });
+    query = supabase.rpc(
+      "search_products",
+      { search: `${searchValue}` },
+      { count: "exact" },
+    );
   } else {
     query = supabase
       .from("products")
       .select(
         "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+        { count: "exact" },
       );
   }
+
+  // pagination
+  query = query.range(from, to);
 
   // Apply sorting and filters
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
 
-  const { data, error } = await query.order("created_at", { ascending: false });
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) {
     console.error(error);
     toast.error("Products could not be loaded");
   }
 
-  return { data };
+  return { data, count };
 }
 
 // get single product by id
@@ -55,36 +70,55 @@ export async function getProduct(id) {
 export async function getProductsByCategory(
   category,
   { sortBy = null, filters = {} },
+  page = 0,
+  pageSize = 12,
 ) {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+
   let query = supabase
     .from("products")
     .select(
       "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+      { count: "exact" },
     );
 
   if (category) {
     query = query.eq("category", category);
   }
 
+  query = query.range(from, to);
+
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
 
-  const { data, error } = await query.order("created_at", { ascending: false });
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) {
     console.error(error);
     toast.error("Products could not be loaded");
   }
 
-  return { data };
+  return { data, count };
 }
 
 // get new products
-export async function getNewProducts({ sortBy = null, filters = {} }) {
+export async function getNewProducts({
+  sortBy = null,
+  filters = {},
+  page = 0,
+  pageSize = 12,
+}) {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+
   let query = supabase
     .from("products")
     .select(
       "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+      { count: "exact" },
     );
 
   const fourteenDaysAgo = subDays(new Date(), 14).toISOString();
@@ -93,70 +127,114 @@ export async function getNewProducts({ sortBy = null, filters = {} }) {
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
 
-  const { data, error } = await query.order("created_at", { ascending: false });
+  query = query.range(from, to);
+
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) {
     console.error(error);
     toast.error("Products could not be loaded");
   }
 
-  return { data };
+  return { data, count };
 }
 
-export async function getProductsByModiweek({ sortBy, filters }) {
+export async function getProductsByModiweek({
+  sortBy,
+  filters,
+  page = 0,
+  pageSize = 12,
+}) {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+
   let query = supabase
     .from("products")
     .select(
       "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+      { count: "exact" },
     );
 
   query = query.neq("modiweek", null);
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
 
-  const { data, error } = await query.order("created_at", { ascending: false });
+  query = query.range(from, to);
+
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) {
     console.error(error);
     toast.error("Products could not be loaded");
   }
 
-  return { data };
+  return { data, count };
 }
 
-export async function getProductsByPlusSize({ sortBy, filters }) {
-  let query = supabase.rpc("get_products_with_plus_size", { _size: "XL" });
+export async function getProductsByPlusSize({
+  sortBy,
+  filters,
+  page = 0,
+  pageSize = 12,
+}) {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+
+  let query = supabase.rpc(
+    "get_products_with_plus_size",
+    { _size: "XL" },
+    { count: "exact" },
+  );
 
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
 
-  const { data, error } = await query.order("created_at", { ascending: false });
+  query = query.range(from, to);
+
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) {
     console.error(error);
     toast.error("Products could not be loaded");
   }
 
-  return { data };
+  return { data, count };
 }
 
-export async function getProductsByBestSeller({ sortBy, filters }) {
+export async function getProductsByBestSeller({
+  sortBy,
+  filters,
+  page = 0,
+  pageSize = 12,
+}) {
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
+
   let query = supabase
     .from("products")
     .select(
       "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+      { count: "exact" },
     );
 
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
   query = query.order("totalSold", { ascending: false });
 
-  const { data, error } = await query;
+  query = query.range(from, to);
+
+  const { data, error, count } = await query;
 
   if (error) {
     console.error(error);
     toast.error("Products could not be loaded");
   }
 
-  return { data };
+  return { data, count };
 }

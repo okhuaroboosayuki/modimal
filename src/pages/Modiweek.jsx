@@ -2,9 +2,23 @@ import ProductsPageContent from "../features/products/ProductsPageContent";
 import { useModiweekProducts } from "../features/products/useModiweekProducts";
 
 function Modiweek() {
-  const { isModiweekProductLoading, data } = useModiweekProducts();
+  const {
+    isModiweekProductLoading,
+    productsByModiweek,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useModiweekProducts();
 
-  return <ProductsPageContent data={data} loader={isModiweekProductLoading} />;
+  return (
+    <ProductsPageContent
+      data={productsByModiweek}
+      isLoading={isModiweekProductLoading}
+      hasNextPage={hasNextPage}
+      isFetchingNextPage={isFetchingNextPage}
+      fetchNextPage={fetchNextPage}
+    />
+  );
 }
 
 export default Modiweek;

@@ -2,10 +2,22 @@ import ProductsPageContent from "../features/products/ProductsPageContent";
 import { useBestSellingProducts } from "../features/products/useBestSellingProducts";
 
 function BestSeller() {
-  const { isBestSellerProductLoading, data } = useBestSellingProducts();
+  const {
+    isBestSellerProductLoading,
+    bestSellingProducts,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useBestSellingProducts();
 
   return (
-    <ProductsPageContent data={data} loader={isBestSellerProductLoading} />
+    <ProductsPageContent
+      data={bestSellingProducts}
+      isLoading={isBestSellerProductLoading}
+      hasNextPage={hasNextPage}
+      isFetchingNextPage={isFetchingNextPage}
+      fetchNextPage={fetchNextPage}
+    />
   );
 }
 

@@ -12,15 +12,13 @@ const filterSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       state.colors = Array.from(
-        new Set(
-          action.payload.data.flatMap((product) => product.availableColors),
-        ),
+        new Set(action.payload.flatMap((product) => product.availableColors)),
       ).map((color) => ({
         value: color,
         label: color,
       }));
 
-      state.fabrics = action.payload.data.reduce((acc, product) => {
+      state.fabrics = action.payload.reduce((acc, product) => {
         const type = product.fabricDetails.type;
         if (!acc.some((opt) => opt.value === type)) {
           acc.push({ value: type, label: type });

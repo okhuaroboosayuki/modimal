@@ -44,11 +44,12 @@ function ProductInfo({ productName, description, availableColors }) {
         </div>
 
         <Button
-          text={"add to cart"}
           styles={
             "bg-primary-600 w-full cursor-pointer py-3 text-base! text-white capitalize"
           }
-        />
+        >
+          add to cart
+        </Button>
       </div>
 
       <div className="text-gray86 flex w-full flex-col-reverse items-center justify-between gap-1.5 capitalize sm:flex-row">

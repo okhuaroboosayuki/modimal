@@ -3,13 +3,22 @@ import { useProducts } from "./../features/products/useProducts";
 import shopAllImage from "/images/frame-427319608.png";
 
 function AllProducts() {
-  const { isAllProductLoading, data } = useProducts();
+  const {
+    isAllProductLoading,
+    allProducts,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useProducts();
 
   return (
     <ProductsPageContent
-      data={data}
-      loader={isAllProductLoading}
+      data={allProducts}
+      isLoading={isAllProductLoading}
       heroImage={shopAllImage}
+      hasNextPage={hasNextPage}
+      isFetchingNextPage={isFetchingNextPage}
+      fetchNextPage={fetchNextPage}
     />
   );
 }

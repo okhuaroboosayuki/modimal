@@ -3,13 +3,22 @@ import { usePlusSizeProducts } from "../features/products/usePlusSizeProducts";
 import PlusSizeHero from "/images/plus_size_hero.png";
 
 function PlusSize() {
-  const { isPlusSizeProductLoading, data } = usePlusSizeProducts();
+  const {
+    isPlusSizeProductLoading,
+    plusSizeProducts,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = usePlusSizeProducts();
 
   return (
     <ProductsPageContent
-      data={data}
-      loader={isPlusSizeProductLoading}
+      data={plusSizeProducts}
+      isLoading={isPlusSizeProductLoading}
       heroImage={PlusSizeHero}
+      hasNextPage={hasNextPage}
+      isFetchingNextPage={isFetchingNextPage}
+      fetchNextPage={fetchNextPage}
     />
   );
 }
