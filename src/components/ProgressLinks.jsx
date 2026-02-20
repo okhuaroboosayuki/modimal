@@ -4,7 +4,6 @@ import NProgress from "nprogress";
 export function ProgressLink({ to, className, children }) {
   const handleClick = () => {
     NProgress.start();
-    console.log("progress started");
   };
 
   return (
