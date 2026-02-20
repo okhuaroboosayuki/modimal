@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { setProducts } from "../filter/filterSlice";
@@ -15,6 +15,7 @@ import EmptyProduct from "../../components/products/EmptyProduct";
 import { LoadingSpinner } from "../../components/Loaders";
 import MobileFilter from "../../components/filter/MobileFilter";
 import MobileFilterButton from "../../components/filter/MobileFilterButton";
+import BreadCrumbs from "../../components/BreadCrumbs";
 
 function ProductsPageContent({
   data,
@@ -28,6 +29,7 @@ function ProductsPageContent({
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { searchQueryState } = useSelector((store) => store.searchReducer);
+  const location = useLocation();
 
   const hasDispatched = useRef(false);
   const searchQuery = searchParams.get("q");
@@ -54,6 +56,8 @@ function ProductsPageContent({
   const products = data || [];
   const totalItems = searchQuery && totalCount;
 
+  const pageName = location.pathname.split("/")[1].split("-").join(" ");
+
   if (!isLoading && data && products.length === 0) {
     toast.error(
       `No ${searchQuery ? `"` + searchQuery + `"` : ""} products available`,
@@ -65,7 +69,11 @@ function ProductsPageContent({
       <section className="product-container">
         <FilterContainer />
 
-        <section className="grid-head flex w-full flex-col items-center justify-center gap-10">
+        <section className="grid-head mt-8 flex w-full flex-col items-center justify-center gap-10 overflow-x-auto">
+          <div className="constant-left-padding self-start">
+            <BreadCrumbs pageName={pageName} />
+          </div>
+
           {heroImage && (
             <div className="w-full">
               <img

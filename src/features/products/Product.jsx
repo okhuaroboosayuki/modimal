@@ -1,11 +1,12 @@
+import { useEffect } from "react";
 import { useRelatedProducts } from "./useRelatedProducts";
 import { LoadingSpinner } from "../../components/Loaders";
 import ProductDetailsAccordion from "../../components/products/ProductDetailsAccordion";
-import ProductBreadCrumbs from "../../components/products/ProductBreadCrumbs";
 import ProductImageCarousel from "./ProductImageCarousel";
 import ProductInfo from "../../components/products/ProductInfo";
 import AccordionGroup from "./AccordionGroup";
 import RelatedProducts from "./RelatedProducts";
+import BreadCrumbs from "../../components/BreadCrumbs";
 
 function Product({ data, loader }) {
   const {
@@ -26,9 +27,16 @@ function Product({ data, loader }) {
   const relatedProductsData =
     relatedProducts?.data?.filter((product) => product.id !== id) || [];
 
+  //scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <section className="flex w-full flex-col gap-2 py-8 sm:gap-12">
-      <ProductBreadCrumbs category={category} productName={productName} />
+      <div className="px-5 sm:px-13 xl:px-32">
+        <BreadCrumbs productCategory={category} productName={productName} />
+      </div>
 
       {loader ? (
         <div className="w-full">
