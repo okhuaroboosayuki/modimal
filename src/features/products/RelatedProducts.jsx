@@ -60,7 +60,7 @@ function RelatedProducts({ isLoading, relatedProducts }) {
         ) : (
           <div
             ref={sliderRef}
-            className={`max-sm:hide-scrollbar drag-scroll w-full overflow-x-auto pb-2`}
+            className={`max-lg:hide-scrollbar drag-scroll w-full overflow-x-auto pb-2`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
