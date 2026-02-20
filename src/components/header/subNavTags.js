@@ -29,12 +29,12 @@ export const categoryList = {
 export const trendingList = {
   heading: "trending",
   menu_name: "new in",
-  tags: ["plus size", "fall collection", "modiweek"],
+  tags: ["new in", "plus size", "fall collection", "modiweek"],
 };
 
 export const featuredList = {
   heading: "featured",
-  tags: ["new in", "modiweek", "plus size", "best seller"],
+  tags: ["plus size", "modiweek", "best seller"],
 };
 
 export const moreList = {

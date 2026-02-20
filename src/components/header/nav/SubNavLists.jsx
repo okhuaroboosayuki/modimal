@@ -41,13 +41,15 @@ function SubNavLists({ menuName, ref, closeModal }) {
               />
             )}
 
+            {menuName === "plus-size" && (
+              <SubNavListsSection
+                content={featuredList}
+                onCloseModal={closeModal}
+              />
+            )}
+
             {menuName !== "plus-size" && menuName !== "new-in" && (
               <>
-                <SubNavListsSection
-                  content={featuredList}
-                  onCloseModal={closeModal}
-                />
-
                 <SubNavListsSection
                   content={moreList}
                   onCloseModal={closeModal}
