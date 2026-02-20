@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+
 export function LoadingSpinner() {
   return (
     <div className="flex w-full items-center justify-center">
@@ -39,4 +44,16 @@ export function SmallLoader() {
       </div>
     </div>
   );
+}
+
+NProgress.configure({ showSpinner: false, speed: 300, minimum: 0.1 });
+export default function TopPageLoader() {
+  const location = useLocation();
+
+  useEffect(() => {
+    NProgress.start();
+    NProgress.done();
+  }, [location.pathname]);
+
+  return null;
 }

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { ProgressLink } from "./ProgressLinks";
 
 function BreadCrumbs({ productCategory, productName, pageName }) {
   const linkPath = productCategory
@@ -7,18 +7,18 @@ function BreadCrumbs({ productCategory, productName, pageName }) {
 
   return (
     <div className="[&>a]:text-primary flex items-start gap-1.5 text-xs capitalize sm:text-base">
-      <Link to={"/"} className="hover:text-gray40">
+      <ProgressLink to={"/"} className="hover:text-gray40">
         Home
-      </Link>
+      </ProgressLink>
 
       <span className="text-gray60">/</span>
 
       {pageName && <span>{pageName}</span>}
 
       {productCategory && (
-        <Link to={`/${linkPath}`} className="hover:text-gray40">
+        <ProgressLink to={`/${linkPath}`} className="hover:text-gray40">
           {productCategory}
-        </Link>
+        </ProgressLink>
       )}
 
       {productName && (

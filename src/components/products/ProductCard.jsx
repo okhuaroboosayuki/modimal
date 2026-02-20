@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { formatCurrency } from "../../utils/numberFormatter";
 import HeartIcon from "../icons/HeartIcon";
 import { isDaysUpToTwoWeeks } from "../../utils/dateFormatters";
@@ -6,6 +5,7 @@ import ColorWidget from "../ColorWidget";
 import useImageStatus from "../../hooks/useImageStatus";
 import { SmallLoader } from "../Loaders";
 import { ProductImgLoadMsg } from "./EmptyProduct";
+import { ProgressLink } from "../ProgressLinks";
 
 function ProductCard({
   product,
@@ -40,7 +40,7 @@ function ProductCard({
           <ProductImgLoadMsg />
         ) : (
           <>
-            <Link
+            <ProgressLink
               to={`/product/${id}`}
               className="absolute top-0 left-0 h-full w-full"
               draggable="false"
@@ -52,7 +52,7 @@ function ProductCard({
                 className="h-full w-full object-center"
                 draggable="false"
               />
-            </Link>
+            </ProgressLink>
 
             <div className="absolute top-2.5 left-2 md:top-6 md:left-4">
               {isProductNew && (
@@ -71,9 +71,9 @@ function ProductCard({
         <div className="flex w-full flex-col items-start gap-2">
           <div className="flex w-full flex-col justify-between sm:flex-row">
             <div className="flex w-full flex-col items-start gap-2">
-              <Link to={`/product/${id}`} className="font-semibold">
+              <ProgressLink to={`/product/${id}`} className="font-semibold">
                 {productName}
-              </Link>
+              </ProgressLink>
 
               <p className="font-light">{productTag}</p>
             </div>

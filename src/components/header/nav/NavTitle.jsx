@@ -1,14 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { ProgressNavLink } from "../../ProgressLinks";
 
 function NavTitle({ title, onClick }) {
   if (!onClick) {
     return (
-      <NavLink
+      <ProgressNavLink
         to={`/${title}`}
         className="transition-500-in-out hover:text-neutral-black capitalize"
       >
         {title}
-      </NavLink>
+      </ProgressNavLink>
     );
   }
 

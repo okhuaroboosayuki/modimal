@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { RiArrowDownSLine } from "react-icons/ri";
-import { NavLink } from "react-router-dom";
+import { ProgressNavLink } from "../../ProgressLinks";
 
 function MenuItem({ content, heading, onCloseModal }) {
   const [showList, setShowList] = useState(false);
@@ -20,7 +20,7 @@ function MenuItem({ content, heading, onCloseModal }) {
   return (
     <div className="pb w-full gap-2 border-b">
       {heading && (
-        <NavLink
+        <ProgressNavLink
           to={linkPath}
           onClick={handleNavigate}
           className="flex justify-between"
@@ -30,7 +30,7 @@ function MenuItem({ content, heading, onCloseModal }) {
           <span className="icon">
             <HiOutlineArrowLongRight />
           </span>
-        </NavLink>
+        </ProgressNavLink>
       )}
 
       {content && (
@@ -52,14 +52,14 @@ function MenuItem({ content, heading, onCloseModal }) {
 
                 return (
                   <li key={index}>
-                    <NavLink
+                    <ProgressNavLink
                       to={`/${path}`}
                       viewTransition="true"
                       onClick={handleNavigate}
                       className="focus:underline"
                     >
                       {tag}
-                    </NavLink>
+                    </ProgressNavLink>
                   </li>
                 );
               })}

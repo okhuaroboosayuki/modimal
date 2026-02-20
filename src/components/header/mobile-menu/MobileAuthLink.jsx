@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import UserIcon from "../../icons/UserIcon";
+import { ProgressLink } from "../../ProgressLinks";
 
 function MobileAuthLink({ text, link, onCloseModal, hasIcon = true }) {
   return (
-    <Link
+    <ProgressLink
       to={link}
       onClick={onCloseModal}
       className="border-primary-600 flex w-full items-center justify-center gap-1 border py-2 min-[427px]:px-10"
@@ -15,7 +15,7 @@ function MobileAuthLink({ text, link, onCloseModal, hasIcon = true }) {
       )}
 
       <span>{text}</span>
-    </Link>
+    </ProgressLink>
   );
 }
 

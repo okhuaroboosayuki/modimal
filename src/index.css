@@ -87,6 +87,16 @@
   .constant-left-padding {
     @apply pl-5 md:pl-14 lg:pl-20 xl:pl-[8rem];
   }
+
+  #nprogress .bar {
+    @apply bg-warning! h-[3px]!;
+  }
+
+  #nprogress .peg {
+    box-shadow:
+      0 0 10px #e09126,
+      0 0 5px #e09126 !important;
+  }
 }
 
 @layer components {

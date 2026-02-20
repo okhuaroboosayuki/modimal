@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { ProgressNavLink } from "../../ProgressLinks";
 
 function SubNavListsSection({ content, onCloseModal }) {
   return (
@@ -11,9 +11,9 @@ function SubNavListsSection({ content, onCloseModal }) {
 
           return (
             <li key={index}>
-              <NavLink to={`/${path}`} onClick={onCloseModal}>
+              <ProgressNavLink to={`/${path}`} onClick={onCloseModal}>
                 {tag}
-              </NavLink>
+              </ProgressNavLink>
             </li>
           );
         })}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { ProgressLink } from "../../ProgressLinks";
 
 function NavImageCard({ src, alt, title, url, onCloseModal }) {
   return (
@@ -6,7 +6,7 @@ function NavImageCard({ src, alt, title, url, onCloseModal }) {
       {!url && !title ? (
         <img src={src} alt={alt} loading="lazy" height={420} />
       ) : (
-        <Link
+        <ProgressLink
           to={url}
           onClick={onCloseModal}
           className="flex flex-col items-start gap-3 capitalize"
@@ -14,7 +14,7 @@ function NavImageCard({ src, alt, title, url, onCloseModal }) {
           <img src={src} alt={alt} loading="lazy" height={420} />
 
           <p>{title}</p>
-        </Link>
+        </ProgressLink>
       )}
     </>
   );

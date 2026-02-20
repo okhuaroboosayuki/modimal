@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { RiHeartLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import Modal from "../../features/modal/Modal";
@@ -8,6 +7,7 @@ import NavLists from "./nav/NavLists";
 import Logo from "./../icons/Logo";
 import UserIcon from "./../icons/UserIcon";
 import ShoppingBagIcon from "./../icons/ShoppingBagIcon";
+import { ProgressLink } from "../ProgressLinks";
 
 function Header() {
   const { isModalOpen } = useSelector((store) => store.modalOpen);
@@ -29,9 +29,9 @@ function Header() {
             <SearchContainer window={"mobile-search"} />
           </ul>
 
-          <Link to={"/"}>
+          <ProgressLink to={"/"}>
             <Logo className={"w-[150px] lg:w-full"} />
-          </Link>
+          </ProgressLink>
 
           <NavLists />
 

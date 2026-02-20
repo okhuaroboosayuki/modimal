@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
-import { PageLoader } from "./components/Loaders";
+import TopPageLoader, { PageLoader } from "./components/Loaders";
 
 const Home = lazy(() => import("./pages/Home"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
@@ -42,6 +42,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
 
       <BrowserRouter>
+        <TopPageLoader />
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route element={<AppLayout />}>
