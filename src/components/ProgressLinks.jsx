@@ -13,9 +13,10 @@ export function ProgressLink({ to, className, children }) {
   );
 }
 
-export function ProgressNavLink({ to, className, children }) {
+export function ProgressNavLink({ to, className, onClick, children }) {
   const handleClick = () => {
     NProgress.start();
+    onClick && onClick();
   };
 
   return (
