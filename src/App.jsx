@@ -7,6 +7,8 @@ import { Toaster } from "react-hot-toast";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
 import TopPageLoader, { PageLoader } from "./components/Loaders";
+import SignUp from "./features/auth/SignUp";
+import Login from "./features/auth/Login";
 
 const Home = lazy(() => import("./pages/Home"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
@@ -23,6 +25,7 @@ const Modiweek = lazy(() => import("./pages/Modiweek"));
 const PlusSize = lazy(() => import("./pages/PlusSize"));
 const BestSeller = lazy(() => import("./pages/BestSeller"));
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
+const AuthPage = lazy(() => import("./pages/AuthPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,6 +72,11 @@ function App() {
               <Route path="fall-collection" element={<AllProducts />} />
               <Route path="suiting" element={<NewProducts />} />
               <Route path="product/:productId" element={<SingleProduct />} />
+
+              <Route element={<AuthPage />}>
+                <Route path="create-account" element={<SignUp />} />
+                <Route path="login" element={<Login />} />
+              </Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />

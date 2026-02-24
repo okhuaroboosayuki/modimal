@@ -16,7 +16,7 @@ function Input({
       value={value}
       onChange={onChange}
       autoFocus={type === "search" && "true"}
-      className={`${width} ${customStyle} border-none text-[16px] outline-none placeholder:text-xs`}
+      className={`${width} ${customStyle} text-[16px] outline-none placeholder:text-xs`}
       spellCheck={type === "search" && "true"}
       aria-label={type === "search" && "Search through site content"}
     />

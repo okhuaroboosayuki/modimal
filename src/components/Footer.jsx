@@ -31,6 +31,7 @@ function Footer() {
                 name={"email"}
                 placeholder={"Enter Your Email Address"}
                 width={"w-full"}
+                customStyle={"border-none"}
               />
 
               <button className="cursor-pointer">
@@ -39,7 +40,11 @@ function Footer() {
             </div>
 
             <label className="flex items-center gap-2 text-sm">
-              <Input type={"checkbox"} name={"subscribe"} />
+              <Input
+                type={"checkbox"}
+                name={"subscribe"}
+                customStyle={"border-none"}
+              />
               <span>
                 By submittng your email, you agree to receive advertising emails
                 from Modimal.

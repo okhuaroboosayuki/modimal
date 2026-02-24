@@ -20,7 +20,7 @@ function SearchInput({ searchQuery, onChange, onClearInput }) {
         name={"search"}
         placeholder={"search"}
         customStyle={
-          "md:placeholder:text-[20px] placeholder:capitalize text-grayAD font-medium w-full"
+          "md:placeholder:text-[20px] placeholder:capitalize text-grayAD font-medium w-full border-none"
         }
         onChange={onChange}
         value={searchQuery}
