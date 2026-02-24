@@ -27,14 +27,18 @@ function Product({ data, loader }) {
   const relatedProductsData =
     relatedProducts?.data?.filter((product) => product.id !== id) || [];
 
-  //scroll to top on page load
+  //scroll to breadcrumb when url changes to a different product
+  const urlPath = location.pathname;
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    const breadcrumbWrapper = document.getElementById("breadcrumb_wrapper");
+    if (breadcrumbWrapper) {
+      breadcrumbWrapper.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [urlPath]);
 
   return (
     <section className="flex w-full flex-col gap-2 py-8 sm:gap-12">
-      <div className="px-5 sm:px-13 xl:px-32">
+      <div className="px-5 sm:px-13 xl:px-32" id="breadcrumb_wrapper">
         <BreadCrumbs productCategory={category} productName={productName} />
       </div>
 

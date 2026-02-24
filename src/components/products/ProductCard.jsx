@@ -32,7 +32,7 @@ function ProductCard({
   return (
     <div className="flex h-fit w-full flex-col items-start gap-4">
       <div
-        className={`relative w-full overflow-hidden ${heightInSmallScreens} sm:h-[27.375rem]`}
+        className={`relative w-full overflow-hidden ${heightInSmallScreens} sm:h-[27.375rem] lg:h-[20rem] xl:h-[27.375rem]`}
       >
         {imgLoading ? (
           <SmallLoader />

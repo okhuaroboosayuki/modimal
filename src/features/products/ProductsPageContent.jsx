@@ -46,7 +46,7 @@ function ProductsPageContent({
       }
     }
 
-    if (data && !hasDispatched.current) {
+    if (data.length > 0 && !hasDispatched.current) {
       dispatch(clearSearchQuerySate());
       hasDispatched.current = true;
       dispatch(setProducts(data));
@@ -69,19 +69,14 @@ function ProductsPageContent({
       <section className="product-container">
         <FilterContainer />
 
-        <section className="grid-head mt-8 flex w-full flex-col items-center justify-center gap-10 overflow-x-auto">
+        <section className="grid-head mt-8 flex w-full flex-col items-center justify-center gap-5 overflow-x-auto md:gap-10">
           <div className="constant-left-padding self-start">
             <BreadCrumbs pageName={pageName} />
           </div>
 
           {heroImage && (
             <div className="w-full">
-              <img
-                src={heroImage}
-                alt="Two women wearing minimalist green and white outfits outdoors — one in an olive wrap blouse smiling under the sun, and the other in olive trousers and a white top holding a woven bag outside a modern house."
-                loading="lazy"
-                className="w-full"
-              />
+              <img src={heroImage} loading="lazy" className="w-full" />
             </div>
           )}
 

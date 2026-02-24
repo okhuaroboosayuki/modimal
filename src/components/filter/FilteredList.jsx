@@ -34,7 +34,7 @@ function FilteredList({ list }) {
   return (
     <>
       {filteredItemsToDisplay.length > 0 && (
-        <ul className="flex w-[300px] flex-col items-start gap-2">
+        <ul className="flex w-full flex-col items-start gap-2">
           {filteredItemsToDisplay.map((item) => {
             const [[paramName, paramValue]] = Object.entries(item);
 
