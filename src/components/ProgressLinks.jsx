@@ -1,9 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import NProgress from "nprogress";
 
-export function ProgressLink({ to, className, children }) {
+export function ProgressLink({ to, className, children, onClick }) {
   const handleClick = () => {
     NProgress.start();
+    if (onClick) onClick();
   };
 
   return (
