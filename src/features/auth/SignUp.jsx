@@ -1,14 +1,28 @@
-import { FaRegEyeSlash } from "react-icons/fa6";
+import { useForm } from "react-hook-form";
 import { ProgressLink } from "../../components/ProgressLinks";
 import Button from "../../components/Button";
-import Input from "../../components/Input";
-import AppleIcon from "../../components/icons/AppleIcon";
-import GoogleIcon from "../../components/icons/GoogleIcon";
-import FacebookIcon from "./../../components/icons/FacebookIcon";
+import SocialMediaAuthIcons from "../../components/auth/SocialMediaAuthIcons";
+import FormField from "./FormField";
+import PasswordField from "./PasswordField";
+import { useSignUp } from "./useSignUp";
 
 function SignUp() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const { signUp, isLoading } = useSignUp();
+
+  const passwordValue = watch("password", "");
+
+  const onSubmit = ({ firstName, lastName, email, password }) => {
+    signUp(
+      { email, password, fullName: `${firstName} ${lastName}` },
+      { onSettled: () => reset() },
+    );
   };
 
   return (
@@ -18,51 +32,59 @@ function SignUp() {
       <section className="flex w-full flex-col items-center gap-2">
         <form
           className="flex w-full flex-col gap-2 px-5 lg:px-16 xl:px-20 2xl:px-32"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
-          <Input
-            type={"text"}
+          <FormField
+            inputType={"text"}
             name={"firstName"}
             placeholder={"first name"}
-            customStyle={
-              "w-full border border-gray60 placeholder:capitalize px-4 py-2 focus:border-primary-300"
-            }
+            {...register("firstName", { required: "This field is required" })}
+            error={errors.firstName?.message}
+            disabled={isLoading}
           />
-          <Input
-            type={"text"}
+
+          <FormField
+            inputType={"text"}
             name={"lastName"}
             placeholder={"last name"}
-            width={"w-full"}
-            customStyle={
-              "border border-gray60 placeholder:capitalize px-4 py-2 focus:border-primary-300"
-            }
+            {...register("lastName", { required: "This field is required" })}
+            error={errors.lastName?.message}
+            disabled={isLoading}
           />
-          <Input
-            type={"email"}
+
+          <FormField
+            inputType={"email"}
             name={"email"}
             placeholder={"email"}
-            customStyle={
-              "w-full border border-gray60 placeholder:capitalize px-4 py-2 focus:border-primary-300"
-            }
+            {...register("email", {
+              required: "This field is required",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Provide a valid email address",
+              },
+            })}
+            error={errors.email?.message}
+            disabled={isLoading}
           />
-          <div className="border-gray60 focus-within:border-primary-300 flex border px-4 py-2">
-            <Input
-              type={"password"}
-              name={"password"}
-              placeholder={"password"}
-              customStyle={"w-full placeholder:capitalize"}
-            />
-            <span className="icon cursor-pointer">
-              <FaRegEyeSlash fill="#606060" />
-            </span>
-          </div>
+
+          <PasswordField
+            error={errors.password?.message}
+            disabled={isLoading}
+            passwordValue={passwordValue}
+            {...register("password", {
+              required: "This field is required",
+              minLength: {
+                value: 6,
+                message: "Password must be a minimum of 6 characters",
+              },
+            })}
+          />
 
           <Button
-            styles={
-              "bg-primary-600 transition-500-in-out hover:bg-primary-750 text-white"
-            }
+            styles={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
+            isDisabled={isLoading}
           >
-            register now
+            {isLoading ? "registering..." : "register now"}
           </Button>
         </form>
 
@@ -78,19 +100,7 @@ function SignUp() {
             </ProgressLink>
           </div>
 
-          <span>or</span>
-
-          <div className="mt-2 flex items-center gap-[17px]">
-            <span className="cursor-pointer">
-              <AppleIcon width={35} height={35} />
-            </span>
-            <span className="cursor-pointer">
-              <GoogleIcon width={35} height={35} />
-            </span>
-            <span className="cursor-pointer">
-              <FacebookIcon width={35} height={35} />
-            </span>
-          </div>
+          <SocialMediaAuthIcons />
 
           <div className="[&>span]:text-primary [&>span]:hover:text-primary-900 mt-2 text-center text-sm capitalize [&>span]:cursor-pointer [&>span]:underline">
             by clicking register now, you agree to our{" "}
