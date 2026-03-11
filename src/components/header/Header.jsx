@@ -5,9 +5,9 @@ import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
 import SearchContainer from "./search/SearchContainer";
 import NavLists from "./nav/NavLists";
 import Logo from "./../icons/Logo";
-import UserIcon from "./../icons/UserIcon";
 import ShoppingBagIcon from "./../icons/ShoppingBagIcon";
 import { ProgressLink } from "../ProgressLinks";
+import UserProfileButton from "./user/UserProfileButton";
 
 function Header() {
   const { isModalOpen } = useSelector((store) => store.modalOpen);
@@ -41,9 +41,7 @@ function Header() {
               window={"search"}
             />
 
-            <li className="icon hidden lg:block">
-              <UserIcon className="cursor-pointer" />
-            </li>
+            <UserProfileButton />
 
             <li className="icon">
               <RiHeartLine className="cursor-pointer" />

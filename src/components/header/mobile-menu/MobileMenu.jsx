@@ -1,6 +1,6 @@
 import MenuItem from "./MenuItem";
 import { categoryList, sustainabilityList, trendingList } from "../subNavTags";
-import MobileAuthLink from "./MobileAuthLink";
+import AuthButtonGroup from "../AuthButtonGroup";
 
 function MobileMenu({ ref, closeModal }) {
   return (
@@ -21,20 +21,7 @@ function MobileMenu({ ref, closeModal }) {
           <MenuItem heading={"plus size"} onCloseModal={closeModal} />
         </div>
 
-        <div className="text-primary-600 border-t-grayCB flex w-full flex-row items-center justify-center gap-4 border-t pt-[14.48px] pb-14 leading-6 capitalize max-[390px]:flex-col max-md:justify-between">
-          <MobileAuthLink
-            text={"log in"}
-            link={"/login"}
-            onCloseModal={closeModal}
-          />
-
-          <MobileAuthLink
-            text={"create account"}
-            link={"/signup"}
-            hasIcon={false}
-            onCloseModal={closeModal}
-          />
-        </div>
+        <AuthButtonGroup closeModal={closeModal} />
       </section>
     </nav>
   );

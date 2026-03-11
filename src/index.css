@@ -106,7 +106,8 @@
     }
   }
 
-  .header-modal {
+  .header-modal,
+  .profile-button-modal {
     @apply fixed top-[14%] left-0 z-50 flex h-screen min-h-0 w-full items-start justify-center overflow-y-auto;
     background-color: rgba(0, 0, 0, 0.3);
     -webkit-backdrop-filter: blur(4px);
