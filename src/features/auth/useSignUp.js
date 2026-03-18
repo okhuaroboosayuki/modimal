@@ -12,7 +12,9 @@ export function useSignUp() {
       toast.success(
         "Sign up successful! Please check your email to confirm your account.",
       );
-      navigate("/login", { replace: true });
+      navigate("/login", {
+        state: { accountCreated: true },
+      });
     },
     onError: (error) => {
       toast.error(error.message);

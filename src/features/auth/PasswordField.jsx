@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import Input from "../../components/Input";
+import FloatingInputLabel from "../../components/FloatingInputLabel";
+import PasswordVisibilityIcon from "../../components/PasswordVisibilityIcon";
 
 function PasswordField({ error, passwordValue = "", disabled, ...props }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const isFloating = isFocused || Boolean(passwordValue);
 
   const handlePasswordVisibility = () => {
     if (!passwordValue) return;
@@ -11,28 +14,34 @@ function PasswordField({ error, passwordValue = "", disabled, ...props }) {
   };
 
   return (
-    <div className="flex w-full flex-col items-start gap-1">
+    <div className="relative flex w-full flex-col items-start gap-1">
+      <FloatingInputLabel
+        error={error}
+        isFloating={isFloating}
+        name={"password"}
+        placeholder={"password"}
+      />
+
       <div
-        className={`${error ? "border-error" : "border-gray60 focus:border-primary-300"} flex w-full border px-4 py-2`}
+        className={`${disabled ? "border-grayCB cursor-not-allowed" : error ? "border-error" : "border-gray60 focus-within:border-primary-300"} flex w-full border px-4 py-2`}
       >
         <Input
+          {...props}
           type={!isVisible ? "password" : "text"}
           name={"password"}
-          placeholder={"password"}
-          customStyle={"w-full placeholder:capitalize"}
+          onFocus={() => setIsFocused(true)}
+          onBlur={(e) => {
+            setIsFocused(false);
+            props.onBlur?.(e);
+          }}
+          customStyle={`w-full placeholder:capitalize ${disabled ? "text-grayCB" : "text-inherit"}`}
           disabled={disabled}
-          {...props}
         />
-        <span
-          className="icon cursor-pointer"
-          onClick={handlePasswordVisibility}
-        >
-          {!isVisible ? (
-            <FaRegEyeSlash fill="#606060" />
-          ) : (
-            <FaRegEye fill="#606060" />
-          )}
-        </span>
+
+        <PasswordVisibilityIcon
+          handleClick={handlePasswordVisibility}
+          isVisible={isVisible}
+        />
       </div>
       {error && <span className="text-error text-xs">{error}</span>}
     </div>

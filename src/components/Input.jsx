@@ -6,6 +6,8 @@ function Input({
   customStyle,
   value,
   onChange,
+  onBlur,
+  onFocus,
   disabled,
   ...rest
 }) {
@@ -17,8 +19,10 @@ function Input({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
+      onFocus={onFocus}
       autoFocus={type === "search"}
-      className={`${width} ${customStyle} text-[16px] outline-none placeholder:text-xs`}
+      className={`${width} ${customStyle} text-sm outline-none placeholder:text-xs`}
       spellCheck={type === "search"}
       aria-label={type === "search" ? "Search through site content" : undefined}
       disabled={disabled}

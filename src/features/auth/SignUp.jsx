@@ -17,6 +17,9 @@ function SignUp() {
   const { signUp, isLoading } = useSignUp();
 
   const passwordValue = watch("password", "");
+  const firstNameValue = watch("firstName", "");
+  const lastNameValue = watch("lastName", "");
+  const emailValue = watch("email", "");
 
   const onSubmit = ({ firstName, lastName, email, password }) => {
     signUp(
@@ -38,6 +41,7 @@ function SignUp() {
             inputType={"text"}
             name={"firstName"}
             placeholder={"first name"}
+            inputValue={firstNameValue}
             {...register("firstName", { required: "This field is required" })}
             error={errors.firstName?.message}
             disabled={isLoading}
@@ -47,6 +51,7 @@ function SignUp() {
             inputType={"text"}
             name={"lastName"}
             placeholder={"last name"}
+            inputValue={lastNameValue}
             {...register("lastName", { required: "This field is required" })}
             error={errors.lastName?.message}
             disabled={isLoading}
@@ -56,6 +61,7 @@ function SignUp() {
             inputType={"email"}
             name={"email"}
             placeholder={"email"}
+            inputValue={emailValue}
             {...register("email", {
               required: "This field is required",
               pattern: {
