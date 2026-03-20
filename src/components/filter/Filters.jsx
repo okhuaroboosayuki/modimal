@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import FilterField from "./FilterField";
 import SortField from "./SortField";
+import { selectColors, selectFabrics } from "../../features/filter/filterSlice";
 
 function Filters() {
-  const { colors, fabrics } = useSelector((store) => store.productFilter);
+  const colors = useSelector(selectColors);
+  const fabrics = useSelector(selectFabrics);
 
   const sortOptions = [
     { value: "featured", label: "featured" },

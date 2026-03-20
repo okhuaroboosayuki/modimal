@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
 import { setProducts } from "../filter/filterSlice";
 import {
   clearSearchQuerySate,
@@ -36,9 +35,10 @@ function ProductsPageContent({
   const previousSearchQuery = useRef(null);
 
   useEffect(() => {
+    if (!data) return;
+
     if (searchQuery) {
-      if (data && searchQuery !== previousSearchQuery.current) {
-        hasDispatched.current = true;
+      if (data.length > 0 && searchQuery !== previousSearchQuery.current) {
         dispatch(setProducts(data));
         dispatch(setSearchQueryState(searchQuery));
         previousSearchQuery.current = searchQuery;
@@ -48,8 +48,8 @@ function ProductsPageContent({
 
     if (data.length > 0 && !hasDispatched.current) {
       dispatch(clearSearchQuerySate());
-      hasDispatched.current = true;
       dispatch(setProducts(data));
+      hasDispatched.current = true;
     }
   }, [data, dispatch, searchQuery]);
 
@@ -57,12 +57,6 @@ function ProductsPageContent({
   const totalItems = searchQuery && totalCount;
 
   const pageName = location.pathname.split("/")[1].split("-").join(" ");
-
-  if (!isLoading && data && products.length === 0) {
-    toast.error(
-      `No ${searchQuery ? `"` + searchQuery + `"` : ""} products available`,
-    );
-  }
 
   return (
     <Modal>

@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  colors: [],
-  fabrics: [],
+  // colors: [],
+  // fabrics: [],
+  products: [],
   filteredList: [],
 };
 
@@ -11,20 +12,21 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setProducts: (state, action) => {
-      state.colors = Array.from(
-        new Set(action.payload.flatMap((product) => product.availableColors)),
-      ).map((color) => ({
-        value: color,
-        label: color,
-      }));
+      // state.colors = Array.from(
+      //   new Set(action.payload.flatMap((product) => product.availableColors)),
+      // ).map((color) => ({
+      //   value: color,
+      //   label: color,
+      // }));
 
-      state.fabrics = action.payload.reduce((acc, product) => {
-        const type = product.fabricDetails.type;
-        if (!acc.some((opt) => opt.value === type)) {
-          acc.push({ value: type, label: type });
-        }
-        return acc;
-      }, []);
+      // state.fabrics = action.payload.reduce((acc, product) => {
+      //   const type = product.fabricDetails.type;
+      //   if (!acc.some((opt) => opt.value === type)) {
+      //     acc.push({ value: type, label: type });
+      //   }
+      //   return acc;
+      // }, []);
+      state.products = action.payload;
     },
     addToFilteredList: {
       prepare(paramName, paramValue) {
@@ -58,3 +60,21 @@ export const {
   clearFilteredList,
 } = filterSlice.actions;
 export default filterSlice.reducer;
+
+const selectProducts = (state) => state.productFilter.products;
+
+export const selectColors = createSelector(selectProducts, (products) =>
+  Array.from(new Set(products.flatMap((p) => p.availableColors ?? []))).map(
+    (color) => ({ value: color, label: color }),
+  ),
+);
+
+export const selectFabrics = createSelector(selectProducts, (products) =>
+  products.reduce((acc, product) => {
+    const type = product.fabricDetails?.type;
+    if (type && !acc.some((opt) => opt.value === type)) {
+      acc.push({ value: type, label: type });
+    }
+    return acc;
+  }, []),
+);
