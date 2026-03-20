@@ -12,9 +12,12 @@ function Search({ closeModal, ref, height = "152px" }) {
 
   const handleSearch = useCallback(() => {
     if (searchQuery.length > 0) {
-      navigate(`/search?q=${searchQuery.toLocaleLowerCase()}`);
+      navigate(`/search?q=${searchQuery.toLowerCase()}`);
       dispatch(setSearchQueryState(searchQuery));
-      closeModal();
+
+      if (closeModal) {
+        closeModal();
+      }
     }
   }, [searchQuery, dispatch, closeModal, navigate]);
 

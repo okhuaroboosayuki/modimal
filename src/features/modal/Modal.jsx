@@ -57,7 +57,7 @@ function Open({ opens: windowName, children }) {
         openName === "mobile-search" ||
         openName === "mobile-menu" ||
         openName === "mobile-filter"
-          ? { windowName: openName }
+          ? { windowname: openName }
           : {}),
       }),
     [children, openName, openWindow],

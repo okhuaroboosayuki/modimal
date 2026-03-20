@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearSearchQuerySate } from "../../../features/search/searchSlice";
 import { setCloseModal } from "../../../features/modal/modalSlice";
 
-function SearchIcon({ windowName, onClick, customStyle }) {
+function SearchIcon({ windowname, onClick, customStyle }) {
   const { searchQueryState } = useSelector((store) => store.searchReducer);
   const dispatch = useDispatch();
 
   const isWindowNameSearch =
-    windowName === "search" || windowName === "mobile-search";
+    windowname === "search" || windowname === "mobile-search";
 
   const handleSearchClick = (e) => {
     if (searchQueryState) {
