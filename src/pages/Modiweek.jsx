@@ -12,6 +12,7 @@ function Modiweek() {
 
   return (
     <ProductsPageContent
+      key={"modiweek"}
       data={productsByModiweek}
       isLoading={isModiweekProductLoading}
       hasNextPage={hasNextPage}

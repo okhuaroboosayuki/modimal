@@ -12,6 +12,7 @@ function NewProducts() {
 
   return (
     <ProductsPageContent
+      key={"new products"}
       data={newProducts}
       isLoading={isNewProductLoading}
       hasNextPage={hasNextPage}

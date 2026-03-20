@@ -13,6 +13,7 @@ function SearchPage() {
 
   return (
     <ProductsPageContent
+      key={"searched products"}
       data={searchedProducts}
       totalCount={totalCount}
       isLoading={isSearching}

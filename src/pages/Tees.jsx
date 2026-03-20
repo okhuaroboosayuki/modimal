@@ -12,6 +12,7 @@ function Tees() {
 
   return (
     <ProductsPageContent
+      key={"tees"}
       data={productsByCategory}
       isLoading={isProductCatLoading}
       hasNextPage={hasNextPage}

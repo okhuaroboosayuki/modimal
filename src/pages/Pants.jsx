@@ -12,6 +12,7 @@ function Pants() {
 
   return (
     <ProductsPageContent
+      key={"pants"}
       data={productsByCategory}
       isLoading={isProductCatLoading}
       hasNextPage={hasNextPage}

@@ -12,6 +12,7 @@ function BestSeller() {
 
   return (
     <ProductsPageContent
+      key={"best seller"}
       data={bestSellingProducts}
       isLoading={isBestSellerProductLoading}
       hasNextPage={hasNextPage}

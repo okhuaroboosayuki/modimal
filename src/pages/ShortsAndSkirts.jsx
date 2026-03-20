@@ -12,6 +12,7 @@ function ShortsAndSkirts() {
 
   return (
     <ProductsPageContent
+      key={"shorts & skirts"}
       data={productsByCategory}
       isLoading={isProductCatLoading}
       hasNextPage={hasNextPage}

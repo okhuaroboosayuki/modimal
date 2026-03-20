@@ -13,6 +13,7 @@ function AllProducts() {
 
   return (
     <ProductsPageContent
+      key={"all products"}
       data={allProducts}
       isLoading={isAllProductLoading}
       heroImage={shopAllImage}

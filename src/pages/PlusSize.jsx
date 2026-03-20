@@ -13,6 +13,7 @@ function PlusSize() {
 
   return (
     <ProductsPageContent
+      key={"plus size"}
       data={plusSizeProducts}
       isLoading={isPlusSizeProductLoading}
       heroImage={PlusSizeHero}

@@ -12,6 +12,7 @@ function DressesAndJumpsuits() {
 
   return (
     <ProductsPageContent
+      key={"dresses & jumpsuits"}
       data={productsByCategory}
       isLoading={isProductCatLoading}
       hasNextPage={hasNextPage}

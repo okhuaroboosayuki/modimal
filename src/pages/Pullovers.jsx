@@ -12,6 +12,7 @@ function Pullovers() {
 
   return (
     <ProductsPageContent
+      key={"pullovers"}
       data={productsByCategory}
       isLoading={isProductCatLoading}
       hasNextPage={hasNextPage}

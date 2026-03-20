@@ -12,6 +12,7 @@ function OutwearAndJackets() {
 
   return (
     <ProductsPageContent
+      key={"outwear"}
       data={productsByCategory}
       isLoading={isProductCatLoading}
       hasNextPage={hasNextPage}
