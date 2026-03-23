@@ -3,12 +3,15 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearSearchQuerySate } from "../features/search/searchSlice";
+import { useOnlineStatus } from "../hooks/useOnlineStatus";
 import Header from "./header/Header";
 import Footer from "./Footer";
+import ConnectionStatusBanner from "./ConnectionStatusBanner";
 
 function AppLayout() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const isOnline = useOnlineStatus();
 
   useEffect(() => {
     if (location.pathname !== "/search") {
@@ -21,7 +24,7 @@ function AppLayout() {
       <Header />
 
       <main className="flex w-full items-center justify-center">
-        <Outlet />
+        {isOnline ? <Outlet /> : <ConnectionStatusBanner />}
       </main>
 
       <Footer />
