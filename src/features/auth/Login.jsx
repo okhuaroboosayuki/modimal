@@ -69,7 +69,7 @@ function Login() {
 
             <ProgressLink
               to={"/reset-password"}
-              className="text-primary mb-6 hover:underline"
+              className="text-primary mb-6 flex w-fit hover:underline"
             >
               forgot your password?
             </ProgressLink>
