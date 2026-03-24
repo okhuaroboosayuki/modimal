@@ -11,6 +11,7 @@ import SignUp from "./features/auth/SignUp";
 import Login from "./features/auth/Login";
 import ResetPassword from "./features/auth/ResetPassword";
 import UpdatePassword from "./features/auth/UpdatePassword";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 const Home = lazy(() => import("./pages/Home"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
@@ -75,7 +76,13 @@ function App() {
               <Route path="suiting" element={<NewProducts />} />
               <Route path="product/:productId" element={<SingleProduct />} />
 
-              <Route element={<AuthPage />}>
+              <Route
+                element={
+                  <ProtectedRoutes allowPasswordRecovery={true}>
+                    <AuthPage />
+                  </ProtectedRoutes>
+                }
+              >
                 <Route path="create-account" element={<SignUp />} />
                 <Route path="login" element={<Login />} />
                 <Route path="update-password" element={<UpdatePassword />} />
