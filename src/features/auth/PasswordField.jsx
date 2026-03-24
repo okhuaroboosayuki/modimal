@@ -3,7 +3,14 @@ import Input from "../../components/Input";
 import FloatingInputLabel from "../../components/FloatingInputLabel";
 import PasswordVisibilityIcon from "../../components/PasswordVisibilityIcon";
 
-function PasswordField({ error, passwordValue = "", disabled, ...props }) {
+function PasswordField({
+  error,
+  name = "password",
+  placeholder = "password",
+  passwordValue = "",
+  disabled,
+  ...props
+}) {
   const [isVisible, setIsVisible] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const isFloating = isFocused || Boolean(passwordValue);
@@ -18,8 +25,8 @@ function PasswordField({ error, passwordValue = "", disabled, ...props }) {
       <FloatingInputLabel
         error={error}
         isFloating={isFloating}
-        name={"password"}
-        placeholder={"password"}
+        name={name}
+        placeholder={placeholder}
       />
 
       <div
@@ -28,7 +35,7 @@ function PasswordField({ error, passwordValue = "", disabled, ...props }) {
         <Input
           {...props}
           type={!isVisible ? "password" : "text"}
-          name={"password"}
+          name={name}
           onFocus={() => setIsFocused(true)}
           onBlur={(e) => {
             setIsFocused(false);

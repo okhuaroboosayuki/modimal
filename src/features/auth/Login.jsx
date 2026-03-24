@@ -67,9 +67,12 @@ function Login() {
               })}
             />
 
-            <span className="text-primary mb-6 hover:underline">
+            <ProgressLink
+              to={"/reset-password"}
+              className="text-primary mb-6 hover:underline"
+            >
               forgot your password?
-            </span>
+            </ProgressLink>
 
             <Button
               styles={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
