@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useUser } from "../../../features/auth/useUser";
 import Modal from "../../../features/modal/Modal";
 import UserIcon from "../../icons/UserIcon";
 import AuthButtonContainer from "../AuthButtonContainer";
-import supabase from "../../../services/supabase";
 
 function UserProfileButton() {
+  const location = useLocation();
   const { isAuthenticated } = useUser();
   const [isRecoveringPassword, setIsRecoveringPassword] = useState(false);
 
@@ -15,25 +16,7 @@ function UserProfileButton() {
     } else {
       setIsRecoveringPassword(false);
     }
-  }, []);
-
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event) => {
-        if (event === "PASSWORD_RECOVERY") {
-          setIsRecoveringPassword(true);
-        } else if (event === "USER_UPDATED") {
-          setIsRecoveringPassword(false);
-        } else if (event === "SIGNED_OUT") {
-          setIsRecoveringPassword(false);
-        }
-      },
-    );
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
+  }, [location.pathname]);
 
   const isActive = isAuthenticated && !isRecoveringPassword;
 
