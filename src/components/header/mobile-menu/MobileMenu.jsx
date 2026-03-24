@@ -1,8 +1,25 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import MenuItem from "./MenuItem";
 import { categoryList, sustainabilityList, trendingList } from "../subNavTags";
-import AuthButtonGroup from "../AuthButtonGroup";
+import { useUser } from "../../../features/auth/useUser";
+import AuthButtonContainer from "../AuthButtonContainer";
 
 function MobileMenu({ ref, closeModal }) {
+  const location = useLocation();
+  const { isAuthenticated } = useUser();
+  const [isRecoveringPassword, setIsRecoveringPassword] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/update-password") {
+      setIsRecoveringPassword(true);
+    } else {
+      setIsRecoveringPassword(false);
+    }
+  }, [location.pathname]);
+
+  const isActive = isAuthenticated && !isRecoveringPassword;
+
   return (
     <nav
       className="h-screen w-full overflow-y-scroll! bg-white px-5 py-10 md:px-13 lg:px-5"
@@ -21,7 +38,12 @@ function MobileMenu({ ref, closeModal }) {
           <MenuItem heading={"plus size"} onCloseModal={closeModal} />
         </div>
 
-        <AuthButtonGroup closeModal={closeModal} />
+        <AuthButtonContainer
+          closeModal={closeModal}
+          ref={ref}
+          isActive={isActive}
+          isMobileMenu={true}
+        />
       </section>
     </nav>
   );

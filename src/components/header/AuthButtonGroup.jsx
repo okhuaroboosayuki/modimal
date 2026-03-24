@@ -1,8 +1,11 @@
 import { useLogOut } from "../../features/auth/useLogOut";
+import { useUser } from "../../features/auth/useUser";
 import AuthButton from "./AuthButton";
 
 function AuthButtonGroup({ closeModal, ref, isActive }) {
   const { logout } = useLogOut();
+  const { data } = useUser();
+  const username = data?.user_metadata?.fullName;
 
   return (
     <div
@@ -12,14 +15,24 @@ function AuthButtonGroup({ closeModal, ref, isActive }) {
       {!isActive ? (
         <AuthButton text={"log in"} link={"/login"} onCloseModal={closeModal} />
       ) : (
-        <AuthButton
-          text={"log out"}
-          onClick={() => {
-            closeModal();
-            logout();
-          }}
-          authenticated={isActive}
-        />
+        <>
+          <h3 className="font-semibold capitalize">
+            hi,
+            <span className="text-warning text-lg font-medium">
+              {" "}
+              {username}
+            </span>
+          </h3>
+
+          <AuthButton
+            text={"log out"}
+            onClick={() => {
+              closeModal();
+              logout();
+            }}
+            authenticated={isActive}
+          />
+        </>
       )}
 
       {!isActive && (
