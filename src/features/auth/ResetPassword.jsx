@@ -3,6 +3,7 @@ import FormField from "./FormField";
 import Button from "../../components/Button";
 import { useSendResetPassword } from "./useSendResetPassword";
 import { ProgressLink } from "../../components/ProgressLinks";
+import AuthFooterSection from "../../components/AuthFooterSection";
 
 function ResetPassword() {
   const {
@@ -55,6 +56,8 @@ function ResetPassword() {
             {isLoading ? "sending..." : "Send Reset Link"}
           </Button>
         </form>
+
+        <AuthFooterSection />
       </section>
     </section>
   );
