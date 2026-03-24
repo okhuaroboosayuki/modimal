@@ -4,11 +4,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 
+import TopPageLoader, { PageLoader } from "./components/Loaders";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
-import TopPageLoader, { PageLoader } from "./components/Loaders";
 import SignUp from "./features/auth/SignUp";
 import Login from "./features/auth/Login";
+import ResetPassword from "./features/auth/ResetPassword";
+import UpdatePassword from "./features/auth/UpdatePassword";
 
 const Home = lazy(() => import("./pages/Home"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
@@ -76,6 +78,8 @@ function App() {
               <Route element={<AuthPage />}>
                 <Route path="create-account" element={<SignUp />} />
                 <Route path="login" element={<Login />} />
+                <Route path="update-password" element={<UpdatePassword />} />
+                <Route path="reset-password" element={<ResetPassword />} />
               </Route>
             </Route>
 

@@ -1,9 +1,7 @@
 import { useLogOut } from "../../features/auth/useLogOut";
-import { useUser } from "../../features/auth/useUser";
 import AuthButton from "./AuthButton";
 
-function AuthButtonGroup({ closeModal, ref }) {
-  const { isAuthenticated } = useUser();
+function AuthButtonGroup({ closeModal, ref, isActive }) {
   const { logout } = useLogOut();
 
   return (
@@ -11,7 +9,7 @@ function AuthButtonGroup({ closeModal, ref }) {
       className={`${ref ? "flex-col px-10" : "border-t-grayCB flex-row border-t"} text-primary-600 flex w-full items-center justify-center gap-4 bg-white pt-[14.48px] pb-14 leading-6 capitalize max-[390px]:flex-col max-md:justify-between`}
       ref={ref}
     >
-      {!isAuthenticated ? (
+      {!isActive ? (
         <AuthButton text={"log in"} link={"/login"} onCloseModal={closeModal} />
       ) : (
         <AuthButton
@@ -20,11 +18,11 @@ function AuthButtonGroup({ closeModal, ref }) {
             closeModal();
             logout();
           }}
-          authenticated={isAuthenticated}
+          authenticated={isActive}
         />
       )}
 
-      {!isAuthenticated && (
+      {!isActive && (
         <AuthButton
           text={"create account"}
           link={"/create-account"}

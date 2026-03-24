@@ -9,7 +9,7 @@ export async function signUpWithEmailAndPassword({
     email,
     password,
     options: {
-      emailRedirectTo: "http://localhost:5173/login",
+      emailRedirectTo: "https://modimal-store.vercel.app/login",
       data: {
         fullName,
         avatar: "",
@@ -83,6 +83,31 @@ export async function getCurrentUser() {
   }
 
   return user;
+}
+
+export async function updateCurrentUserData({ password }) {
+  let updateData;
+  if (password) updateData = { password };
+
+  const { data, error } = await supabase.auth.updateUser(updateData);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function sendResetPasswordEmail({ email }) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "https://modimal-store.vercel.app/update-password",
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 }
 
 export async function signOut() {
