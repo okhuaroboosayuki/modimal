@@ -1,7 +1,7 @@
-function EmptyProduct() {
+function EmptyProduct({ message = "No products available." }) {
   return (
-    <p className="flex w-full items-center justify-center">
-      No products available.
+    <p className="text-neutral-black flex w-full items-center justify-center">
+      {message}
     </p>
   );
 }
