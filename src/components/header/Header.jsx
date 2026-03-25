@@ -1,4 +1,3 @@
-import { RiHeartLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import Modal from "../../features/modal/Modal";
 import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
@@ -8,6 +7,7 @@ import Logo from "./../icons/Logo";
 import ShoppingBagIcon from "./../icons/ShoppingBagIcon";
 import { ProgressLink } from "../ProgressLinks";
 import UserProfileButton from "./user/UserProfileButton";
+import FavoriteButton from "./user/FavoriteButton";
 
 function Header() {
   const { isModalOpen } = useSelector((store) => store.modalOpen);
@@ -43,9 +43,7 @@ function Header() {
 
             <UserProfileButton />
 
-            <li className="icon">
-              <RiHeartLine className="cursor-pointer" />
-            </li>
+            <FavoriteButton />
 
             <li className="icon">
               <ShoppingBagIcon className="cursor-pointer" />
