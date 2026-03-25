@@ -6,11 +6,10 @@ import useImageStatus from "../../hooks/useImageStatus";
 import { SmallLoader } from "../Loaders";
 import { ProductImgLoadMsg } from "./EmptyProduct";
 import { ProgressLink } from "../ProgressLinks";
+import ProductCardFavoriteButton from "./ProductCardFavoriteButton";
+import { useFavoriteProducts } from "../../features/favorites/useFavoriteProducts";
 
-function ProductCard({
-  product,
-  heightInSmallScreens = "max-sm:h-[15.3125rem]",
-}) {
+function ProductCard({ product }) {
   const {
     id,
     created_at,
@@ -27,14 +26,20 @@ function ProductCard({
 
   const { imgLoading, imgLoadError } = useImageStatus(productImageUrl);
 
+  const { favoriteProducts, isFavoriteLoading } = useFavoriteProducts();
+
+  const isProductInFavorites = favoriteProducts?.data?.some(
+    (product) => product.id === id,
+  );
+
   const isProductNew = isDaysUpToTwoWeeks(created_at);
 
   return (
     <div className="flex h-fit w-full flex-col items-start gap-4">
       <div
-        className={`relative w-full overflow-hidden ${heightInSmallScreens} sm:h-[27.375rem] lg:h-[20rem] xl:h-[27.375rem]`}
+        className={`relative h-[20rem] w-full overflow-hidden sm:h-[27.375rem]`}
       >
-        {imgLoading ? (
+        {imgLoading || isFavoriteLoading ? (
           <SmallLoader />
         ) : imgLoadError ? (
           <ProductImgLoadMsg />
@@ -60,9 +65,10 @@ function ProductCard({
               )}
             </div>
 
-            <span className="icon absolute top-2.5 right-2 md:top-6 md:right-4">
-              <HeartIcon className={"cursor-pointer"} />
-            </span>
+            <ProductCardFavoriteButton
+              productId={id}
+              isProductInFavorites={isProductInFavorites}
+            />
           </>
         )}
       </div>

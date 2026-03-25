@@ -125,7 +125,7 @@
   }
 
   .product-container {
-    @apply relative grid w-full justify-items-end gap-y-8 pb-12 lg:gap-x-9 xl:gap-x-6;
+    @apply relative grid w-full justify-items-center gap-y-8 pb-12 lg:gap-x-9 xl:gap-x-6;
     grid:
       "header header header" auto
       "leftSide body ." 1fr
