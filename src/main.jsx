@@ -11,7 +11,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ErrorBoundary
       FallbackComponent={ErrorFallBack}
-      onReset={() => window.location.replace("/")}
+      onReset={() => window.location.reload()}
     >
       <Provider store={store}>
         <App />
