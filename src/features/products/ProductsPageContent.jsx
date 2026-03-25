@@ -77,7 +77,9 @@ function ProductsPageContent({
           {searchQueryState && <Search height="0" />}
 
           {searchQuery && products.length !== 0 && (
-            <p className="hidden text-[20px] lg:block">{totalItems} items</p>
+            <p className="hidden text-[20px] lg:block">
+              {totalItems} item{totalItems > 1 ? "s" : ""}
+            </p>
           )}
           <>
             <Modal.Open opens={"mobile-filter"}>

@@ -9,7 +9,7 @@ function ProductsList({
   fetchNextPage,
 }) {
   return (
-    <section className="grid-body constant-padding mt-8 grid w-full grid-cols-2 gap-x-4 gap-y-10 md:gap-x-6">
+    <section className="grid-body mt-8 grid w-full grid-cols-2 gap-x-4 gap-y-10 max-md:px-5 md:w-[650px] md:gap-x-6 xl:w-[780px]">
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}

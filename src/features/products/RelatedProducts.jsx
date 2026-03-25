@@ -11,13 +11,6 @@ function RelatedProducts({ isLoading, relatedProducts }) {
   // Adjust carousel width and padding based on the number of related products
   const isRelatedProductsOne = relatedProducts.length === 1;
   const isTwoOrLessProducts = relatedProducts.length <= 2;
-  const isBetweenThreeAndFourProducts =
-    relatedProducts.length > 2 && relatedProducts.length < 4;
-  const conditionalStyles = isTwoOrLessProducts
-    ? "px-5"
-    : isBetweenThreeAndFourProducts
-      ? "w-9/5 pl-5 sm:w-[80rem]"
-      : "w-[64rem] pl-5 sm:w-[100rem]";
 
   function handleMouseDown(e) {
     const slider = sliderRef.current;
@@ -45,14 +38,12 @@ function RelatedProducts({ isLoading, relatedProducts }) {
   }
 
   return (
-    <section className="flex w-full touch-pan-x flex-col items-start gap-8 sm:px-13 xl:px-32">
+    <section className="flex w-full touch-pan-x flex-col items-start gap-8 px-5 sm:px-13 xl:px-32">
       <h3 className="px-5 text-base font-medium capitalize sm:text-[2rem]">
         you may also like
       </h3>
 
-      <div
-        className={`${isRelatedProductsOne ? "w-1/4" : isTwoOrLessProducts ? "w-full sm:w-1/2" : "w-full"}`}
-      >
+      <div className={`w-full`}>
         {isLoading ? (
           <div className="w-full">
             <LoadingSpinner />
@@ -67,16 +58,10 @@ function RelatedProducts({ isLoading, relatedProducts }) {
             onMouseLeave={handleMouseLeave}
           >
             <div
-              className={`${conditionalStyles} flex h-full gap-4 select-none sm:gap-6`}
+              className={`flex h-full ${isRelatedProductsOne ? "w-[300px]" : isTwoOrLessProducts ? "" : "w-[1000px] xl:w-[1200px]"} gap-6 select-none`}
             >
               {relatedProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  heightInSmallScreens={
-                    isTwoOrLessProducts ? "h-[22rem]" : "h-[20rem]"
-                  }
-                />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           </div>
