@@ -13,7 +13,10 @@ import SignUp from "./features/auth/SignUp";
 import Login from "./features/auth/Login";
 import ResetPassword from "./features/auth/ResetPassword";
 import UpdatePassword from "./features/auth/UpdatePassword";
-import ProtectedRoutes from "./components/ProtectedRoutes";
+import {
+  OtherProtectedRoutes,
+  ProtectedRoutes,
+} from "./components/ProtectedRoutes";
 
 const Home = lazy(() => import("./pages/Home"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
@@ -31,6 +34,7 @@ const PlusSize = lazy(() => import("./pages/PlusSize"));
 const BestSeller = lazy(() => import("./pages/BestSeller"));
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
+const Favorites = lazy(() => import("./pages/Favorites"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -77,6 +81,14 @@ function App() {
               <Route path="fall-collection" element={<AllProducts />} />
               <Route path="suiting" element={<NewProducts />} />
               <Route path="product/:productId" element={<SingleProduct />} />
+              <Route
+                path="favorites"
+                element={
+                  <OtherProtectedRoutes>
+                    <Favorites />
+                  </OtherProtectedRoutes>
+                }
+              />
 
               <Route
                 element={

@@ -3,7 +3,7 @@ import { useUser } from "../features/auth/useUser";
 import { useEffect } from "react";
 import { PageLoader } from "./Loaders";
 
-function ProtectedRoutes({ children, allowPasswordRecovery = false }) {
+export function ProtectedRoutes({ children, allowPasswordRecovery = false }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, isLoading } = useUser();
@@ -33,4 +33,23 @@ function ProtectedRoutes({ children, allowPasswordRecovery = false }) {
   if (!isAuthenticated) return children;
 }
 
-export default ProtectedRoutes;
+export function OtherProtectedRoutes({ children }) {
+  const navigate = useNavigate();
+  const { isAuthenticated, isLoading } = useUser();
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (!isAuthenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+
+  if (isLoading) {
+    return <PageLoader />;
+  }
+
+  if (isAuthenticated) return children;
+}
+
+OtherProtectedRoutes;
