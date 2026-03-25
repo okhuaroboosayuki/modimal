@@ -1,5 +1,4 @@
 import { formatCurrency } from "../../utils/numberFormatter";
-import HeartIcon from "../icons/HeartIcon";
 import { isDaysUpToTwoWeeks } from "../../utils/dateFormatters";
 import ColorWidget from "../ColorWidget";
 import useImageStatus from "../../hooks/useImageStatus";
