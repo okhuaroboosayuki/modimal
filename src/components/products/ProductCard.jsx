@@ -28,7 +28,7 @@ function ProductCard({ product }) {
   const { favoriteProducts, isFavoriteLoading } = useFavoriteProducts();
 
   const isProductInFavorites = favoriteProducts?.data?.some(
-    (product) => product.id === id,
+    (product) => product.product_id === id,
   );
 
   const isProductNew = isDaysUpToTwoWeeks(created_at);

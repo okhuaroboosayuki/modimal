@@ -224,7 +224,7 @@ export async function getProductsByBestSeller({
 export async function addFavoriteProduct({ userId, productId }) {
   const { error } = await supabase
     .from("users_favorite_products")
-    .insert({ id: productId, user_id: userId });
+    .insert({ product_id: productId, user_id: userId });
 
   if (error) {
     throw new Error(error.message);
@@ -235,7 +235,7 @@ export async function removeFavoriteProduct({ userId, productId }) {
   const { error } = await supabase
     .from("users_favorite_products")
     .delete()
-    .eq("id", productId)
+    .eq("product_id", productId)
     .eq("user_id", userId);
 
   if (error) {
@@ -246,7 +246,7 @@ export async function removeFavoriteProduct({ userId, productId }) {
 export async function getFavoriteProducts() {
   const { data, error, count } = await supabase
     .from("users_favorite_products")
-    .select("id, products(*))", { count: "exact" });
+    .select("id, product_id, products(*)", { count: "exact" });
 
   if (error) {
     throw new Error(error.message);
