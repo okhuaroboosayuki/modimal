@@ -9,10 +9,9 @@ function FavoritesPageContent() {
 
   const products =
     favoriteProducts?.data?.flatMap((product) => product.products) || [];
-  console.log(products);
 
   return (
-    <section className="flex w-full flex-col items-center gap-14 px-14 pt-11 pb-12 capitalize max-[400px]:px-12 sm:px-5 md:px-14 lg:px-20 xl:px-27">
+    <section className="flex w-full flex-col items-center gap-14 px-5 pt-11 pb-12 capitalize md:px-14 lg:px-20 xl:px-27">
       <section className="flex flex-col items-center gap-4">
         <h1 className="text-neutral-black text-[1.25rem] font-semibold">
           my wish list
