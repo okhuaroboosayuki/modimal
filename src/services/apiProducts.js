@@ -170,11 +170,7 @@ export async function getProductsByPlusSize({
   const from = page * pageSize;
   const to = from + pageSize - 1;
 
-  let query = supabase.rpc(
-    "get_products_with_plus_size",
-    { _size: "XL" },
-    { count: "exact" },
-  );
+  let query = supabase.rpc("get_plus_size_products", {}, { count: "exact" });
 
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
