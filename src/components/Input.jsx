@@ -22,7 +22,7 @@ function Input({
       onBlur={onBlur}
       onFocus={onFocus}
       autoFocus={type === "search"}
-      className={`${width} ${customStyle} text-sm outline-none placeholder:text-xs`}
+      className={`${width} ${customStyle} text-base outline-none placeholder:text-xs`}
       spellCheck={type === "search"}
       aria-label={type === "search" ? "Search through site content" : undefined}
       disabled={disabled}
