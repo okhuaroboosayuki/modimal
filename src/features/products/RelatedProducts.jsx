@@ -58,7 +58,7 @@ function RelatedProducts({ isLoading, relatedProducts }) {
             onMouseLeave={handleMouseLeave}
           >
             <div
-              className={`flex h-full ${isRelatedProductsOne ? "w-[300px]" : isTwoOrLessProducts ? "" : "w-[1000px] xl:w-[1200px]"} gap-6 select-none`}
+              className={`flex h-full ${isRelatedProductsOne ? "w-[300px]" : isTwoOrLessProducts ? "w-[700px]" : "w-[1000px] xl:w-[1200px]"} gap-6 select-none`}
             >
               {relatedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
