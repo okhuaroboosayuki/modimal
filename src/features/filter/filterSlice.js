@@ -1,8 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // colors: [],
-  // fabrics: [],
   products: [],
   filteredList: [],
 };
@@ -12,20 +10,6 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setProducts: (state, action) => {
-      // state.colors = Array.from(
-      //   new Set(action.payload.flatMap((product) => product.availableColors)),
-      // ).map((color) => ({
-      //   value: color,
-      //   label: color,
-      // }));
-
-      // state.fabrics = action.payload.reduce((acc, product) => {
-      //   const type = product.fabricDetails.type;
-      //   if (!acc.some((opt) => opt.value === type)) {
-      //     acc.push({ value: type, label: type });
-      //   }
-      //   return acc;
-      // }, []);
       state.products = action.payload;
     },
     addToFilteredList: {
