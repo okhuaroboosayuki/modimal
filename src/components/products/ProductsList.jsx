@@ -9,7 +9,7 @@ function ProductsList({
   fetchNextPage,
 }) {
   return (
-    <section className="grid-body mt-8 grid w-full grid-cols-2 gap-x-4 gap-y-10 max-md:px-5 md:w-[650px] md:gap-x-6 xl:w-[780px]">
+    <section className="grid-body mt-8 grid w-full grid-cols-2 gap-x-4 gap-y-10 max-md:px-5 md:w-[650px] md:gap-x-10 xl:w-[680px]">
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}
