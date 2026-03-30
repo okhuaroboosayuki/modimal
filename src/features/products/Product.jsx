@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useRelatedProducts } from "./useRelatedProducts";
 import { LoadingSpinner } from "../../components/Loaders";
 import ProductDetailsAccordion from "../../components/products/ProductDetailsAccordion";
@@ -8,7 +7,7 @@ import AccordionGroup from "./AccordionGroup";
 import RelatedProducts from "./RelatedProducts";
 import BreadCrumbs from "../../components/BreadCrumbs";
 
-function Product({ data, loader }) {
+function Product({ data, isLoading }) {
   const {
     id,
     productName,
@@ -27,22 +26,13 @@ function Product({ data, loader }) {
   const relatedProductsData =
     relatedProducts?.data?.filter((product) => product.id !== id) || [];
 
-  //scroll to breadcrumb when url changes to a different product
-  const urlPath = location.pathname;
-  useEffect(() => {
-    const breadcrumbWrapper = document.getElementById("breadcrumb_wrapper");
-    if (breadcrumbWrapper) {
-      breadcrumbWrapper.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [urlPath]);
-
   return (
     <section className="flex w-full flex-col gap-2 py-8 sm:gap-12">
       <div className="px-5 sm:px-13 xl:px-32" id="breadcrumb_wrapper">
         <BreadCrumbs productCategory={category} productName={productName} />
       </div>
 
-      {loader ? (
+      {isLoading ? (
         <div className="w-full">
           <LoadingSpinner />
         </div>
@@ -57,6 +47,7 @@ function Product({ data, loader }) {
 
             {/* title, colors, CTA */}
             <ProductInfo
+              id={id}
               productName={productName}
               description={description}
               availableColors={availableColors}
