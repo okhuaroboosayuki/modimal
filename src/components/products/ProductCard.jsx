@@ -6,7 +6,7 @@ import { SmallLoader } from "../Loaders";
 import { ProductImgLoadMsg } from "./EmptyProduct";
 import { ProgressLink } from "../ProgressLinks";
 import ProductCardFavoriteButton from "./ProductCardFavoriteButton";
-import { useFavoriteProducts } from "../../features/favorites/useFavoriteProducts";
+import { useToggleFavorite } from "../../hooks/useToggleFavorite";
 
 function ProductCard({ product }) {
   const {
@@ -25,11 +25,12 @@ function ProductCard({ product }) {
 
   const { imgLoading, imgLoadError } = useImageStatus(productImageUrl);
 
-  const { favoriteProducts, isFavoriteLoading } = useFavoriteProducts();
-
-  const isProductInFavorites = favoriteProducts?.data?.some(
-    (product) => product.product_id === id,
-  );
+  const {
+    handleAddFavorite,
+    handleRemoveFavorite,
+    isProductInFavorites,
+    isFavoriteLoading,
+  } = useToggleFavorite(id);
 
   const isProductNew = isDaysUpToTwoWeeks(created_at);
 
@@ -65,7 +66,8 @@ function ProductCard({ product }) {
             </div>
 
             <ProductCardFavoriteButton
-              productId={id}
+              handleAddFavorite={handleAddFavorite}
+              handleRemoveFavorite={handleRemoveFavorite}
               isProductInFavorites={isProductInFavorites}
             />
           </>

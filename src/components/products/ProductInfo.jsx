@@ -1,8 +1,20 @@
-import { RiHeartLine, RiTruckLine } from "react-icons/ri";
+import { RiHeartFill, RiHeartLine, RiTruckLine } from "react-icons/ri";
 import ColorWidget from "../ColorWidget";
 import Button from "../Button";
+import { useToggleFavorite } from "../../hooks/useToggleFavorite";
 
-function ProductInfo({ productName, description, availableColors }) {
+function ProductInfo({ id, productName, description, availableColors }) {
+  const { handleAddFavorite, handleRemoveFavorite, isProductInFavorites } =
+    useToggleFavorite(id);
+
+  const handleClick = () => {
+    if (!isProductInFavorites) {
+      handleAddFavorite();
+    } else {
+      handleRemoveFavorite();
+    }
+  };
+
   return (
     <section className="flex w-full flex-col items-start justify-start gap-6 px-5 sm:px-13 md:px-0 lg:w-fit">
       {/* title */}
@@ -60,11 +72,20 @@ function ProductInfo({ productName, description, availableColors }) {
           <span>easy return</span>
         </div>
 
-        <div className="flex cursor-pointer items-center gap-1">
+        <div
+          className="flex cursor-pointer items-center gap-1"
+          onClick={handleClick}
+        >
           <span className="icon">
-            <RiHeartLine />
+            {isProductInFavorites ? (
+              <RiHeartFill fill="red" />
+            ) : (
+              <RiHeartLine />
+            )}
           </span>
-          <span>add to wishlist</span>
+          <span>
+            {isProductInFavorites ? "remove from " : "add to "} wishlist
+          </span>
         </div>
       </div>
     </section>
