@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { LoadingSpinner } from "../../components/Loaders";
-import ProductCard from "../../components/products/ProductCard";
+import { LoadingSpinner } from "../../../components/Loaders";
+import ProductCard from "./../../../components/products/ProductCard";
 
 function RelatedProducts({ isLoading, relatedProducts }) {
   const sliderRef = useRef(null);
