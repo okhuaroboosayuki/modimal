@@ -1,11 +1,11 @@
 import { useRelatedProducts } from "./useRelatedProducts";
 import { LoadingSpinner } from "../../components/Loaders";
 import ProductDetailsAccordion from "../../components/products/ProductDetailsAccordion";
-import ProductImageCarousel from "./ProductImageCarousel";
-import ProductInfo from "../../components/products/ProductInfo";
+import ProductImageCarousel from "./singleProduct/ProductImageCarousel";
 import AccordionGroup from "./AccordionGroup";
-import RelatedProducts from "./RelatedProducts";
 import BreadCrumbs from "../../components/BreadCrumbs";
+import ProductInfo from "./singleProduct/ProductInfo";
+import RelatedProducts from "./singleProduct/RelatedProducts";
 
 function Product({ data, isLoading }) {
   const {
@@ -18,6 +18,7 @@ function Product({ data, isLoading }) {
     fittingDetails,
     productDetails,
     fabricDetails,
+    availableSizes,
   } = data?.data[0] || {};
 
   const { relatedProducts, isRelatedProductLoading } =
@@ -51,6 +52,7 @@ function Product({ data, isLoading }) {
               productName={productName}
               description={description}
               availableColors={availableColors}
+              availableSizes={availableSizes}
             />
           </section>
 
