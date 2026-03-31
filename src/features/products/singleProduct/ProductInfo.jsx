@@ -1,11 +1,24 @@
 import { RiHeartFill, RiHeartLine, RiTruckLine } from "react-icons/ri";
-import ColorWidget from "../ColorWidget";
-import Button from "../Button";
-import { useToggleFavorite } from "../../hooks/useToggleFavorite";
+import ColorWidget from "../../../components/ColorWidget";
+import Button from "../../../components/Button";
+import { useToggleFavorite } from "../../../hooks/useToggleFavorite";
+import CustomSelect from "./CustomSelect";
+import { Controller, useForm } from "react-hook-form";
 
-function ProductInfo({ id, productName, description, availableColors }) {
+function ProductInfo({
+  id,
+  productName,
+  description,
+  availableColors,
+  availableSizes,
+}) {
   const { handleAddFavorite, handleRemoveFavorite, isProductInFavorites } =
     useToggleFavorite(id);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
 
   const handleClick = () => {
     if (!isProductInFavorites) {
@@ -15,8 +28,15 @@ function ProductInfo({ id, productName, description, availableColors }) {
     }
   };
 
+  const submit = ({ size }) => {
+    console.log(size);
+  };
+
   return (
-    <section className="flex w-full flex-col items-start justify-start gap-6 px-5 sm:px-13 md:px-0 lg:w-fit">
+    <form
+      className="flex w-full flex-col items-start justify-start gap-6 px-5 sm:px-13 md:px-0 lg:w-fit"
+      onSubmit={handleSubmit(submit)}
+    >
       {/* title */}
       <div className="flex flex-col gap-4 sm:gap-8">
         <h1 className="text-neutral-black text-[32px] font-medium">
@@ -42,17 +62,19 @@ function ProductInfo({ id, productName, description, availableColors }) {
         <div className="flex w-full flex-col">
           <span className="text-gray86 self-end">Size guide</span>
 
-          <select
+          <Controller
             name="size"
-            id="select-size"
-            className="border-grayDF cursor-pointer border p-2 text-base font-medium outline-none focus:border-black"
-          >
-            <option value="">Size</option>
-            <option value="S">Small</option>
-            <option value="M">Medium</option>
-            <option value="L">Large</option>
-            <option value="XL">Extra Large</option>
-          </select>
+            control={control}
+            rules={{ required: "This field is required" }}
+            render={({ field }) => (
+              <CustomSelect
+                options={availableSizes}
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                error={errors.size}
+              />
+            )}
+          />
         </div>
 
         <Button
@@ -88,7 +110,7 @@ function ProductInfo({ id, productName, description, availableColors }) {
           </span>
         </div>
       </div>
-    </section>
+    </form>
   );
 }
 
