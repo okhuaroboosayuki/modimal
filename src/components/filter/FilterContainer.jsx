@@ -39,7 +39,7 @@ function FilterContainer({ closeModal }) {
         {!closeModal && filteredList.length > 0 && (
           <Button
             clickHandler={clearAllFilters}
-            styles={"bg-white w-[180px] text-primary-600 self-end"}
+            className={"text-primary-600 w-[180px] self-end bg-white"}
           >
             clear filters
           </Button>
@@ -51,7 +51,7 @@ function FilterContainer({ closeModal }) {
       {closeModal && filteredList.length > 0 && (
         <Button
           clickHandler={clearAllFilters}
-          styles={"bg-white w-[180px] text-primary-600 self-end"}
+          className={"text-primary-600 w-[180px] self-end bg-white"}
         >
           clear filters
         </Button>

@@ -1,9 +1,9 @@
 import { RiHeartFill, RiHeartLine, RiTruckLine } from "react-icons/ri";
-import ColorWidget from "../../../components/ColorWidget";
 import Button from "../../../components/Button";
 import { useToggleFavorite } from "../../../hooks/useToggleFavorite";
-import CustomSelect from "./CustomSelect";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import SizeField from "./SizeField";
+import ColorField from "./Colorfield";
 
 function ProductInfo({
   id,
@@ -11,6 +11,7 @@ function ProductInfo({
   description,
   availableColors,
   availableSizes,
+  isOutOfStock,
 }) {
   const { handleAddFavorite, handleRemoveFavorite, isProductInFavorites } =
     useToggleFavorite(id);
@@ -28,8 +29,8 @@ function ProductInfo({
     }
   };
 
-  const submit = ({ size }) => {
-    console.log(size);
+  const submit = ({ size, color }) => {
+    console.log(size, color);
   };
 
   return (
@@ -38,55 +39,40 @@ function ProductInfo({
       onSubmit={handleSubmit(submit)}
     >
       {/* title */}
-      <div className="flex flex-col gap-4 sm:gap-8">
+      <section className="flex flex-col gap-4 sm:gap-8">
         <h1 className="text-neutral-black text-[32px] font-medium">
           {productName}
         </h1>
 
         <p className="text-base">{description}</p>
-      </div>
+      </section>
 
       {/* color */}
-      <div className="flex flex-col items-start gap-3">
-        <span className="font-normal">Colors</span>
-
-        <div className="flex gap-2">
-          {availableColors?.map((color) => (
-            <ColorWidget key={color} color={color} />
-          ))}
-        </div>
-      </div>
+      <ColorField
+        colors={availableColors}
+        control={control}
+        error={errors.color}
+        isOutOfStock={isOutOfStock}
+      />
 
       {/* size select & CTA button */}
-      <div className="flex w-full flex-col gap-4 capitalize">
-        <div className="flex w-full flex-col">
-          <span className="text-gray86 self-end">Size guide</span>
-
-          <Controller
-            name="size"
-            control={control}
-            rules={{ required: "This field is required" }}
-            render={({ field }) => (
-              <CustomSelect
-                options={availableSizes}
-                value={field.value ?? ""}
-                onChange={field.onChange}
-                error={errors.size}
-              />
-            )}
-          />
-        </div>
+      <section className="flex w-full flex-col gap-4">
+        <SizeField
+          control={control}
+          error={errors.size}
+          options={availableSizes}
+          isOutOfStock={isOutOfStock}
+        />
 
         <Button
-          styles={
-            "bg-primary-600 w-full cursor-pointer py-3 text-base! text-white capitalize"
-          }
+          className={`${isOutOfStock ? "bg-gray86 cursor-not-allowed!" : "bg-primary-600"} w-full py-3 text-base text-white capitalize`}
+          isDisabled={isOutOfStock}
         >
-          add to cart
+          {isOutOfStock ? "out of stock" : "add to cart"}
         </Button>
-      </div>
+      </section>
 
-      <div className="text-gray86 flex w-full flex-col-reverse items-center justify-between gap-1.5 capitalize sm:flex-row">
+      <section className="text-gray86 flex w-full flex-col-reverse items-center justify-between gap-1.5 capitalize sm:flex-row">
         <div className="flex items-center gap-1">
           <span className="icon">
             <RiTruckLine />
@@ -109,7 +95,7 @@ function ProductInfo({
             {isProductInFavorites ? "remove from " : "add to "} wishlist
           </span>
         </div>
-      </div>
+      </section>
     </form>
   );
 }

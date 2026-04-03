@@ -17,8 +17,8 @@ function ProductsList({
       {hasNextPage && (
         <div className="col-span-2 flex justify-center">
           <Button
-            styles={
-              "font-medium text-primary-600 border-primary-600! w-[11.5rem]"
+            className={
+              "text-primary-600 border-primary-600! w-[11.5rem] font-medium"
             }
             clickHandler={() => fetchNextPage()}
             isDisabled={isFetchingNextPage}

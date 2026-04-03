@@ -19,6 +19,7 @@ function Product({ data, isLoading }) {
     productDetails,
     fabricDetails,
     availableSizes,
+    stockQuantity,
   } = data?.data[0] || {};
 
   const { relatedProducts, isRelatedProductLoading } =
@@ -26,6 +27,8 @@ function Product({ data, isLoading }) {
 
   const relatedProductsData =
     relatedProducts?.data?.filter((product) => product.id !== id) || [];
+
+  const isOutOfStock = stockQuantity < 1;
 
   return (
     <section className="flex w-full flex-col gap-2 py-8 sm:gap-12">
@@ -53,6 +56,8 @@ function Product({ data, isLoading }) {
               description={description}
               availableColors={availableColors}
               availableSizes={availableSizes}
+              isOutOfStock={isOutOfStock}
+              key={id}
             />
           </section>
 
