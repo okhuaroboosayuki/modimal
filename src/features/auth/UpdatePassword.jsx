@@ -56,7 +56,7 @@ function UpdatePassword() {
           />
 
           <Button
-            styles={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
+            className={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
             isDisabled={isLoading}
           >
             {isLoading ? "updating..." : "Update Password"}

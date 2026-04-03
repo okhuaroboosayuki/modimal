@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { ProgressLink } from "../../components/ProgressLinks";
 import { useLogin } from "./useLogin";
 import Button from "../../components/Button";
-import SocialMediaAuthIcons from "../../components/auth/SocialMediaAuthIcons";
 import FormField from "./FormField";
 import PasswordField from "./PasswordField";
 import { useState } from "react";
@@ -76,7 +75,7 @@ function Login() {
             </ProgressLink>
 
             <Button
-              styles={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
+              className={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
               isDisabled={isLoading}
             >
               {isLoading ? "logging in..." : "log in"}

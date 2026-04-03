@@ -50,7 +50,7 @@ function ResetPassword() {
           </ProgressLink>
 
           <Button
-            styles={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
+            className={`${isLoading ? "bg-primary-750" : "bg-primary-600"} transition-500-in-out hover:bg-primary-750 text-white`}
             isDisabled={isLoading}
           >
             {isLoading ? "sending..." : "Send Reset Link"}
