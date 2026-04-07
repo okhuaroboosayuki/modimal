@@ -53,12 +53,7 @@ function Open({ opens: windowName, children }) {
       cloneElement(children, {
         onClick: openWindow,
         tabIndex: 0,
-        ...(openName === "search" ||
-        openName === "mobile-search" ||
-        openName === "mobile-menu" ||
-        openName === "mobile-filter"
-          ? { windowname: openName }
-          : {}),
+        windowname: openName,
       }),
     [children, openName, openWindow],
   );
