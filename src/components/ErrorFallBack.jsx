@@ -12,7 +12,7 @@ function ErrorFallBack({ error, resetErrorBoundary }) {
           onClick={resetErrorBoundary}
           className="bg-success-bg hover:bg-success transition-500-in-out cursor-pointer border p-3 uppercase hover:text-white"
         >
-          try again
+          reload page
         </button>
       </div>
     </section>
