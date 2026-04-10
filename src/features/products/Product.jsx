@@ -26,7 +26,8 @@ function Product({ data, isLoading }) {
     useRelatedProducts(category);
 
   const relatedProductsData =
-    relatedProducts?.data?.filter((product) => product.id !== id) || [];
+    relatedProducts?.filter((product) => product.id !== id) || [];
+  console.log(relatedProductsData);
 
   const isOutOfStock = stockQuantity < 1;
 

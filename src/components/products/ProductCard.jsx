@@ -11,7 +11,7 @@ import useImageStatus from "../../hooks/useImageStatus";
 import ProductCardFavoriteButton from "./ProductCardFavoriteButton";
 import ProductCardButton from "./ProductCardButton";
 
-function ProductCard({ product }) {
+function ProductCard({ product, isRelatedProductPage = false }) {
   const {
     id,
     created_at,
@@ -98,16 +98,18 @@ function ProductCard({ product }) {
               isProductInFavorites={isProductInFavorites}
             />
 
-            <div className="absolute bottom-3 w-full px-3 sm:px-6">
-              <ProductCardButton
-                product={product}
-                isOutOfStock={isOutOfStock}
-                isLastImage={isLastImage}
-                isSingleImage={productImages.length === 1}
-                hovered={hovered}
-                onNextClick={handleNextClick}
-              />
-            </div>
+            {isRelatedProductPage === false && (
+              <div className="absolute bottom-3 w-full px-3 sm:px-6">
+                <ProductCardButton
+                  product={product}
+                  isOutOfStock={isOutOfStock}
+                  isLastImage={isLastImage}
+                  isSingleImage={productImages.length === 1}
+                  hovered={hovered}
+                  onNextClick={handleNextClick}
+                />
+              </div>
+            )}
           </>
         )}
       </div>
