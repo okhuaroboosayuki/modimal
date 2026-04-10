@@ -1,9 +1,16 @@
 import { RiHeartFill, RiHeartLine, RiTruckLine } from "react-icons/ri";
-import Button from "../../../components/Button";
 import { useToggleFavorite } from "../../../hooks/useToggleFavorite";
 import { useForm } from "react-hook-form";
 import SizeField from "./SizeField";
 import ColorField from "./Colorfield";
+import {
+  addToGuestCart,
+  removeFromGuestCart,
+  updateGuestCartItem,
+  updateGuestCartQuantity,
+  useGuestCart,
+} from "../../../utils/guestCart";
+import CTAButton from "./CTAButton";
 
 function ProductInfo({
   id,
@@ -12,16 +19,26 @@ function ProductInfo({
   availableColors,
   availableSizes,
   isOutOfStock,
+  product,
 }) {
   const { handleAddFavorite, handleRemoveFavorite, isProductInFavorites } =
     useToggleFavorite(id);
+
+  const cart = useGuestCart();
+  const cartItem = cart.find((item) => item.product_id === id);
+
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      color: cartItem?.selected_color ?? "",
+      size: cartItem?.selected_size ?? "",
+    },
+  });
 
-  const handleClick = () => {
+  const handleClickFavorite = () => {
     if (!isProductInFavorites) {
       handleAddFavorite();
     } else {
@@ -29,8 +46,43 @@ function ProductInfo({
     }
   };
 
+  const handleItemQuantityIncrease = () => {
+    if (cartItem.quantity >= product.stockQuantity) return;
+
+    updateGuestCartQuantity({
+      productId: id,
+      selectedSize: cartItem.selected_size,
+      selectedColor: cartItem.selected_color,
+      quantity: cartItem.quantity + 1,
+    });
+  };
+
+  const handleItemQuantityDecrease = () => {
+    if (cartItem.quantity === 1) {
+      removeFromGuestCart({
+        productId: id,
+        selectedSize: cartItem.selected_size,
+        selectedColor: cartItem.selected_color,
+      });
+      return;
+    }
+    updateGuestCartQuantity({
+      productId: id,
+      selectedSize: cartItem.selected_size,
+      selectedColor: cartItem.selected_color,
+      quantity: cartItem.quantity - 1,
+    });
+  };
+
   const submit = ({ size, color }) => {
     console.log(size, color);
+    addToGuestCart({
+      productId: id,
+      quantity: 1,
+      selectedSize: size,
+      selectedColor: color,
+      product,
+    });
   };
 
   return (
@@ -53,6 +105,10 @@ function ProductInfo({
         control={control}
         error={errors.color}
         isOutOfStock={isOutOfStock}
+        onColorChange={(color) => {
+          if (cartItem)
+            updateGuestCartItem({ productId: id, selectedColor: color });
+        }}
       />
 
       {/* size select & CTA button */}
@@ -62,14 +118,20 @@ function ProductInfo({
           error={errors.size}
           options={availableSizes}
           isOutOfStock={isOutOfStock}
+          onSizeChange={(size) => {
+            if (cartItem)
+              updateGuestCartItem({ productId: id, selectedSize: size });
+          }}
         />
 
-        <Button
-          className={`${isOutOfStock ? "bg-gray86 cursor-not-allowed!" : "bg-primary-600"} w-full py-3 text-base text-white capitalize`}
-          isDisabled={isOutOfStock}
-        >
-          {isOutOfStock ? "out of stock" : "add to cart"}
-        </Button>
+        <CTAButton
+          isInCart={!!cartItem}
+          isOutOfStock={isOutOfStock}
+          quantity={cartItem?.quantity}
+          stockQuantity={product.stockQuantity}
+          onIncrease={handleItemQuantityIncrease}
+          onDecrease={handleItemQuantityDecrease}
+        />
       </section>
 
       <section className="text-gray86 flex w-full flex-col-reverse items-center justify-between gap-1.5 capitalize sm:flex-row">
@@ -82,7 +144,7 @@ function ProductInfo({
 
         <div
           className="flex cursor-pointer items-center gap-1"
-          onClick={handleClick}
+          onClick={handleClickFavorite}
         >
           <span className="icon">
             {isProductInFavorites ? (

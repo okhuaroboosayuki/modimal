@@ -57,6 +57,7 @@ function Product({ data, isLoading }) {
               availableColors={availableColors}
               availableSizes={availableSizes}
               isOutOfStock={isOutOfStock}
+              product={data?.data[0]}
               key={id}
             />
           </section>

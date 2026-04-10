@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import CustomSelect from "./CustomSelect";
 
-function SizeField({ control, error, options, isOutOfStock }) {
+function SizeField({ control, error, options, isOutOfStock, onSizeChange }) {
   return (
     <div className="flex w-full flex-col">
       <div className="flex w-full items-center justify-between">
@@ -25,7 +25,10 @@ function SizeField({ control, error, options, isOutOfStock }) {
             <CustomSelect
               options={isOutOfStock ? [] : options}
               value={field.value ?? ""}
-              onChange={field.onChange}
+              onChange={(size) => {
+                field.onChange(size);
+                onSizeChange?.(size);
+              }}
               error={error}
             />
           </div>

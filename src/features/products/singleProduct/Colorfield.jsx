@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import ColorWidget from "../../../components/ColorWidget";
 
-function ColorField({ colors, control, error, isOutOfStock }) {
+function ColorField({ colors, control, error, isOutOfStock, onColorChange }) {
   return (
     <section className="flex flex-col items-start gap-6">
       <div className="flex items-center gap-1">
@@ -21,7 +21,12 @@ function ColorField({ colors, control, error, isOutOfStock }) {
                 color={color}
                 isSelected={field.value === color}
                 onSelect={
-                  !isOutOfStock ? () => field.onChange(color) : undefined
+                  !isOutOfStock
+                    ? () => {
+                        field.onChange(color);
+                        onColorChange?.(color);
+                      }
+                    : undefined
                 }
                 cursor={"cursor-pointer"}
               />

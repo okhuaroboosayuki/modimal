@@ -15,4 +15,3 @@ function ColorWidget({ color, isSelected, onSelect, cursor }) {
 }
 
 export default ColorWidget;
-// #c30000

@@ -4,10 +4,10 @@ import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
 import SearchContainer from "./search/SearchContainer";
 import NavLists from "./nav/NavLists";
 import Logo from "./../icons/Logo";
-import ShoppingBagIcon from "./../icons/ShoppingBagIcon";
 import { ProgressLink } from "../ProgressLinks";
 import UserProfileButton from "./user/UserProfileButton";
 import FavoriteButton from "./user/FavoriteButton";
+import CartModalButton from "./cart/CartModalButton";
 
 function Header() {
   const { isModalOpen } = useSelector((store) => store.modalOpen);
@@ -45,9 +45,7 @@ function Header() {
 
             <FavoriteButton />
 
-            <li className="icon">
-              <ShoppingBagIcon className="cursor-pointer" />
-            </li>
+            <CartModalButton />
           </ul>
         </nav>
       </header>
