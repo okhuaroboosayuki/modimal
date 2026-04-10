@@ -1,5 +1,7 @@
-export const formatCurrency = (value) =>
-  new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN" }).format(
-    value,
-  );
+export const formatCurrency = (value, fraction = 2) =>
+  new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: fraction,
+  }).format(value);
 export const currencies = Intl.supportedValuesOf("currency");
