@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "../../services/apiAuth";
 
@@ -10,7 +11,10 @@ export function useLogOut() {
     mutationFn: signOut,
     onSuccess: () => {
       queryClient.removeQueries();
-      navigate("/", { replace: true });
+      navigate("/login", { replace: true });
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
