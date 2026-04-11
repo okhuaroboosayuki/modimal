@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useToggleFavorite } from "../../hooks/useToggleFavorite";
 import { isDaysUpToTwoWeeks } from "../../utils/dateFormatters";
 import { formatCurrency } from "../../utils/numberFormatter";
-import { addToGuestCart } from "../../utils/guestCart";
 import { SmallLoader } from "../Loaders";
 import { ProductImgLoadMsg } from "./EmptyProduct";
 import { ProgressLink } from "../ProgressLinks";
@@ -10,6 +9,7 @@ import ColorWidget from "../ColorWidget";
 import useImageStatus from "../../hooks/useImageStatus";
 import ProductCardFavoriteButton from "./ProductCardFavoriteButton";
 import ProductCardButton from "./ProductCardButton";
+import useCartFunctions from "../../hooks/useCartFunctions";
 
 function ProductCard({ product, isRelatedProductPage = false }) {
   const {
@@ -29,6 +29,7 @@ function ProductCard({ product, isRelatedProductPage = false }) {
     isProductInFavorites,
     isFavoriteLoading,
   } = useToggleFavorite(id);
+  const { handleAddToCart } = useCartFunctions();
 
   const [hovered, setHovered] = useState(false);
   const [displayedImage, setDisplayedImage] = useState(
@@ -49,11 +50,11 @@ function ProductCard({ product, isRelatedProductPage = false }) {
 
   const handleNextClick = () => {
     if (isLastImage) {
-      addToGuestCart({
-        productId: id,
+      handleAddToCart({
+        product_id: id,
         quantity: 1,
-        selectedSize: availableSizes[0].size,
-        selectedColor: availableColors[0],
+        selected_size: availableSizes[0].size,
+        selected_color: availableColors[0],
         product,
       });
       return;

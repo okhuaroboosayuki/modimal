@@ -44,18 +44,18 @@ export function clearGuestCart() {
 }
 
 export function addToGuestCart({
-  productId,
+  product_id,
   quantity,
-  selectedSize,
-  selectedColor,
+  selected_size,
+  selected_color,
   product,
 }) {
   const cart = getGuestCart();
   const existing = cart.find(
     (item) =>
-      item.product_id === productId &&
-      item.selected_size === selectedSize &&
-      item.selected_color === selectedColor,
+      item.product_id === product_id &&
+      item.selected_size === selected_size &&
+      item.selected_color === selected_color,
   );
 
   if (existing) {
@@ -63,11 +63,11 @@ export function addToGuestCart({
     toast.success("Quantity increased");
   } else {
     cart.push({
-      product_id: productId,
+      product_id,
       quantity,
-      selected_size: selectedSize,
-      selected_color: selectedColor,
-      product_details: product,
+      selected_size,
+      selected_color,
+      products: product,
     });
     toast.success("Item added to cart");
   }
@@ -77,16 +77,16 @@ export function addToGuestCart({
 }
 
 export function removeFromGuestCart({
-  productId,
-  selectedSize,
-  selectedColor,
+  product_id,
+  selected_size,
+  selected_color,
 }) {
   const cart = getGuestCart().filter(
     (item) =>
       !(
-        item.product_id === productId &&
-        item.selected_size === selectedSize &&
-        item.selected_color === selectedColor
+        item.product_id === product_id &&
+        item.selected_size === selected_size &&
+        item.selected_color === selected_color
       ),
   );
 
@@ -96,15 +96,15 @@ export function removeFromGuestCart({
 }
 
 export function updateGuestCartQuantity({
-  productId,
-  selectedSize,
-  selectedColor,
+  product_id,
+  selected_size,
+  selected_color,
   quantity,
 }) {
   const cart = getGuestCart().map((item) =>
-    item.product_id === productId &&
-    item.selected_size === selectedSize &&
-    item.selected_color === selectedColor
+    item.product_id === product_id &&
+    item.selected_size === selected_size &&
+    item.selected_color === selected_color
       ? { ...item, quantity }
       : item,
   );
@@ -114,27 +114,27 @@ export function updateGuestCartQuantity({
 }
 
 export function updateGuestCartItem({
-  productId,
-  selectedSize,
-  selectedColor,
+  product_id,
+  selected_size,
+  selected_color,
 }) {
   const cart = getGuestCart();
 
-  const existing = cart.find((item) => item.product_id === productId);
+  const existing = cart.find((item) => item.product_id === product_id);
   if (!existing) return;
 
   const colorChanged =
-    selectedColor && selectedColor !== existing.selected_color;
-  const sizeChanged = selectedSize && selectedSize !== existing.selected_size;
+    selected_color && selected_color !== existing.selected_color;
+  const sizeChanged = selected_size && selected_size !== existing.selected_size;
 
   if (!colorChanged && !sizeChanged) return;
 
   const newCart = cart.map((item) =>
-    item.product_id === productId
+    item.product_id === product_id
       ? {
           ...item,
-          ...(colorChanged && { selected_color: selectedColor }),
-          ...(sizeChanged && { selected_size: selectedSize }),
+          ...(colorChanged && { selected_color: selected_color }),
+          ...(sizeChanged && { selected_size: selected_size }),
         }
       : item,
   );

@@ -3,14 +3,22 @@ import { useGuestCart } from "./../../utils/guestCart";
 import EmptyCart from "../../components/header/cart/EmptyCart";
 import CartItem from "./CartItem";
 import Button from "../../components/Button";
+import { useUser } from "../auth/useUser";
+import { useCart } from "./useCart";
 
 function Cart({ ref, closeModal }) {
   const guestCart = useGuestCart();
-  const isCartEmpty = guestCart.length === 0;
+  const { isAuthenticated } = useUser();
+  const { cart, totalCartCount } = useCart();
+
+  const isCartEmpty = isAuthenticated
+    ? totalCartCount === 0
+    : guestCart.length === 0;
+  const derivedCart = isAuthenticated ? cart.data : guestCart;
 
   return (
     <section
-      className={`absolute ${isCartEmpty ? "sm:w-[392]" : "h-fit w-full md:w-[628px] md:pb-30"} right-0 max-sm:h-screen md:right-10 lg:right-25`}
+      className={`absolute ${isCartEmpty ? "w-full sm:w-[392px]" : "h-fit w-full md:w-[628px] md:pb-30"} right-0 max-sm:h-screen md:right-10 lg:right-25`}
       ref={ref}
     >
       <div
@@ -39,7 +47,7 @@ function Cart({ ref, closeModal }) {
             </div>
 
             <section className="hide-scrollbar flex h-fit flex-col gap-8 overflow-y-auto">
-              {guestCart?.map((item) => (
+              {derivedCart?.map((item) => (
                 <CartItem
                   key={`${item.product_id}-${item.selected_size}-${item.selected_color}`}
                   item={item}

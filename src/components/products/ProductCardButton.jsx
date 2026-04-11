@@ -1,10 +1,9 @@
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
 import Button from "../Button";
-import {
-  removeFromGuestCart,
-  updateGuestCartQuantity,
-  useGuestCart,
-} from "../../utils/guestCart";
+import { useGuestCart } from "../../utils/guestCart";
+import { useUser } from "../../features/auth/useUser";
+import { useCart } from "../../features/cart/useCart";
+import useCartFunctions from "../../hooks/useCartFunctions";
 
 function ProductCardButton({
   product,
@@ -16,8 +15,15 @@ function ProductCardButton({
 }) {
   const { id, stockQuantity } = product;
 
+  const { isAuthenticated } = useUser();
+  const { cart } = useCart();
   const guestCart = useGuestCart();
-  const cartItem = guestCart.find((item) => item.product_id === id);
+  const { handleUpdateItemQuantity, handleRemoveFromCart } = useCartFunctions();
+
+  const cartItem = isAuthenticated
+    ? cart?.data?.find((item) => item.product_id === id)
+    : guestCart.find((item) => item.product_id === id);
+
   const count = cartItem ? cartItem.quantity : 1;
 
   const isProductInCart = !!cartItem;
@@ -25,29 +31,29 @@ function ProductCardButton({
   const handleIncrease = () => {
     if (count >= stockQuantity) return;
 
-    updateGuestCartQuantity({
-      productId: id,
-      selectedSize: cartItem.selected_size,
-      selectedColor: cartItem.selected_color,
+    handleUpdateItemQuantity({
+      product_id: id,
       quantity: count + 1,
+      selected_size: cartItem.selected_size,
+      selected_color: cartItem.selected_color,
     });
   };
 
   const handleDecrease = () => {
     if (count > 1) {
-      updateGuestCartQuantity({
-        productId: id,
-        selectedSize: cartItem.selected_size,
-        selectedColor: cartItem.selected_color,
+      handleUpdateItemQuantity({
+        product_id: id,
         quantity: count - 1,
+        selected_size: cartItem.selected_size,
+        selected_color: cartItem.selected_color,
       });
       return;
     }
 
-    removeFromGuestCart({
-      productId: id,
-      selectedSize: cartItem.selected_size,
-      selectedColor: cartItem.selected_color,
+    handleRemoveFromCart({
+      product_id: id,
+      selected_size: cartItem.selected_size,
+      selected_color: cartItem.selected_color,
     });
   };
 
@@ -72,7 +78,7 @@ function ProductCardButton({
           <HiOutlineMinus />
         </Button>
 
-        <span className="w-full border-b-2 border-b-white py-2 text-center text-lg text-white backdrop-blur-sm">
+        <span className="border-b-gray20 bg-warning-bg w-full border-b-2 py-2 text-center text-lg text-black">
           {count}
         </span>
 
