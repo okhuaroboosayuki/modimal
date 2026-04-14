@@ -3,14 +3,11 @@ import { useToggleFavorite } from "../../../hooks/useToggleFavorite";
 import { useForm } from "react-hook-form";
 import SizeField from "./SizeField";
 import ColorField from "./Colorfield";
-import {
-  addToGuestCart,
-  removeFromGuestCart,
-  updateGuestCartItem,
-  updateGuestCartQuantity,
-  useGuestCart,
-} from "../../../utils/guestCart";
+import { useGuestCart } from "../../../utils/guestCart";
 import CTAButton from "./CTAButton";
+import { useCart } from "../../cart/useCart";
+import { useUser } from "../../auth/useUser";
+import useCartFunctions from "../../../hooks/useCartFunctions";
 
 function ProductInfo({
   id,
@@ -23,16 +20,27 @@ function ProductInfo({
 }) {
   const { handleAddFavorite, handleRemoveFavorite, isProductInFavorites } =
     useToggleFavorite(id);
+  const {
+    handleAddToCart,
+    handleUpdateItemQuantity,
+    handleRemoveFromCart,
+    handleColorOrSizeUpdate,
+  } = useCartFunctions();
 
-  const cart = useGuestCart();
-  const cartItem = cart.find((item) => item.product_id === id);
+  const { isAuthenticated } = useUser();
+  const { cart } = useCart();
+  const guestCart = useGuestCart();
+
+  const cartItem = isAuthenticated
+    ? cart?.data?.find((item) => item.product_id === id)
+    : guestCart.find((item) => item.product_id === id);
 
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm({
-    defaultValues: {
+    values: {
       color: cartItem?.selected_color ?? "",
       size: cartItem?.selected_size ?? "",
     },
@@ -46,41 +54,40 @@ function ProductInfo({
     }
   };
 
-  const handleItemQuantityIncrease = () => {
+  const handleQuantityIncrease = () => {
     if (cartItem.quantity >= product.stockQuantity) return;
 
-    updateGuestCartQuantity({
-      productId: id,
-      selectedSize: cartItem.selected_size,
-      selectedColor: cartItem.selected_color,
+    handleUpdateItemQuantity({
+      product_id: id,
       quantity: cartItem.quantity + 1,
+      selected_size: cartItem.selected_size,
+      selected_color: cartItem.selected_color,
     });
   };
 
-  const handleItemQuantityDecrease = () => {
-    if (cartItem.quantity === 1) {
-      removeFromGuestCart({
-        productId: id,
-        selectedSize: cartItem.selected_size,
-        selectedColor: cartItem.selected_color,
+  const handleQuantityDecrease = () => {
+    if (cartItem.quantity > 1) {
+      handleUpdateItemQuantity({
+        product_id: id,
+        quantity: cartItem.quantity - 1,
+        selected_size: cartItem.selected_size,
+        selected_color: cartItem.selected_color,
       });
       return;
     }
-    updateGuestCartQuantity({
-      productId: id,
-      selectedSize: cartItem.selected_size,
-      selectedColor: cartItem.selected_color,
-      quantity: cartItem.quantity - 1,
+    handleRemoveFromCart({
+      product_id: id,
+      selected_size: cartItem.selected_size,
+      selected_color: cartItem.selected_color,
     });
   };
 
   const submit = ({ size, color }) => {
-    console.log(size, color);
-    addToGuestCart({
-      productId: id,
+    handleAddToCart({
+      product_id: id,
       quantity: 1,
-      selectedSize: size,
-      selectedColor: color,
+      selected_size: size,
+      selected_color: color,
       product,
     });
   };
@@ -107,7 +114,11 @@ function ProductInfo({
         isOutOfStock={isOutOfStock}
         onColorChange={(color) => {
           if (cartItem)
-            updateGuestCartItem({ productId: id, selectedColor: color });
+            handleColorOrSizeUpdate({
+              product_id: id,
+              selected_color: color,
+              selected_size: null,
+            });
         }}
       />
 
@@ -120,7 +131,11 @@ function ProductInfo({
           isOutOfStock={isOutOfStock}
           onSizeChange={(size) => {
             if (cartItem)
-              updateGuestCartItem({ productId: id, selectedSize: size });
+              handleColorOrSizeUpdate({
+                product_id: id,
+                selected_size: size,
+                selected_color: null,
+              });
           }}
         />
 
@@ -129,8 +144,8 @@ function ProductInfo({
           isOutOfStock={isOutOfStock}
           quantity={cartItem?.quantity}
           stockQuantity={product.stockQuantity}
-          onIncrease={handleItemQuantityIncrease}
-          onDecrease={handleItemQuantityDecrease}
+          onIncrease={handleQuantityIncrease}
+          onDecrease={handleQuantityDecrease}
         />
       </section>
 

@@ -34,7 +34,7 @@ export async function getCart() {
       "id, product_id, quantity, selected_size, selected_color, products(*)",
       { count: "exact" },
     )
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: true });
 
   if (error) throw new Error(error);
 
@@ -93,4 +93,22 @@ export async function updateCartItemQuantity({
     .eq("selected_color", selected_color);
 
   if (error) throw new Error(error);
+}
+
+export async function updateCartColorOrSize({
+  product_id,
+  selected_size,
+  selected_color,
+}) {
+  const updates = {
+    ...(selected_size && { selected_size }),
+    ...(selected_color && { selected_color }),
+  };
+
+  const { error } = await supabase
+    .from("cart")
+    .update(updates)
+    .eq("product_id", product_id);
+
+  if (error) throw new Error(error.message);
 }

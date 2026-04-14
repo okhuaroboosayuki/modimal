@@ -2,9 +2,11 @@ import { useUser } from "../features/auth/useUser";
 import { useAddToCart } from "../features/cart/useAddToCart";
 import { useRemoveFromCart } from "../features/cart/useRemoveFromCart";
 import useUpdateCartItemQuantity from "../features/cart/useUpdateCartItemQuantity";
+import useUpdateColorOrSize from "../features/cart/useUpdateColorOrSize";
 import {
   addToGuestCart,
   removeFromGuestCart,
+  updateGuestCartItem,
   updateGuestCartQuantity,
 } from "../utils/guestCart";
 
@@ -13,6 +15,7 @@ export default function useCartFunctions() {
   const { addItemToCart } = useAddToCart();
   const { removeItemFromCart } = useRemoveFromCart();
   const { updateItemQuantity } = useUpdateCartItemQuantity();
+  const { updateColorOrSize } = useUpdateColorOrSize();
 
   const user_id = data?.id;
 
@@ -88,5 +91,23 @@ export default function useCartFunctions() {
     });
   };
 
-  return { handleAddToCart, handleRemoveFromCart, handleUpdateItemQuantity };
+  const handleColorOrSizeUpdate = ({
+    product_id,
+    selected_size,
+    selected_color,
+  }) => {
+    if (isAuthenticated) {
+      updateColorOrSize({ product_id, selected_size, selected_color });
+      return;
+    }
+
+    updateGuestCartItem({ product_id, selected_size, selected_color });
+  };
+
+  return {
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleUpdateItemQuantity,
+    handleColorOrSizeUpdate,
+  };
 }
