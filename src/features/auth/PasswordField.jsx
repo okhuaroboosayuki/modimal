@@ -16,7 +16,7 @@ function PasswordField({
   const isFloating = isFocused || Boolean(passwordValue);
 
   const handlePasswordVisibility = () => {
-    if (!passwordValue) return;
+    if (!passwordValue || disabled) return;
     setIsVisible((prev) => !prev);
   };
 
@@ -30,7 +30,7 @@ function PasswordField({
       />
 
       <div
-        className={`${disabled ? "border-grayCB cursor-not-allowed" : error ? "border-error" : "border-gray60 focus-within:border-primary-300"} flex w-full border px-4 py-2`}
+        className={`${disabled ? "border-grayCB" : error ? "border-error" : "border-gray60 focus-within:border-primary-300"} flex w-full border px-4 py-2`}
       >
         <Input
           {...props}
@@ -41,7 +41,7 @@ function PasswordField({
             setIsFocused(false);
             props.onBlur?.(e);
           }}
-          customStyle={`w-full placeholder:capitalize ${disabled ? "text-grayCB" : "text-inherit"}`}
+          customStyle={`w-full placeholder:capitalize ${disabled ? "text-grayCB cursor-not-allowed" : "text-inherit"}`}
           disabled={disabled}
         />
 
