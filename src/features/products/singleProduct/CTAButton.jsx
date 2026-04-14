@@ -21,7 +21,7 @@ function CTAButton({
       ) : (
         <div className="flex w-full items-center justify-between gap-4">
           <span
-            className="bg-primary-600 transition-500-in-out w-[50px] cursor-pointer border p-4 text-sm text-white capitalize max-sm:p-3"
+            className="bg-primary-600 transition-500-in-out flex w-[50px] cursor-pointer justify-center border p-4 text-sm text-white capitalize max-sm:p-3"
             onClick={onDecrease}
           >
             <HiOutlineMinus />
@@ -32,7 +32,7 @@ function CTAButton({
           </span>
 
           <span
-            className={`${quantity === stockQuantity ? "bg-gray86 cursor-not-allowed text-white" : "bg-primary-600 cursor-pointer"} transition-500-in-out w-[50px] border p-4 text-sm text-white capitalize max-sm:p-3`}
+            className={`${quantity === stockQuantity ? "bg-gray86 cursor-not-allowed text-white" : "bg-primary-600 cursor-pointer"} transition-500-in-out flex w-[50px] justify-center border p-4 text-sm text-white capitalize max-sm:p-3`}
             onClick={onIncrease}
             aria-disabled={quantity === stockQuantity}
           >
