@@ -11,14 +11,15 @@ export function useLogin() {
 
   const { mutate: login, isPending: isLoading } = useMutation({
     mutationFn: signInWithEmailAndPassword,
-    onSuccess: async (user) => {
+    onSuccess: async () => {
       const guestCartItems = getGuestCart();
 
       if (guestCartItems.length > 0) {
         await migrateGuestCart(guestCartItems);
-        queryClient.invalidateQueries(["cart"]);
       }
-      queryClient.setQueryData(["user"], user.user);
+
+      queryClient.invalidateQueries(["cart"]);
+      queryClient.setQueryData(["user"]);
       toast.success("Login successful");
       navigate("/", { replace: true });
     },
