@@ -27,7 +27,6 @@ function Product({ data, isLoading }) {
 
   const relatedProductsData =
     relatedProducts?.filter((product) => product.id !== id) || [];
-  console.log(relatedProductsData);
 
   const isOutOfStock = stockQuantity < 1;
 

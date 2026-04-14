@@ -100,7 +100,7 @@ function ProductCard({ product, isRelatedProductPage = false }) {
             />
 
             {isRelatedProductPage === false && (
-              <div className="absolute bottom-3 w-full px-3 sm:px-6">
+              <div className="absolute bottom-3 w-full px-1.5 sm:px-6">
                 <ProductCardButton
                   product={product}
                   isOutOfStock={isOutOfStock}

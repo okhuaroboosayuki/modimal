@@ -70,7 +70,7 @@ function ProductCardButton({
 
   if (isProductInCart) {
     return (
-      <div className="flex w-full items-center justify-between gap-4">
+      <div className="flex w-full items-center justify-between gap-2 sm:gap-4">
         <Button
           className="bg-primary-600 w-[50px] text-white max-sm:p-3"
           clickHandler={handleDecrease}
@@ -78,7 +78,7 @@ function ProductCardButton({
           <HiOutlineMinus />
         </Button>
 
-        <span className="border-b-gray20 bg-warning-bg w-full border-b-2 py-2 text-center text-lg text-black">
+        <span className="border-b-gray20 bg-warning-bg w-full border-b-2 p-1 text-center text-lg text-black sm:py-2">
           {count}
         </span>
 
