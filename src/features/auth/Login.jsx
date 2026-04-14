@@ -8,6 +8,9 @@ import PasswordField from "./PasswordField";
 import { useState } from "react";
 import LoginModal from "./LoginModal";
 import AuthFooterSection from "../../components/AuthFooterSection";
+import SEO from "../../components/SEO";
+
+const AUTH_IMAGE = "/images/authImage.png";
 
 function Login() {
   const location = useLocation();
@@ -36,6 +39,13 @@ function Login() {
 
   return (
     <>
+      <SEO
+        title={"Log In to Your Account"}
+        description="Access your Modimal account to manage orders, track shipments, and enjoy a personalized shopping experience."
+        url={"login"}
+        image={AUTH_IMAGE}
+      />
+
       {isModalOpen && <LoginModal closeLoginModal={closeLoginModal} />}
 
       <section className="flex w-full flex-col items-center justify-start gap-8 capitalize lg:mt-36">

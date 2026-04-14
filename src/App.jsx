@@ -5,7 +5,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
+import { HelmetProvider } from "react-helmet-async";
 
+import Home from "./pages/Home";
 import TopPageLoader, { PageLoader } from "./components/Loaders";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
@@ -18,7 +20,6 @@ import {
   ProtectedRoutes,
 } from "./components/ProtectedRoutes";
 
-const Home = lazy(() => import("./pages/Home"));
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
 const TopsAndBlouses = lazy(() => import("./pages/TopsAndBlouses"));
@@ -53,61 +54,66 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
 
-      <BrowserRouter>
-        <TopPageLoader />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route element={<AppLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="search" element={<SearchPage />} />
-              <Route path="shop-all" element={<AllProducts />} />
-              <Route path="tops-&-blouses" element={<TopsAndBlouses />} />
-              <Route path="pants" element={<Pants />} />
-              <Route
-                path="dresses-&-jumpsuits"
-                element={<DressesAndJumpsuits />}
-              />
-              <Route path="outwear-&-jackets" element={<OutwearAndJackets />} />
-              <Route path="pullovers" element={<Pullovers />} />
-              <Route path="tees" element={<Tees />} />
-              <Route path="shorts-&-skirts" element={<ShortsAndSkirts />} />
-              <Route path="new-in" element={<NewProducts />} />
-              <Route path="modiweek" element={<Modiweek />} />
-              <Route path="plus-size" element={<PlusSize />} />
-              <Route path="best-seller" element={<BestSeller />} />
-              <Route path="bundles" element={<AllProducts />} />
-              <Route path="occasion-wear" element={<Modiweek />} />
-              <Route path="matching-set" element={<Modiweek />} />
-              <Route path="fall-collection" element={<AllProducts />} />
-              <Route path="suiting" element={<NewProducts />} />
-              <Route path="product/:productId" element={<SingleProduct />} />
-              <Route
-                path="favorites"
-                element={
-                  <OtherProtectedRoutes>
-                    <Favorites />
-                  </OtherProtectedRoutes>
-                }
-              />
+      <HelmetProvider>
+        <BrowserRouter>
+          <TopPageLoader />
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route element={<AppLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="search" element={<SearchPage />} />
+                <Route path="shop-all" element={<AllProducts />} />
+                <Route path="tops-&-blouses" element={<TopsAndBlouses />} />
+                <Route path="pants" element={<Pants />} />
+                <Route
+                  path="dresses-&-jumpsuits"
+                  element={<DressesAndJumpsuits />}
+                />
+                <Route
+                  path="outwear-&-jackets"
+                  element={<OutwearAndJackets />}
+                />
+                <Route path="pullovers" element={<Pullovers />} />
+                <Route path="tees" element={<Tees />} />
+                <Route path="shorts-&-skirts" element={<ShortsAndSkirts />} />
+                <Route path="new-in" element={<NewProducts />} />
+                <Route path="modiweek" element={<Modiweek />} />
+                <Route path="plus-size" element={<PlusSize />} />
+                <Route path="best-seller" element={<BestSeller />} />
+                <Route path="bundles" element={<AllProducts />} />
+                <Route path="occasion-wear" element={<Modiweek />} />
+                <Route path="matching-set" element={<Modiweek />} />
+                <Route path="fall-collection" element={<AllProducts />} />
+                <Route path="suiting" element={<NewProducts />} />
+                <Route path="product/:productId" element={<SingleProduct />} />
+                <Route
+                  path="favorites"
+                  element={
+                    <OtherProtectedRoutes>
+                      <Favorites />
+                    </OtherProtectedRoutes>
+                  }
+                />
 
-              <Route
-                element={
-                  <ProtectedRoutes allowPasswordRecovery={true}>
-                    <AuthPage />
-                  </ProtectedRoutes>
-                }
-              >
-                <Route path="create-account" element={<SignUp />} />
-                <Route path="login" element={<Login />} />
-                <Route path="update-password" element={<UpdatePassword />} />
-                <Route path="reset-password" element={<ResetPassword />} />
+                <Route
+                  element={
+                    <ProtectedRoutes allowPasswordRecovery={true}>
+                      <AuthPage />
+                    </ProtectedRoutes>
+                  }
+                >
+                  <Route path="create-account" element={<SignUp />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="update-password" element={<UpdatePassword />} />
+                  <Route path="reset-password" element={<ResetPassword />} />
+                </Route>
               </Route>
-            </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </HelmetProvider>
 
       <Toaster
         position="top-center"
@@ -131,7 +137,7 @@ function App() {
           },
         }}
       />
-      <Analytics />
+      <Analytics mode="production" />
       <SpeedInsights />
     </QueryClientProvider>
   );

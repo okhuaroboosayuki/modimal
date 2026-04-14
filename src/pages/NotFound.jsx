@@ -5,12 +5,19 @@ import particles from "/images/sea_particles.png";
 import waves from "/images/sea_wave.png";
 import Header from "../components/header/Header";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 
 function NotFound() {
   const navigate = useNavigate();
 
   return (
     <>
+      <SEO
+        title={"404 - Page Not Found"}
+        description="The page you are looking for does not exist. Please check the URL or return to the homepage."
+        url={"*"}
+      />
+
       <Header />
 
       <section className="flex h-screen w-full items-center justify-center bg-white px-10 py-10 sm:px-20 lg:px-60">

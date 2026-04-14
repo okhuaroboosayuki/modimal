@@ -1,3 +1,4 @@
+import SEO from "../components/SEO";
 import ProductsPageContent from "../features/products/ProductsPageContent";
 import { useProductsByCategory } from "../features/products/useProductsByCategory";
 
@@ -11,14 +12,22 @@ function DressesAndJumpsuits() {
   } = useProductsByCategory();
 
   return (
-    <ProductsPageContent
-      key={"dresses & jumpsuits"}
-      data={productsByCategory}
-      isLoading={isProductCatLoading}
-      hasNextPage={hasNextPage}
-      isFetchingNextPage={isFetchingNextPage}
-      fetchNextPage={fetchNextPage}
-    />
+    <>
+      <SEO
+        title={"Dresses & Jumpsuits"}
+        description="Explore our stunning collection of dresses and jumpsuits at Modimal, designed to elevate your style for any occasion."
+        url={"dresses-&-jumpsuits"}
+      />
+
+      <ProductsPageContent
+        key={"dresses & jumpsuits"}
+        data={productsByCategory}
+        isLoading={isProductCatLoading}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+        fetchNextPage={fetchNextPage}
+      />
+    </>
   );
 }
 
