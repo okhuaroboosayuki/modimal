@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
+import { subDays } from "date-fns";
 import supabase from "./supabase";
 import { applyFilters, applySort } from "../utils/queryHelpers";
-import { subDays } from "date-fns";
 
 // get all products or search for a product,
 export async function getProducts({
@@ -31,9 +31,6 @@ export async function getProducts({
         { count: "exact" },
       );
   }
-
-  // pagination
-  // query = query.range(from, to);
 
   // Apply sorting and filters
   query = applySort(query, sortBy);
