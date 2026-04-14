@@ -14,8 +14,9 @@ export function useRemoveFromCart() {
       const previousCart = queryClient.getQueryData(["cart"]);
 
       // update cache by filtering out product not meeting criteria
-      queryClient.setQueryData(["cart"], (old = []) =>
-        old.filter(
+      queryClient.setQueryData(["cart"], (old) => ({
+        ...old,
+        data: old.data.filter(
           (item) =>
             !(
               item.product_id === product.product_id &&
@@ -23,7 +24,8 @@ export function useRemoveFromCart() {
               item.selected_color === product.selected_color
             ),
         ),
-      );
+        count: old.count - 1,
+      }));
 
       // return snapshot for onError context
       return { previousCart };

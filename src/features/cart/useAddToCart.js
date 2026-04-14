@@ -14,18 +14,19 @@ export function useAddToCart() {
       const previousCart = queryClient.getQueryData(["cart"]);
 
       //  update cache with new product without waiting for server
-      queryClient.setQueryData(["cart"], (old = []) => {
-        // append to array as new
-        return [
-          ...old,
+      queryClient.setQueryData(["cart"], (old) => ({
+        ...old,
+        data: [
+          ...old.data,
           {
             product_id: newItem.product_id,
             quantity: newItem.quantity,
             selected_size: newItem.selected_size,
             selected_color: newItem.selected_color,
           },
-        ];
-      });
+        ],
+        count: old.count + 1,
+      }));
 
       // return snapshot for onError context
       return { previousCart };

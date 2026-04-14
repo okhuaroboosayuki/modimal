@@ -12,15 +12,16 @@ export default function useUpdateCartItemQuantity() {
 
       const previousCart = queryClient.getQueryData(["cart"]);
 
-      queryClient.setQueryData(["cart"], (old = []) =>
-        old.map((item) =>
+      queryClient.setQueryData(["cart"], (old) => ({
+        ...old,
+        data: old.data.map((item) =>
           item.product_id === product.product_id &&
           item.selected_size === product.selected_size &&
           item.selected_color === product.selected_color
             ? { ...item, quantity: product.quantity }
             : item,
         ),
-      );
+      }));
 
       return { previousCart };
     },
