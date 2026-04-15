@@ -72,18 +72,18 @@ function ProductCardButton({
     return (
       <div className="flex w-full items-center justify-between gap-2 sm:gap-4">
         <Button
-          className="bg-primary-600 w-[50px] text-white max-sm:p-3"
+          className="bg-primary-600 w-[50px] border-transparent! text-white max-sm:p-3"
           clickHandler={handleDecrease}
         >
           <HiOutlineMinus />
         </Button>
 
-        <span className="border-b-gray20 bg-warning-bg w-full border-b-2 p-1 text-center text-lg text-black sm:py-2">
+        <span className="bg-warning-bg w-full p-1 text-center text-lg text-black sm:py-2">
           {count}
         </span>
 
         <Button
-          className="bg-primary-600 w-[50px] text-white max-sm:p-3"
+          className="bg-primary-600 w-[50px] border-transparent! text-white max-sm:p-3"
           clickHandler={handleIncrease}
         >
           <HiOutlinePlus />
@@ -95,7 +95,7 @@ function ProductCardButton({
   if (isLastImage && isSingleImage && !hovered) return null;
   return (
     <Button
-      className="bg-primary-600 w-full text-white max-sm:p-3"
+      className="bg-primary-600 w-full border-transparent! text-white max-sm:p-3"
       clickHandler={onNextClick}
     >
       {isLastImage ? "add to cart" : "next image"}
