@@ -48,7 +48,7 @@ function CartItem({ item, variant, closeModal }) {
 
         <div className="flex w-full items-center justify-end gap-22 lg:gap-35 xl:gap-40">
           <span
-            className={`${isModal || isWidthMedium ? `absolute bottom-0 ${isModal ? "left-23 sm:left-25.5" : "left-30 sm:left-38"}` : "relative"} self-start font-semibold`}
+            className={`${isModal || isWidthMedium ? `absolute bottom-0 ${isModal ? "left-27" : "left-34.5 sm:left-38"}` : "relative"} self-start font-semibold`}
           >
             {formatCurrency(item.products.price, 0)}
           </span>

@@ -14,7 +14,7 @@ function ItemImage({ item, variant, closeModal }) {
         alt={`${item.products.productName}'s image`}
         width={163}
         height={142}
-        className="h-[160px] w-full object-cover sm:w-[142px]"
+        className="h-[160px] w-[130px] object-cover sm:w-[142px]"
       />
       {hasBadge && (
         <span className="absolute top-1 right-1 w-10 bg-white p-2 text-center">
