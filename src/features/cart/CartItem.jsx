@@ -1,100 +1,68 @@
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi";
-import { RiCloseFill } from "react-icons/ri";
-import { ProgressLink } from "../../components/ProgressLinks";
 import { formatCurrency } from "../../utils/numberFormatter";
-import useCartFunctions from "../../hooks/useCartFunctions";
+import CartQuantityControl from "./CartQuantityControl";
+import ItemImage from "../../components/cart/ItemImage";
+import ItemDetails from "../../components/cart/ItemDetails";
+import CloseButton from "../../components/cart/CloseButton";
+import { useEffect, useState } from "react";
 
-function CartItem({ item, closeModal }) {
-  const { handleRemoveFromCart, handleUpdateItemQuantity } = useCartFunctions();
+function CartItem({ item, variant, closeModal }) {
+  const [isWidthMedium, setIsWidthMedium] = useState(window.innerWidth < 900);
 
-  const removeItemFromCart = () => {
-    handleRemoveFromCart({
-      product_id: item.product_id,
-      selected_size: item.selected_size,
-      selected_color: item.selected_color,
-    });
-  };
+  const isModal = variant === "modal";
 
-  const handleIncreaseItem = () => {
-    if (item.quantity >= item.products.stockQuantity) return;
+  useEffect(() => {
+    const handleResize = () => {
+      setIsWidthMedium(window.innerWidth < 900);
+    };
 
-    handleUpdateItemQuantity({
-      product_id: item.product_id,
-      quantity: item.quantity + 1,
-      selected_size: item.selected_size,
-      selected_color: item.selected_color,
-    });
-  };
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("load", handleResize);
 
-  const handleDecrease = () => {
-    if (item.quantity > 1) {
-      handleUpdateItemQuantity({
-        product_id: item.product_id,
-        quantity: item.quantity - 1,
-        selected_size: item.selected_size,
-        selected_color: item.selected_color,
-      });
-      return;
-    }
-
-    removeItemFromCart();
-  };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("load", handleResize);
+    };
+  }, []);
 
   return (
-    <section className="flex h-[160px] w-full items-start">
-      <ProgressLink
-        to={`product/${item.product_id}`}
-        onClick={closeModal}
-        className={"relative"}
-      >
-        <img
-          src={item.products.productImages[0].url}
-          alt=""
-          width={163}
-          height={142}
-          className="h-[160px] w-[142px] object-cover"
+    <section className="relative flex h-[160px] w-full items-start justify-between">
+      <div className="flex w-full">
+        <ItemImage item={item} variant={variant} closeModal={closeModal} />
+
+        <ItemDetails
+          item={item}
+          isModal={isModal}
+          isWidthMedium={isWidthMedium}
         />
-        <span className="absolute top-1 right-1 w-10 bg-white p-2 text-center">
-          {item.quantity}
-        </span>
-      </ProgressLink>
-
-      <div className="flex h-full w-full flex-col items-start gap-2 pl-2">
-        <ProgressLink
-          to={`product/${item.product_id}`}
-          onClick={closeModal}
-          className="font-bold"
-        >
-          {item.products.productName}
-        </ProgressLink>
-
-        <div className="flex h-full flex-col justify-between gap-2">
-          <span className="text-gray40">size: {item.selected_size}</span>
-
-          <span className="text-gray40">color: {item.selected_color}</span>
-
-          <div className="bg-primary-50 flex w-full max-w-[100px] items-center justify-between gap-2.5 border px-1.5 py-2">
-            <span className="icon" onClick={handleDecrease}>
-              <HiOutlineMinus className="cursor-pointer" fill="#404e3e" />
-            </span>
-
-            <span>{item.quantity}</span>
-
-            <span className="icon" onClick={handleIncreaseItem}>
-              <HiOutlinePlus className="cursor-pointer" fill="#404e3e" />
-            </span>
-          </div>
-        </div>
       </div>
 
-      <div className="flex h-full w-[100px] flex-col items-center justify-between gap-20">
-        <span className="icon self-end" onClick={removeItemFromCart}>
-          <RiCloseFill className="cursor-pointer" />
-        </span>
+      <div
+        className={`${isWidthMedium ? "w-fit" : "w-full md:max-w-[900px]"} flex h-full items-start justify-between gap-15 xl:gap-36`}
+      >
+        <CloseButton
+          item={item}
+          isModal={isModal}
+          isWidthMedium={isWidthMedium}
+        />
 
-        <span className="self-start font-semibold">
-          {formatCurrency(item.products.price * item.quantity, 0)}
-        </span>
+        <div className="flex w-full items-center justify-end gap-22 lg:gap-35 xl:gap-40">
+          <span
+            className={`${isModal || isWidthMedium ? `absolute bottom-0 ${isModal ? "left-23 sm:left-25.5" : "left-30 sm:left-38"}` : "relative"} self-start font-semibold`}
+          >
+            {formatCurrency(item.products.price, 0)}
+          </span>
+
+          {!isModal && !isWidthMedium ? (
+            <CartQuantityControl item={item} isWidthMedium={isWidthMedium} />
+          ) : null}
+
+          <span
+            className={`${!isModal ? "hidden min-[900px]:inline-block" : "hidden"} self-start font-semibold`}
+          >
+            {formatCurrency(item.products.price * item.quantity, 0)}
+          </span>
+        </div>
       </div>
     </section>
   );

@@ -2,9 +2,9 @@ import { RiCloseFill } from "react-icons/ri";
 import { useGuestCart } from "./../../utils/guestCart";
 import EmptyCart from "../../components/header/cart/EmptyCart";
 import CartItem from "./CartItem";
-import Button from "../../components/Button";
 import { useUser } from "../auth/useUser";
 import { useCart } from "./useCart";
+import { ProgressLink } from "../../components/ProgressLinks";
 
 function Cart({ ref, closeModal }) {
   const guestCart = useGuestCart();
@@ -14,7 +14,7 @@ function Cart({ ref, closeModal }) {
   const isCartEmpty = isAuthenticated
     ? totalCartCount === 0
     : guestCart.length === 0;
-  const derivedCart = isAuthenticated ? cart.data : guestCart;
+  const derivedCart = isAuthenticated ? cart?.data : guestCart;
 
   return (
     <section
@@ -52,6 +52,7 @@ function Cart({ ref, closeModal }) {
                   key={`${item.product_id}-${item.selected_size}-${item.selected_color}`}
                   item={item}
                   closeModal={closeModal}
+                  variant={"modal"}
                 />
               ))}
             </section>
@@ -59,7 +60,15 @@ function Cart({ ref, closeModal }) {
         )}
 
         {!isCartEmpty && (
-          <Button className={"bg-primary-600 text-white"}>check out</Button>
+          <ProgressLink
+            to={"cart"}
+            className={
+              "bg-primary-600 transition-500-in-out hover:text-primary-600 hover:border-primary-600 p-4 text-center text-sm text-white capitalize hover:border hover:bg-white"
+            }
+            onClick={closeModal}
+          >
+            check out
+          </ProgressLink>
         )}
       </div>
     </section>

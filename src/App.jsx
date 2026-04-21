@@ -19,6 +19,8 @@ import {
   OtherProtectedRoutes,
   ProtectedRoutes,
 } from "./components/ProtectedRoutes";
+import CartPage from "./pages/CartPage";
+import CartPageLayout from "./components/cart/CartPageLayout";
 
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
@@ -107,6 +109,10 @@ function App() {
                   <Route path="update-password" element={<UpdatePassword />} />
                   <Route path="reset-password" element={<ResetPassword />} />
                 </Route>
+              </Route>
+
+              <Route element={<CartPageLayout />}>
+                <Route path="cart" element={<CartPage />} />
               </Route>
 
               <Route path="*" element={<NotFound />} />
