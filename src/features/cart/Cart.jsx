@@ -61,7 +61,7 @@ function Cart({ ref, closeModal }) {
 
         {!isCartEmpty && (
           <ProgressLink
-            to={"cart"}
+            to={"/cart"}
             className={
               "bg-primary-600 transition-500-in-out hover:text-primary-600 hover:border-primary-600 p-4 text-center text-sm text-white capitalize hover:border hover:bg-white"
             }
