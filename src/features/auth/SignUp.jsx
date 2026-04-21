@@ -53,7 +53,14 @@ function SignUp() {
               name={"firstName"}
               placeholder={"first name"}
               inputValue={firstNameValue}
-              {...register("firstName", { required: "This field is required" })}
+              {...register("firstName", {
+                required: "This field is required",
+                pattern: {
+                  value: /^[A-Za-z]+$/,
+                  message:
+                    "Only letters are allowed (no numbers, spaces, or symbols)",
+                },
+              })}
               error={errors.firstName?.message}
               disabled={isLoading}
             />
@@ -63,7 +70,14 @@ function SignUp() {
               name={"lastName"}
               placeholder={"last name"}
               inputValue={lastNameValue}
-              {...register("lastName", { required: "This field is required" })}
+              {...register("lastName", {
+                required: "This field is required",
+                pattern: {
+                  value: /^[A-Za-z]+$/,
+                  message:
+                    "Only letters are allowed (no numbers, spaces, or symbols)",
+                },
+              })}
               error={errors.lastName?.message}
               disabled={isLoading}
             />
