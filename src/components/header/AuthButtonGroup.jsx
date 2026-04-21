@@ -5,7 +5,7 @@ import AuthButton from "./AuthButton";
 function AuthButtonGroup({ closeModal, ref, isActive }) {
   const { logout } = useLogOut();
   const { data } = useUser();
-  const username = data?.user_metadata?.fullName;
+  const firstName = data?.user_metadata?.fullName.split(" ")[0];
 
   return (
     <div
@@ -20,7 +20,7 @@ function AuthButtonGroup({ closeModal, ref, isActive }) {
             hi,
             <span className="text-warning text-lg font-medium">
               {" "}
-              {username}
+              {firstName}
             </span>
           </h3>
 
