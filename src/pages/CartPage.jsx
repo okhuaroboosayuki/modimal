@@ -1,3 +1,4 @@
+import CartPageHeader from "../components/cart/CartPageHeader";
 import SEO from "../components/SEO";
 import CartDetails from "../features/cart/CartDetails";
 
@@ -10,7 +11,11 @@ function CartPage() {
         url={"cart"}
       />
 
-      <CartDetails />
+      <div className="flex h-screen w-full flex-col items-center gap-8 px-4 pt-8 sm:px-8 lg:px-12 xl:px-24">
+        <CartPageHeader />
+
+        <CartDetails />
+      </div>
     </>
   );
 }
