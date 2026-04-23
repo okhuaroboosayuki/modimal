@@ -1,6 +1,6 @@
-import { useState } from "react";
 import Input from "../../components/Input";
 import FloatingInputLabel from "../../components/FloatingInputLabel";
+import { useFloatingLabel } from "../../hooks/useFloatingLabel";
 
 function FormField({
   error,
@@ -11,10 +11,8 @@ function FormField({
   disabled,
   ...props
 }) {
-  const [isFocused, setIsFocused] = useState(false);
-
   // Label should float up if the input is focused OR already has a value
-  const isFloating = isFocused || Boolean(inputValue);
+  const { isFloating, setIsFocused } = useFloatingLabel(inputValue);
 
   return (
     <div className="relative flex w-full flex-col items-start gap-1">

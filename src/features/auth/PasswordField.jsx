@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "../../components/Input";
 import FloatingInputLabel from "../../components/FloatingInputLabel";
 import PasswordVisibilityIcon from "../../components/PasswordVisibilityIcon";
+import { useFloatingLabel } from "../../hooks/useFloatingLabel";
 
 function PasswordField({
   error,
@@ -12,8 +13,7 @@ function PasswordField({
   ...props
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const isFloating = isFocused || Boolean(passwordValue);
+  const { isFloating, setIsFocused } = useFloatingLabel(passwordValue);
 
   const handlePasswordVisibility = () => {
     if (!passwordValue || disabled) return;
@@ -30,7 +30,7 @@ function PasswordField({
       />
 
       <div
-        className={`${disabled ? "border-grayCB" : error ? "border-error" : "border-gray60 focus-within:border-primary-300"} flex w-full border px-4 py-2`}
+        className={`${disabled ? "border-grayCB cursor-not-allowed" : error ? "border-error" : "border-gray60 focus-within:border-primary-300"} flex w-full border px-4 py-2`}
       >
         <Input
           {...props}
