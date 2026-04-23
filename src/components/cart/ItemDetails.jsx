@@ -1,13 +1,15 @@
 import CartQuantityControl from "../../features/cart/CartQuantityControl";
+import { formatCurrency } from "../../utils/numberFormatter";
 import { ProgressLink } from "../ProgressLinks";
 
-function ItemDetails({ item, isWidthMedium, isModal }) {
+function ItemDetails({ item, isWidthMedium, variant, closeModal }) {
   return (
     <div
-      className={`mt-1 flex flex-col items-start ${isModal && "h-full w-full"} gap-2 pl-2`}
+      className={`flex flex-col items-start ${variant === "info" || variant === "modal" ? "h-full w-full" : ""} gap-2 pl-2`}
     >
       <ProgressLink
         to={`/product/${item.product_id}`}
+        onClick={closeModal}
         className="line-clamp-1 font-bold"
       >
         {item.products.productName}
@@ -18,12 +20,20 @@ function ItemDetails({ item, isWidthMedium, isModal }) {
 
         <span className="text-gray40">color: {item.selected_color}</span>
 
-        {isModal || isWidthMedium ? (
+        {variant === "info" || variant === "modal" || isWidthMedium ? (
           <CartQuantityControl
             item={item}
-            isModal={isModal}
+            variant={variant}
             isWidthMedium={isWidthMedium}
           />
+        ) : null}
+
+        {variant === "info" || variant === "modal" || isWidthMedium ? (
+          <span
+            className={`absolute bottom-0 self-start font-semibold xl:left-26`}
+          >
+            {formatCurrency(item.products.price, 0)}
+          </span>
         ) : null}
       </div>
     </div>

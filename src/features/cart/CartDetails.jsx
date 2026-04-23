@@ -49,6 +49,7 @@ function CartDetails() {
           shippingFee={shippingFee}
           totalAmount={totalAmount}
           totalCartCount={totalCartCount}
+          variant="page"
         />
       </section>
     </section>

@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 function CartItem({ item, variant, closeModal }) {
   const [isWidthMedium, setIsWidthMedium] = useState(window.innerWidth < 900);
 
-  const isModal = variant === "modal";
-
   useEffect(() => {
     const handleResize = () => {
       setIsWidthMedium(window.innerWidth < 900);
@@ -27,13 +25,14 @@ function CartItem({ item, variant, closeModal }) {
 
   return (
     <section className="relative flex h-[160px] w-full items-start justify-between">
-      <div className="flex w-full">
+      <div className="flex w-full items-start">
         <ItemImage item={item} variant={variant} closeModal={closeModal} />
 
         <ItemDetails
           item={item}
-          isModal={isModal}
+          variant={variant}
           isWidthMedium={isWidthMedium}
+          closeModal={closeModal}
         />
       </div>
 
@@ -42,23 +41,23 @@ function CartItem({ item, variant, closeModal }) {
       >
         <CloseButton
           item={item}
-          isModal={isModal}
+          variant={variant}
           isWidthMedium={isWidthMedium}
         />
 
         <div className="flex w-full items-center justify-end gap-22 lg:gap-35 xl:gap-40">
           <span
-            className={`${isModal || isWidthMedium ? `absolute bottom-0 ${isModal ? "left-27" : "left-34.5 sm:left-38"}` : "relative"} self-start font-semibold`}
+            className={`${variant === "page" ? "hidden min-[900px]:inline-block" : "hidden"} self-start font-semibold`}
           >
             {formatCurrency(item.products.price, 0)}
           </span>
 
-          {!isModal && !isWidthMedium ? (
+          {variant === "page" && !isWidthMedium ? (
             <CartQuantityControl item={item} isWidthMedium={isWidthMedium} />
           ) : null}
 
           <span
-            className={`${!isModal ? "hidden min-[900px]:inline-block" : "hidden"} self-start font-semibold`}
+            className={`${variant === "page" ? "hidden min-[900px]:inline-block" : "hidden"} self-start font-semibold`}
           >
             {formatCurrency(item.products.price * item.quantity, 0)}
           </span>
