@@ -5,6 +5,7 @@ function CheckBox({
   isChecked,
   filterName,
   className,
+  isDisabled,
   ...rest
 }) {
   return (
@@ -14,6 +15,7 @@ function CheckBox({
         onChange={handleChange}
         value={boxValue}
         checked={isChecked}
+        disabled={isDisabled}
         {...rest}
       />
 
