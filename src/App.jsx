@@ -115,14 +115,15 @@ function App() {
 
               <Route path="cart" element={<CartPage />} />
 
-              <Route
-                element={
-                  <CheckoutFormProvider>
-                    <CartFlowLayout />
-                  </CheckoutFormProvider>
-                }
-              >
-                <Route path="cart/information" element={<CartInfoPage />} />
+              <Route element={<CartFlowLayout />}>
+                <Route
+                  path="cart/information"
+                  element={
+                    <CheckoutFormProvider>
+                      <CartInfoPage />
+                    </CheckoutFormProvider>
+                  }
+                />
               </Route>
 
               <Route path="*" element={<NotFound />} />
