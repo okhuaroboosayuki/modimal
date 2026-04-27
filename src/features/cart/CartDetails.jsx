@@ -25,7 +25,7 @@ function CartDetails() {
   if (!derivedCart || derivedCart.length === 0) return null;
 
   return (
-    <section className="flex w-full flex-col items-start justify-center gap-10 py-5">
+    <section className="flex w-full flex-col items-start justify-center gap-8 pb-5">
       <CartDetailsHeader />
 
       <section className="flex w-full flex-col">

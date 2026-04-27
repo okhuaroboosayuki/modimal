@@ -11,7 +11,7 @@ function CartPage() {
         url={"cart"}
       />
 
-      <div className="flex h-screen w-full flex-col items-center gap-8 px-4 pt-8 sm:px-8 lg:px-12 xl:px-24">
+      <div className="flex h-screen w-full flex-col items-center gap-10 px-4 pt-8 sm:px-8 lg:px-12 xl:px-24">
         <CartPageHeader />
 
         <CartDetails />
