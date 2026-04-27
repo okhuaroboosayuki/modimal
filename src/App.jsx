@@ -19,8 +19,8 @@ import {
   OtherProtectedRoutes,
   ProtectedRoutes,
 } from "./components/ProtectedRoutes";
-import CartPage from "./pages/CartPage";
-import CartPageLayout from "./components/cart/CartPageLayout";
+import CartFlowLayout from "./components/cart/CartFlowLayout";
+import { CheckoutFormProvider } from "./context/CheckoutFormContext";
 
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
@@ -38,6 +38,8 @@ const BestSeller = lazy(() => import("./pages/BestSeller"));
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const Favorites = lazy(() => import("./pages/Favorites"));
+const CartPage = lazy(() => import("./pages/CartPage"));
+const CartInfoPage = lazy(() => import("./pages/CartInfo"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -111,8 +113,16 @@ function App() {
                 </Route>
               </Route>
 
-              <Route element={<CartPageLayout />}>
-                <Route path="cart" element={<CartPage />} />
+              <Route path="cart" element={<CartPage />} />
+
+              <Route
+                element={
+                  <CheckoutFormProvider>
+                    <CartFlowLayout />
+                  </CheckoutFormProvider>
+                }
+              >
+                <Route path="cart/information" element={<CartInfoPage />} />
               </Route>
 
               <Route path="*" element={<NotFound />} />
