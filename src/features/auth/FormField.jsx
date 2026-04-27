@@ -17,7 +17,7 @@ function FormField({
   return (
     <div className="relative flex w-full flex-col items-start gap-1">
       <FloatingInputLabel
-        error={error}
+        errorStyles={error ? "top-1/3" : "top-1/2"}
         isFloating={isFloating}
         name={name}
         placeholder={placeholder}
