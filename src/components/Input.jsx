@@ -8,6 +8,7 @@ function Input({
   onChange,
   onBlur,
   onFocus,
+  inputMode,
   disabled,
   ...rest
 }) {
@@ -22,6 +23,7 @@ function Input({
       onBlur={onBlur}
       onFocus={onFocus}
       autoFocus={type === "search"}
+      inputMode={inputMode}
       className={`${width} ${customStyle} text-base outline-none placeholder:text-xs placeholder:capitalize`}
       spellCheck={type === "search"}
       aria-label={type === "search" ? "Search through site content" : undefined}
