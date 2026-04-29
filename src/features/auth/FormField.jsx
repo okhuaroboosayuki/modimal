@@ -8,6 +8,7 @@ function FormField({
   inputType,
   placeholder,
   inputValue,
+  inputMode,
   disabled,
   ...props
 }) {
@@ -32,6 +33,7 @@ function FormField({
           setIsFocused(false);
           props.onBlur?.(e);
         }}
+        inputMode={inputMode}
         customStyle={`w-full border ${disabled ? "border-grayCB text-grayCB cursor-not-allowed" : error ? "border-error" : "border-gray60 focus:border-primary-300 text-inherit"} placeholder:capitalize px-4 py-2`}
         disabled={disabled}
       />
