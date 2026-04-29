@@ -9,7 +9,7 @@ function CheckBox({
   ...rest
 }) {
   return (
-    <label className={`checkbox ${className}`}>
+    <label className={`checkbox ${className}`} tabIndex={0}>
       <input
         type="checkbox"
         onChange={handleChange}
