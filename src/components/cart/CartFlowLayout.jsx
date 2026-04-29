@@ -9,9 +9,10 @@ import CheckoutLeftPanel from "./CheckoutLeftPanel ";
 function CartFlowLayout() {
   const { isAuthenticated } = useUser();
   const guestCart = useGuestCart();
-  const { cart, totalCartCount } = useCart();
+  const { cart } = useCart();
 
   const derivedCart = isAuthenticated ? cart?.data : guestCart;
+  const totalCartCount = derivedCart.length;
 
   const cartSubtotal = derivedCart?.reduce((acc, item) => {
     return acc + item.quantity * item.products.price;
