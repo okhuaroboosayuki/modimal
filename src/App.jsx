@@ -21,6 +21,7 @@ import {
 } from "./components/ProtectedRoutes";
 import CartFlowLayout from "./components/cart/CartFlowLayout";
 import { CheckoutFormProvider } from "./context/CheckoutFormContext";
+import ScrollToTopEffect from "./components/ScrollToTopEffect";
 
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
@@ -62,6 +63,7 @@ function App() {
         <BrowserRouter>
           <TopPageLoader />
           <Suspense fallback={<PageLoader />}>
+            <ScrollToTopEffect />
             <Routes>
               <Route element={<AppLayout />}>
                 <Route path="/" element={<Home />} />
