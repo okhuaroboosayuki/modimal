@@ -3,7 +3,7 @@ import Button from "../Button";
 import { ProgressLink } from "../ProgressLinks";
 
 function CheckoutFormActions({
-  url,
+  goBackUrl,
   linkText,
   btnText,
   disabledStyle,
@@ -11,7 +11,7 @@ function CheckoutFormActions({
 }) {
   return (
     <div className="flex w-full items-center justify-between gap-6 max-[375px]:flex-col-reverse">
-      <ProgressLink to={url} className="flex items-center gap-1">
+      <ProgressLink to={goBackUrl} className="flex items-center gap-1">
         <span className="icon">
           <RiArrowLeftSLine color="#5a6d57" />
         </span>

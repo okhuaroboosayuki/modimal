@@ -11,7 +11,7 @@ export function useLogin() {
 
   const { mutate: login, isPending: isLoading } = useMutation({
     mutationFn: signInWithEmailAndPassword,
-    onSuccess: async () => {
+    onSuccess: async (_, { redirectTo }) => {
       const guestCartItems = getGuestCart();
 
       if (guestCartItems.length > 0) {
@@ -19,9 +19,9 @@ export function useLogin() {
       }
 
       queryClient.invalidateQueries(["cart"]);
-      queryClient.setQueryData(["user"]);
+      queryClient.invalidateQueries(["user"]);
       toast.success("Login successful");
-      navigate("/", { replace: true });
+      navigate(redirectTo ?? "/", { replace: true });
     },
     onError: (error) => {
       toast.error(error.message);

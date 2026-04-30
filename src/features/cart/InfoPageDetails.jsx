@@ -72,14 +72,14 @@ function InfoPageDetails() {
           !isAuthenticated ? "log in to continue" : "continue to shipping"
         }
         linkText={"return to cart"}
-        url={"/cart"}
+        goBackUrl={"/cart"}
         onClick={
           !isAuthenticated
             ? (e) => {
                 e.preventDefault();
-                navigate("/login?pp=cartInfo");
+                navigate("/login", { state: { from: "/cart/information" } });
               }
-            : ""
+            : undefined
         }
       />
     </form>

@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ProgressLink } from "../../components/ProgressLinks";
 import Button from "../../components/Button";
@@ -10,6 +11,9 @@ import SEO from "../../components/SEO";
 const AUTH_IMAGE = "/images/authImage.png";
 
 function SignUp() {
+  const location = useLocation();
+  const redirectTo = location.state?.from;
+
   const {
     register,
     handleSubmit,
@@ -26,7 +30,7 @@ function SignUp() {
 
   const onSubmit = ({ firstName, lastName, email, password }) => {
     signUp(
-      { email, password, fullName: `${firstName} ${lastName}` },
+      { email, password, fullName: `${firstName} ${lastName}`, redirectTo },
       { onSettled: () => reset() },
     );
   };

@@ -15,6 +15,7 @@ const AUTH_IMAGE = "/images/authImage.png";
 function Login() {
   const location = useLocation();
   const accountCreated = location.state?.accountCreated !== undefined || false;
+  const redirectTo = location.state?.from;
   const [isModalOpen, setIsModalOpen] = useState(accountCreated);
 
   const {
@@ -30,7 +31,7 @@ function Login() {
   const emailValue = watch("email", "");
 
   const onSubmit = ({ email, password }) => {
-    login({ email, password }, { onSettled: () => reset() });
+    login({ email, password, redirectTo }, { onSettled: () => reset() });
   };
 
   const closeLoginModal = () => {

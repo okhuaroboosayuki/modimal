@@ -16,6 +16,7 @@ function CartContactDetails() {
 
             <ProgressLink
               to={"/login"}
+              state={{ from: "/cart/information" }}
               className={"text-primary-600 hover:underline"}
             >
               log in

@@ -8,12 +8,12 @@ export function useSignUp() {
 
   const { mutate: signUp, isPending: isLoading } = useMutation({
     mutationFn: signUpWithEmailAndPassword,
-    onSuccess: () => {
+    onSuccess: (_, { redirectTo }) => {
       toast.success(
         "Sign up successful! Please check your email to confirm your account.",
       );
       navigate("/login", {
-        state: { accountCreated: true },
+        state: { accountCreated: true, from: redirectTo },
       });
     },
     onError: (error) => {
