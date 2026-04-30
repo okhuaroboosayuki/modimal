@@ -26,7 +26,7 @@ function StateDropdown({ field, country }) {
         className={`${!country ? "cursor-not-allowed opacity-50" : "cursor-pointer"} flex h-full w-full items-center justify-center text-start capitalize`}
       >
         <span
-          className={`${field.value ? "text-base text-black" : "text-gray60 text-xs"} flex h-full w-full items-center`}
+          className={`${field.value ? "text-base text-black" : "text-gray60"} flex h-full w-full items-center text-xs`}
         >
           {country !== undefined ? field.value || "state/city" : "state/city"}
         </span>
