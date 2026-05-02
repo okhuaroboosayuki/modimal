@@ -7,7 +7,8 @@ Modimal is a modern e-commerce platform built for fashion and clothing retailers
 - **Product Catalog**: Browse fashion items across multiple categories (tops, pants, dresses, outerwear, etc.)
 - **Advanced Filtering**: Filter products by fabric, color, size, and collection type
 - **Smart Search**: Full-text search with URL-based query parameters
-- **User Authentication**: Secure login/signup with social media integration
+- **User Authentication**: Secure login/signup with password recovery
+- **Wishlist**: Save favorite products to a user wishlist
 - **Responsive Design**: Mobile-first design with Tailwind CSS
 - **Real-time Updates**: Live product data synchronization via Supabase
 - **Shopping Cart**: Add to cart functionality with persistent state
