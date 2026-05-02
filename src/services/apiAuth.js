@@ -13,6 +13,15 @@ export async function signUpWithEmailAndPassword({
       data: {
         fullName,
         avatar: "",
+        phone: "",
+        address: "",
+        apartment: "",
+        state: "",
+        country: "",
+        company: "",
+        postalCode: "",
+        subscribeToNewsletter: false,
+        userRole: "customer",
       },
     },
   });
@@ -24,36 +33,12 @@ export async function signUpWithEmailAndPassword({
   return data;
 }
 
-// data other keys
-// data: {
-//   fullName,
-//   avatar: "",
-//   phone: "",                    // for order notifications
-//   dateOfBirth: "",              // for personalized offers
-//   address: "",                  // for shipping
-//   city: "",
-//   state: "",
-//   country: "",
-//   zipCode: "",
-//   preferredLanguage: "en",      // locale preference
-//   timezone: "",                 // for timely notifications
-//   newsletter: true,             // subscription preference
-//   preferences: {                // personalized shopping
-//     fabricPreferences: [],
-//     colorPreferences: [],
-//     sizePreferences: [],
-//   },
-//   role: "customer",             // user type (customer, admin)
-//   bio: "",                       // user profile bio
-// }
-
 // Best practices:
 
-// Only store what you need initially—you can update metadata later
+// Only store what you need initially; you can update metadata later
 // Use null or empty strings for optional fields instead of omitting them
 // Avoid storing sensitive data (passwords, payment info)—Supabase handles these separately
 // Keep metadata lean; move large data to your database tables
-// For Modimal specifically, start with essential fields like phone, address, and preferences based on your checkout/profile flows.
 
 export async function signInWithEmailAndPassword({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -85,9 +70,24 @@ export async function getCurrentUser() {
   return user;
 }
 
-export async function updateCurrentUserData({ password }) {
-  let updateData;
+export async function updateCurrentUserData({ password, shippingDetails }) {
+  let updateData = {};
+
   if (password) updateData = { password };
+
+  if (shippingDetails) {
+    updateData.data = {
+      subscribeToNewsletter: shippingDetails.subscribeToNewsletter,
+      address: shippingDetails.address,
+      apartment: shippingDetails.apartment,
+      country: shippingDetails.country,
+      state: shippingDetails.state,
+      postalCode: shippingDetails.postalCode,
+      fullName: shippingDetails.fullName.trim(),
+      company: shippingDetails.company,
+      phone: shippingDetails.phone,
+    };
+  }
 
   const { data, error } = await supabase.auth.updateUser(updateData);
 

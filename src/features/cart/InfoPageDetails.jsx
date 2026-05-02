@@ -5,15 +5,20 @@ import CheckBox from "../../components/CheckBox";
 import { useCheckoutForm } from "../../hooks/useCheckoutForm";
 import CartContactDetails from "./CartContactDetails";
 import CartShippingDetails from "./CartShippingDetails";
+import { useDispatch } from "react-redux";
+import { useUpdateUserShippingDetails } from "./useUpdateUserShippingDetails";
+import { setShippingDetails } from "./checkoutSlice";
 
 function InfoPageDetails() {
   const navigate = useNavigate();
   const { isAuthenticated } = useUser();
   const { register, handleSubmit } = useCheckoutForm();
+  const dispatch = useDispatch();
+  const { updateShipping, isUpdating } = useUpdateUserShippingDetails();
 
   const onSubmit = ({
     email,
-    saveEmail,
+    subscribeToNewsletter,
     country,
     firstName,
     lastName,
@@ -22,21 +27,32 @@ function InfoPageDetails() {
     apartment,
     postalCode,
     state,
+    phone,
     saveShippingAddress,
   }) => {
     if (!email || !country || !firstName || !lastName || !address || !state)
       return;
-    console.log(email);
-    console.log(saveEmail);
-    console.log(country.toLowerCase());
-    console.log(firstName);
-    console.log(lastName);
-    console.log(company);
-    console.log(address);
-    console.log(apartment);
-    console.log(postalCode);
-    console.log(state.toLowerCase());
-    console.log(saveShippingAddress);
+
+    const shippingDetails = {
+      email: email.toLowerCase(),
+      subscribeToNewsletter,
+      country: country.toLowerCase(),
+      fullName: `${firstName.toLowerCase()} ${lastName.toLowerCase()}`,
+      company: company.toLowerCase(),
+      address: address.toLowerCase(),
+      apartment: apartment.toLowerCase(),
+      postalCode,
+      state: state.toLowerCase(),
+      phone,
+    };
+
+    dispatch(setShippingDetails(shippingDetails));
+
+    if (saveShippingAddress && isAuthenticated) {
+      updateShipping({ shippingDetails });
+    }
+
+    navigate("/cart/delivery");
   };
 
   return (
@@ -53,7 +69,7 @@ function InfoPageDetails() {
 
           <CheckBox
             label={"email me with news and offers"}
-            {...register("saveEmail")}
+            {...register("subscribeToNewsletter")}
           />
         </div>
 
@@ -75,12 +91,13 @@ function InfoPageDetails() {
         goBackUrl={"/cart"}
         onClick={
           !isAuthenticated
-            ? (e) => {
-                e.preventDefault();
+            ? () => {
                 navigate("/login", { state: { from: "/cart/information" } });
               }
             : undefined
         }
+        disabledStyle={isUpdating && "bg-primary-750 cursor-not-allowed"}
+        isDisabled={isUpdating}
       />
     </form>
   );

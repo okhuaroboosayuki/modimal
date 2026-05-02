@@ -6,6 +6,7 @@ function CheckoutFormActions({
   goBackUrl,
   linkText,
   btnText,
+  isDisabled,
   disabledStyle,
   onClick,
 }) {
@@ -22,6 +23,7 @@ function CheckoutFormActions({
       <Button
         className={`bg-primary-600 hover:text-primary-600 transition-500-in-out p-3! text-white hover:bg-white ${disabledStyle}`}
         clickHandler={onClick}
+        isDisabled={isDisabled}
       >
         {btnText}
       </Button>

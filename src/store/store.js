@@ -3,6 +3,7 @@ import filterReducer from "../features/filter/filterSlice";
 import modalReducer from "../features/modal/modalSlice";
 import searchReducer from "../features/search/searchSlice";
 import relatedCategoryReducer from "../features/products/relatedCategorySlice";
+import checkoutReducer from "../features/cart/checkoutSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     modalOpen: modalReducer,
     searchReducer,
     relatedCategoryReducer,
+    checkoutReducer,
   },
 });
 

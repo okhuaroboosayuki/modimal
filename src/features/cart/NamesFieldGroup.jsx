@@ -1,15 +1,20 @@
 import { useCheckoutForm } from "../../hooks/useCheckoutForm";
 import FormField from "../auth/FormField";
+import { useUser } from "../auth/useUser";
 
 function NamesFieldGroup() {
   const {
     register,
     watch,
+    getValues,
     formState: { errors },
   } = useCheckoutForm();
+  const { isAuthenticated } = useUser();
 
   const firstNameValue = watch("firstName", "");
   const lastNameValue = watch("lastName", "");
+  const firstNameDisabled = isAuthenticated && getValues("firstName");
+  const lastNameDisabled = isAuthenticated && getValues("lastName");
 
   return (
     <div className="flex items-center justify-center gap-6">
@@ -26,6 +31,7 @@ function NamesFieldGroup() {
               "Only letters are allowed (no numbers, spaces, or symbols)",
           },
         })}
+        disabled={firstNameDisabled}
         error={errors.firstName?.message}
       />
 
@@ -42,6 +48,7 @@ function NamesFieldGroup() {
               "Only letters are allowed (no numbers, spaces, or symbols)",
           },
         })}
+        disabled={lastNameDisabled}
         error={errors.lastName?.message}
       />
     </div>

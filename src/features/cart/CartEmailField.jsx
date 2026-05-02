@@ -4,17 +4,22 @@ import { useFloatingLabel } from "../../hooks/useFloatingLabel";
 import Input from "../../components/Input";
 import FloatingInputLabel from "../../components/FloatingInputLabel";
 import { useCheckoutForm } from "../../hooks/useCheckoutForm";
+import { useUser } from "../auth/useUser";
 
-function CartEmailField({ disabled }) {
+function CartEmailField() {
   const {
     register,
     watch,
+    getValues,
     formState: { errors },
   } = useCheckoutForm();
+  const { isAuthenticated } = useUser();
 
   const emailValue = watch("email", "");
+
   const { isFloating, setIsFocused } = useFloatingLabel(emailValue);
   const error = errors.email?.message;
+  const disabled = isAuthenticated && getValues("email");
 
   return (
     <div className="flex w-full flex-col items-start gap-1">
@@ -45,7 +50,7 @@ function CartEmailField({ disabled }) {
           onBlur={() => {
             setIsFocused(false);
           }}
-          customStyle={`w-full `}
+          customStyle={`w-full ${disabled && "text-grayCB cursor-not-allowed"}`}
           disabled={disabled}
         />
       </div>
