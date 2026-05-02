@@ -8,7 +8,6 @@ export const CheckoutFormContext = createContext();
 export function CheckoutFormProvider({ children }) {
   const { data } = useUser();
   const { shippingDetails } = useSelector((store) => store.checkoutReducer);
-  console.log(shippingDetails);
 
   const methods = useForm({
     values: {
