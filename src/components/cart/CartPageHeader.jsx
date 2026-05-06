@@ -1,9 +1,12 @@
 import Logo from "../icons/Logo";
+import { ProgressLink } from "../ProgressLinks";
 
 function CartPageHeader() {
   return (
     <header className="w-full bg-white">
-      <Logo />
+      <ProgressLink to={"/"}>
+        <Logo />
+      </ProgressLink>
     </header>
   );
 }
