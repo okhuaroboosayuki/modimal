@@ -18,9 +18,11 @@ function SearchInput({ searchQuery, onChange, onClearInput }) {
       <Input
         type={"search"}
         name={"search"}
-        placeholder={"search"}
+        placeholder={
+          "small yellow skirt, extra large, white short, extra small tee, etc."
+        }
         customStyle={
-          "md:placeholder:text-[20px] placeholder:capitalize text-grayAD font-medium w-full border-none"
+          "md:placeholder:text-[16px] placeholder:lowercase! text-grayAD font-medium w-full border-none"
         }
         onChange={onChange}
         value={searchQuery}

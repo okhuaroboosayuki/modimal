@@ -20,7 +20,15 @@ export async function getProducts({
   if (searchValue !== null) {
     query = supabase.rpc(
       "search_products",
-      { search: `${searchValue}` },
+      {
+        search_query: searchValue,
+        sort_by: sortBy ?? null,
+        filter_colors: filters.color?.length ? filters.color : null,
+        filter_fabrics: filters.fabric?.length ? filters.fabric : null,
+        filter_sizes: filters.size?.length ? filters.size : null,
+        filter_collection:
+          filters.collection?.length === 1 ? filters.collection[0] : null,
+      },
       { count: "exact" },
     );
   } else {
@@ -33,8 +41,10 @@ export async function getProducts({
   }
 
   // Apply sorting and filters
-  query = applySort(query, sortBy);
-  query = applyFilters(query, filters);
+  if (searchValue === null) {
+    query = applySort(query, sortBy);
+    query = applyFilters(query, filters);
+  }
 
   const { data, error, count } = await query.range(from, to);
 
