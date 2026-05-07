@@ -15,7 +15,7 @@ import {
   trendingList,
 } from "../subNavTags";
 
-function SubNavLists({ menuName, ref, closeModal }) {
+function SubNavLists({ menuName, ref, closemodal }) {
   return (
     <div
       className="hidden h-[500px] w-full items-start justify-between gap-14 bg-white px-14 pt-4 pb-14 md:flex xl:px-[108px]"
@@ -25,26 +25,26 @@ function SubNavLists({ menuName, ref, closeModal }) {
         {menuName === "sustainability" ? (
           <SubNavListsSection
             content={sustainabilityList}
-            onCloseModal={closeModal}
+            onCloseModal={closemodal}
           />
         ) : (
           <>
             <SubNavListsSection
               content={categoryList}
-              onCloseModal={closeModal}
+              onCloseModal={closemodal}
             />
 
             {menuName === "new-in" && (
               <SubNavListsSection
                 content={trendingList}
-                onCloseModal={closeModal}
+                onCloseModal={closemodal}
               />
             )}
 
             {menuName === "plus-size" && (
               <SubNavListsSection
                 content={featuredList}
-                onCloseModal={closeModal}
+                onCloseModal={closemodal}
               />
             )}
 
@@ -52,7 +52,7 @@ function SubNavLists({ menuName, ref, closeModal }) {
               <>
                 <SubNavListsSection
                   content={moreList}
-                  onCloseModal={closeModal}
+                  onCloseModal={closemodal}
                 />
               </>
             )}
@@ -69,7 +69,7 @@ function SubNavLists({ menuName, ref, closeModal }) {
               url={card.url}
               title={card.title}
               key={card.title}
-              onCloseModal={closeModal}
+              onCloseModal={closemodal}
             />
           ))}
         </NavImageCardContainer>
@@ -84,7 +84,7 @@ function SubNavLists({ menuName, ref, closeModal }) {
               url={card.url}
               title={card.title}
               key={card.title}
-              onCloseModal={closeModal}
+              onCloseModal={closemodal}
             />
           ))}
         </NavImageCardContainer>
@@ -99,7 +99,7 @@ function SubNavLists({ menuName, ref, closeModal }) {
               url={card.url}
               title={card.title}
               key={card.title}
-              onCloseModal={closeModal}
+              onCloseModal={closemodal}
             />
           ))}
         </NavImageCardContainer>
@@ -112,7 +112,7 @@ function SubNavLists({ menuName, ref, closeModal }) {
               src={card.image}
               alt={card.alt}
               key={card.alt}
-              onCloseModal={closeModal}
+              onCloseModal={closemodal}
             />
           ))}
         </NavImageCardContainer>

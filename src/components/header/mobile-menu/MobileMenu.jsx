@@ -5,7 +5,7 @@ import { categoryList, sustainabilityList, trendingList } from "../subNavTags";
 import { useUser } from "../../../features/auth/useUser";
 import AuthButtonContainer from "../AuthButtonContainer";
 
-function MobileMenu({ ref, closeModal }) {
+function MobileMenu({ ref, closemodal }) {
   const location = useLocation();
   const { isAuthenticated } = useUser();
   const [isRecoveringPassword, setIsRecoveringPassword] = useState(false);
@@ -27,19 +27,19 @@ function MobileMenu({ ref, closeModal }) {
     >
       <section className="flex h-full flex-col items-start justify-start gap-[68px] text-sm capitalize">
         <div className="flex w-full flex-col items-start gap-8">
-          <MenuItem content={categoryList} onCloseModal={closeModal} />
+          <MenuItem content={categoryList} onCloseModal={closemodal} />
 
-          <MenuItem content={trendingList} onCloseModal={closeModal} />
+          <MenuItem content={trendingList} onCloseModal={closemodal} />
 
-          <MenuItem content={sustainabilityList} onCloseModal={closeModal} />
+          <MenuItem content={sustainabilityList} onCloseModal={closemodal} />
 
-          <MenuItem heading={"modiweek"} onCloseModal={closeModal} />
+          <MenuItem heading={"modiweek"} onCloseModal={closemodal} />
 
-          <MenuItem heading={"plus size"} onCloseModal={closeModal} />
+          <MenuItem heading={"plus size"} onCloseModal={closemodal} />
         </div>
 
         <AuthButtonContainer
-          closeModal={closeModal}
+          closeModal={closemodal}
           ref={ref}
           isActive={isActive}
           isMobileMenu={true}

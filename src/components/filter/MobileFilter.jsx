@@ -1,7 +1,7 @@
 import FilterContainer from "./FilterContainer";
 
-function MobileFilter({ closeModal }) {
-  return <FilterContainer closeModal={closeModal} />;
+function MobileFilter({ closemodal }) {
+  return <FilterContainer closeModal={closemodal} />;
 }
 
 export default MobileFilter;

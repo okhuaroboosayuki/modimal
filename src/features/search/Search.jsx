@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchQueryState } from "./searchSlice";
 import SearchInput from "../../components/header/search/SearchInput";
 
-function Search({ closeModal, ref, height = "152px" }) {
+function Search({ closemodal, ref, height = "152px" }) {
   const { searchQueryState } = useSelector((store) => store.searchReducer);
   const [searchQuery, setSearchQuery] = useState(searchQueryState || "");
   const navigate = useNavigate();
@@ -15,11 +15,11 @@ function Search({ closeModal, ref, height = "152px" }) {
       navigate(`/search?q=${searchQuery.toLowerCase()}`);
       dispatch(setSearchQueryState(searchQuery));
 
-      if (closeModal) {
-        closeModal();
+      if (closemodal) {
+        closemodal();
       }
     }
-  }, [searchQuery, dispatch, closeModal, navigate]);
+  }, [searchQuery, dispatch, closemodal, navigate]);
 
   const clearSearchInput = () => {
     setSearchQuery("");

@@ -6,7 +6,7 @@ import { useUser } from "../auth/useUser";
 import { useCart } from "./useCart";
 import { ProgressLink } from "../../components/ProgressLinks";
 
-function Cart({ ref, closeModal }) {
+function Cart({ ref, closemodal }) {
   const guestCart = useGuestCart();
   const { isAuthenticated } = useUser();
   const { cart, totalCartCount } = useCart();
@@ -26,19 +26,19 @@ function Cart({ ref, closeModal }) {
       >
         <span
           className={`${!isCartEmpty && "hidden"} icon self-end`}
-          onClick={closeModal}
+          onClick={closemodal}
         >
           <RiCloseFill className="cursor-pointer" />
         </span>
 
         {isCartEmpty ? (
-          <EmptyCart closeModal={closeModal} />
+          <EmptyCart closeModal={closemodal} />
         ) : (
           <>
             <div className="flex">
               <span
                 className={`${isCartEmpty ? "hidden" : "md:hidden"} icon`}
-                onClick={closeModal}
+                onClick={closemodal}
               >
                 <RiCloseFill className="cursor-pointer" />
               </span>
@@ -51,7 +51,7 @@ function Cart({ ref, closeModal }) {
                 <CartItem
                   key={`${item.product_id}-${item.selected_size}-${item.selected_color}`}
                   item={item}
-                  closeModal={closeModal}
+                  closeModal={closemodal}
                   variant={"modal"}
                 />
               ))}
@@ -65,7 +65,7 @@ function Cart({ ref, closeModal }) {
             className={
               "bg-primary-600 transition-500-in-out hover:text-primary-600 hover:border-primary-600 p-4 text-center text-sm text-white capitalize hover:border hover:bg-white"
             }
-            onClick={closeModal}
+            onClick={closemodal}
           >
             check out
           </ProgressLink>
