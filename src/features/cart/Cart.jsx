@@ -5,8 +5,10 @@ import CartItem from "./CartItem";
 import { useUser } from "../auth/useUser";
 import { useCart } from "./useCart";
 import { ProgressLink } from "../../components/ProgressLinks";
+import { useLocation } from "react-router-dom";
 
 function Cart({ ref, closemodal }) {
+  const location = useLocation();
   const guestCart = useGuestCart();
   const { isAuthenticated } = useUser();
   const { cart, totalCartCount } = useCart();
@@ -62,6 +64,7 @@ function Cart({ ref, closemodal }) {
         {!isCartEmpty && (
           <ProgressLink
             to={"/cart"}
+            state={{ from: location.pathname }}
             className={
               "bg-primary-600 transition-500-in-out hover:text-primary-600 hover:border-primary-600 p-4 text-center text-sm text-white capitalize hover:border hover:bg-white"
             }

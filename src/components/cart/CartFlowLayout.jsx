@@ -32,10 +32,11 @@ function CartFlowLayout() {
     totalCartCount,
   };
 
-  if (!derivedCart || derivedCart.length === 0) return null;
-
   return (
-    <div className="flex w-full flex-col-reverse gap-2 text-sm sm:text-lg lg:grid lg:h-screen lg:grid-cols-2 lg:grid-rows-1">
+    <div
+      className="relative flex w-full flex-col-reverse gap-2 text-sm sm:text-lg lg:grid lg:h-screen lg:grid-cols-2 lg:grid-rows-1"
+      id="checkoutFlow"
+    >
       <CheckoutLeftPanel />
 
       <CheckoutRightPanel

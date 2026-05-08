@@ -37,12 +37,12 @@ function CartDetailsSummary({
 
       {variant === "page" && (
         <ProgressLink
-          to={"/cart/information"}
+          to={totalCartCount === 0 ? "/shop-all" : "/cart/information"}
           className={
             "bg-primary-600 transition-500-in-out hover:text-primary-600 hover:border-primary-600 w-[184px] p-4 text-center text-sm text-white capitalize hover:border hover:bg-white"
           }
         >
-          next
+          {totalCartCount === 0 ? "select a product" : "next"}
         </ProgressLink>
       )}
     </section>

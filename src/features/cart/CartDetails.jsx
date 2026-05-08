@@ -9,9 +9,10 @@ import CartItem from "./CartItem";
 function CartDetails() {
   const { isAuthenticated } = useUser();
   const guestCart = useGuestCart();
-  const { cart, totalCartCount } = useCart();
+  const { cart } = useCart();
 
   const derivedCart = isAuthenticated ? cart?.data : guestCart;
+  const totalCartCount = derivedCart?.length;
 
   const cartSubtotal = derivedCart?.reduce((acc, item) => {
     return acc + item.quantity * item.products.price;
@@ -21,8 +22,6 @@ function CartDetails() {
   const VAT = cartSubtotal * TAX_RATE;
   const shippingFee = "free";
   const totalAmount = cartSubtotal + VAT;
-
-  if (!derivedCart || derivedCart.length === 0) return null;
 
   return (
     <section className="flex w-full flex-col items-start justify-center gap-8 pb-5">
