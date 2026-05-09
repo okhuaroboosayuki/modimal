@@ -55,11 +55,11 @@ function CountryDropdown({ field, onCountryChange }) {
             ref={inputRef}
           >
             <Input
-              type={"text"}
+              type={"search"}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="search country..."
-              width={"w-full"}
+              width={"w-full pl-1"}
             />
           </div>
 
