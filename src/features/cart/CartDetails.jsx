@@ -1,18 +1,11 @@
-import { useGuestCart } from "../../utils/guestCart";
-import { useUser } from "../auth/useUser";
-import { useCart } from "./useCart";
 import CartDetailsHeader from "../../components/cart/CartDetailsHeader";
 import CartDetailsTableLabel from "../../components/cart/CartDetailsTableLabel";
 import CartDetailsSummary from "../../components/cart/CartDetailsSummary";
 import CartItem from "./CartItem";
+import { useDerivedCart } from "../../hooks/useDerivedCart";
 
 function CartDetails() {
-  const { isAuthenticated } = useUser();
-  const guestCart = useGuestCart();
-  const { cart } = useCart();
-
-  const derivedCart = isAuthenticated ? cart?.data : guestCart;
-  const totalCartCount = derivedCart?.length;
+  const { derivedCart, totalCartCount } = useDerivedCart();
 
   const cartSubtotal = derivedCart?.reduce((acc, item) => {
     return acc + item.quantity * item.products.price;

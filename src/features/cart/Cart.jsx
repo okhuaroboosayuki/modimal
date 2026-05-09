@@ -1,22 +1,15 @@
 import { RiCloseFill } from "react-icons/ri";
-import { useGuestCart } from "./../../utils/guestCart";
 import EmptyCart from "../../components/header/cart/EmptyCart";
 import CartItem from "./CartItem";
-import { useUser } from "../auth/useUser";
-import { useCart } from "./useCart";
 import { ProgressLink } from "../../components/ProgressLinks";
 import { useLocation } from "react-router-dom";
+import { useDerivedCart } from "../../hooks/useDerivedCart";
 
 function Cart({ ref, closemodal }) {
   const location = useLocation();
-  const guestCart = useGuestCart();
-  const { isAuthenticated } = useUser();
-  const { cart, totalCartCount } = useCart();
+  const { derivedCart, totalCartCount } = useDerivedCart();
 
-  const isCartEmpty = isAuthenticated
-    ? totalCartCount === 0
-    : guestCart.length === 0;
-  const derivedCart = isAuthenticated ? cart?.data : guestCart;
+  const isCartEmpty = totalCartCount === 0;
 
   return (
     <section
