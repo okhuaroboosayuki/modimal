@@ -19,7 +19,7 @@ function SearchInput({ searchQuery, onChange, onClearInput }) {
         type={"search"}
         name={"search"}
         placeholder={
-          "small yellow skirt, extra large, white short, shorts, tee, etc."
+          "small yellow dress, extra large, white short, shorts, tees, etc."
         }
         customStyle={
           "md:placeholder:text-[16px] placeholder:lowercase! text-grayAD font-medium w-full border-none"
