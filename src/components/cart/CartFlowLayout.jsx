@@ -1,18 +1,9 @@
-import { useUser } from "../../features/auth/useUser";
-import { useGuestCart } from "../../utils/guestCart";
-import { useCart } from "../../features/cart/useCart";
-import CartItem from "../../features/cart/CartItem";
-import CartDetailsSummary from "./CartDetailsSummary";
 import CheckoutRightPanel from "./CheckoutRightPanel ";
 import CheckoutLeftPanel from "./CheckoutLeftPanel ";
+import { useDerivedCart } from "../../hooks/useDerivedCart";
 
 function CartFlowLayout() {
-  const { isAuthenticated } = useUser();
-  const guestCart = useGuestCart();
-  const { cart } = useCart();
-
-  const derivedCart = isAuthenticated ? cart?.data : guestCart;
-  const totalCartCount = derivedCart?.length;
+  const { derivedCart, totalCartCount } = useDerivedCart();
 
   const cartSubtotal = derivedCart?.reduce((acc, item) => {
     return acc + item.quantity * item.products.price;
@@ -41,6 +32,7 @@ function CartFlowLayout() {
 
       <CheckoutRightPanel
         cartItems={derivedCart}
+        totalCartCount={totalCartCount}
         cartSummaryDetails={cartSummaryDetails}
       />
     </div>

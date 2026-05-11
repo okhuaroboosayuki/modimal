@@ -1,20 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../auth/useUser";
 import CheckoutFormActions from "../../components/cart/CheckoutFormActions";
 import CheckBox from "../../components/CheckBox";
 import { useCheckoutForm } from "../../hooks/useCheckoutForm";
 import CartContactDetails from "./CartContactDetails";
 import CartShippingDetails from "./CartShippingDetails";
 import { useDispatch } from "react-redux";
-import { useUpdateUserShippingDetails } from "./useUpdateUserShippingDetails";
 import { setShippingDetails } from "./checkoutSlice";
+import { useDerivedCart } from "./../../hooks/useDerivedCart";
 
 function InfoPageDetails() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useUser();
   const { register, handleSubmit } = useCheckoutForm();
   const dispatch = useDispatch();
-  const { updateShipping, isUpdating } = useUpdateUserShippingDetails();
+  const { totalCartCount } = useDerivedCart();
 
   const onSubmit = ({
     email,
@@ -44,15 +42,11 @@ function InfoPageDetails() {
       postalCode,
       state: state.toLowerCase(),
       phone,
+      saveShippingAddress,
     };
 
     dispatch(setShippingDetails(shippingDetails));
-
-    if (saveShippingAddress && isAuthenticated) {
-      updateShipping({ shippingDetails });
-    }
-
-    navigate("/cart/delivery");
+    navigate("/cart/shipping");
   };
 
   return (
@@ -84,20 +78,15 @@ function InfoPageDetails() {
       </div>
 
       <CheckoutFormActions
-        btnText={
-          !isAuthenticated ? "log in to continue" : "continue to shipping"
-        }
+        btnText={"continue to shipping"}
         linkText={"return to cart"}
         goBackUrl={"/cart"}
-        onClick={
-          !isAuthenticated
-            ? () => {
-                navigate("/login", { state: { from: "/cart/information" } });
-              }
-            : undefined
+        disabledStyle={
+          totalCartCount === 0
+            ? "bg-gray86! cursor-not-allowed! text-white!"
+            : ""
         }
-        disabledStyle={isUpdating && "bg-primary-750 cursor-not-allowed"}
-        isDisabled={isUpdating}
+        isDisabled={totalCartCount === 0}
       />
     </form>
   );

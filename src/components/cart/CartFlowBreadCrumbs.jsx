@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { ProgressLink } from "../ProgressLinks";
+import { useDerivedCart } from "../../hooks/useDerivedCart";
 
 const CRUMBS = [
   { label: "Cart", path: "/cart" },
@@ -10,6 +11,7 @@ const CRUMBS = [
 
 function CartFlowBreadCrumbs() {
   const { pathname } = useLocation();
+  const { totalCartCount } = useDerivedCart();
 
   return (
     <nav
@@ -22,6 +24,8 @@ function CartFlowBreadCrumbs() {
         return (
           <div className="[&>a]:text-primary flex gap-4" key={crumb.path}>
             {isActive ? (
+              <span>{crumb.label}</span>
+            ) : totalCartCount === 0 ? (
               <span>{crumb.label}</span>
             ) : (
               <ProgressLink to={crumb.path} className={"hover:text-gray40"}>
