@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../Button";
 
-function EmptyCart({ closeModal }) {
+function EmptyCart({ closeModal, flow }) {
   const navigate = useNavigate();
+  const isCheckoutFlow = flow === "checkout";
 
   return (
     <section className="flex flex-col gap-[72px]">
@@ -18,7 +19,7 @@ function EmptyCart({ closeModal }) {
         <Button
           className="bg-primary-600 hover:text-primary-600 text-white hover:bg-white"
           clickHandler={() => {
-            navigate("/shop-all");
+            navigate("/shop-all", { replace: isCheckoutFlow });
             closeModal();
           }}
         >
@@ -28,7 +29,7 @@ function EmptyCart({ closeModal }) {
         <Button
           className="bg-primary-600 hover:text-primary-600 text-white hover:bg-white"
           clickHandler={() => {
-            navigate("/new-in");
+            navigate("/new-in", { replace: isCheckoutFlow });
             closeModal();
           }}
         >
@@ -38,7 +39,7 @@ function EmptyCart({ closeModal }) {
         <Button
           className="bg-primary-600 hover:text-primary-600 text-white hover:bg-white"
           clickHandler={() => {
-            navigate("/best-seller");
+            navigate("/best-seller", { replace: isCheckoutFlow });
             closeModal();
           }}
         >

@@ -2,6 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   shippingDetails: null,
+  expectedDeliveryDate: null,
+  guaranteedDelivery: {
+    date: null,
+    cost: 2000,
+  },
 };
 
 const checkoutSlice = createSlice({
@@ -14,9 +19,28 @@ const checkoutSlice = createSlice({
     clearShippingDetails(state) {
       state.shippingDetails = null;
     },
+    addEDD(state, action) {
+      state.expectedDeliveryDate = action.payload;
+    },
+    setGuaranteedDate(state, action) {
+      state.guaranteedDelivery.date = action.payload;
+    },
+    clearGuaranteedDate(state) {
+      state.guaranteedDelivery.date = null;
+    },
+    clearDates(state) {
+      state.expectedDeliveryDate = null;
+      state.guaranteedDelivery.date = null;
+    },
   },
 });
 
-export const { setShippingDetails, clearShippingDetails } =
-  checkoutSlice.actions;
+export const {
+  setShippingDetails,
+  clearShippingDetails,
+  addEDD,
+  setGuaranteedDate,
+  clearGuaranteedDate,
+  clearDates,
+} = checkoutSlice.actions;
 export default checkoutSlice.reducer;
