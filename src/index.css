@@ -159,7 +159,12 @@
       @apply border-primary-200 mr-1 inline-block h-4 w-4 border bg-white;
     }
 
-    & input[type="checkbox"]:checked + .box {
+    & .round {
+      @apply border-primary-200 mr-1 inline-block h-4 w-4 rounded-full border bg-white;
+    }
+
+    & input[type="checkbox"]:checked + .box,
+    input[type="checkbox"]:checked + .round {
       @apply bg-primary-600;
     }
   }

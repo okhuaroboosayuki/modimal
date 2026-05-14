@@ -1,6 +1,7 @@
 function CheckBox({
   handleChange,
   boxValue,
+  shape = "box",
   label,
   isChecked,
   filterName,
@@ -19,7 +20,9 @@ function CheckBox({
         {...rest}
       />
 
-      <span className="box"></span>
+      {shape === "box" && <span className="box"></span>}
+
+      {shape === "round" && <span className="round"></span>}
 
       {filterName === "color" && (
         <span

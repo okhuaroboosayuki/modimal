@@ -5,7 +5,7 @@ function CartInfo() {
   return (
     <>
       <SEO
-        title={"Checkout - Modimal"}
+        title={"Checkout Info - Modimal"}
         description={
           "Provide your contact and shipping details to complete your purchase at Modimal. Fast and secure checkout process."
         }
