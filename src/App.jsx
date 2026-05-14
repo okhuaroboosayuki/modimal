@@ -20,8 +20,8 @@ import {
   ProtectedRoutes,
 } from "./components/ProtectedRoutes";
 import CartFlowLayout from "./components/cart/CartFlowLayout";
-import { CheckoutFormProvider } from "./context/CheckoutFormContext";
 import ScrollToTopEffect from "./components/ScrollToTopEffect";
+import { CheckoutFormProvider } from "./context/CheckoutFormProvider";
 
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
@@ -41,6 +41,7 @@ const AuthPage = lazy(() => import("./pages/AuthPage"));
 const Favorites = lazy(() => import("./pages/Favorites"));
 const CartPage = lazy(() => import("./pages/CartPage"));
 const CartInfoPage = lazy(() => import("./pages/CartInfo"));
+const CartShippingPage = lazy(() => import("./pages/CartShipping"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -117,15 +118,16 @@ function App() {
 
               <Route path="cart" element={<CartPage />} />
 
-              <Route element={<CartFlowLayout />}>
-                <Route
-                  path="cart/information"
-                  element={
-                    <CheckoutFormProvider>
-                      <CartInfoPage />
-                    </CheckoutFormProvider>
-                  }
-                />
+              <Route
+                element={
+                  <CheckoutFormProvider>
+                    <CartFlowLayout />
+                  </CheckoutFormProvider>
+                }
+              >
+                <Route path="cart/information" element={<CartInfoPage />} />
+
+                <Route path="cart/shipping" element={<CartShippingPage />} />
               </Route>
 
               <Route path="*" element={<NotFound />} />
