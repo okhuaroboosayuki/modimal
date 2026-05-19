@@ -9,12 +9,10 @@ import { useState } from "react";
 import LoginModal from "./LoginModal";
 import AuthFooterSection from "../../components/AuthFooterSection";
 import SEO from "../../components/SEO";
-import { useSelector } from "react-redux";
 
 const AUTH_IMAGE = "/images/authImage.png";
 
 function Login() {
-  const { shippingDetails } = useSelector((store) => store.checkoutReducer);
   const location = useLocation();
   const accountCreated = location.state?.accountCreated !== undefined || false;
   const redirectTo = location.state?.from;
@@ -26,11 +24,7 @@ function Login() {
     watch,
     reset,
     formState: { errors },
-  } = useForm({
-    values: {
-      email: (redirectTo && shippingDetails?.email) ?? "",
-    },
-  });
+  } = useForm();
   const { login, isLoading } = useLogin();
 
   const passwordValue = watch("password", "");

@@ -129,6 +129,7 @@ function SignUp() {
 
               <ProgressLink
                 to={"/login"}
+                state={{ from: redirectTo }}
                 className={"text-primary hover:text-primary-750 mx-[27px] my-2"}
               >
                 log in
