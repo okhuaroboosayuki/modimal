@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import EmptyDetails from "../../components/cart/EmptyDetails";
 import { useDerivedCart } from "../../hooks/useDerivedCart";
 import CheckoutFormActions from "../../components/cart/CheckoutFormActions";
@@ -8,21 +9,18 @@ import { useCheckoutForm } from "./../../hooks/useCheckoutForm";
 import { SmallLoader } from "./../../components/Loaders";
 import { formatDeliveryDates } from "../../utils/dateFormatters";
 import GuaranteedDate from "../../components/cart/GuaranteedDate";
-import { addEDD, clearEDD } from "./checkoutSlice";
+import { setTotalAmount } from "./checkoutSlice";
 import { useUpdateUserShippingDetails } from "./useUpdateUserShippingDetails";
+import ExpectedDates from "../../components/cart/ExpectedDates";
 
 function CartDeliveryDetails() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { totalAmount } = useOutletContext();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { totalCartCount } = useDerivedCart();
-  const { shippingDetails, guaranteedDelivery } = useSelector(
-    (store) => store.checkoutReducer,
-  );
-  const {
-    watch,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useCheckoutForm();
+  const { shippingDetails } = useSelector((store) => store.checkoutReducer);
+  const { watch } = useCheckoutForm();
   const { updateShipping, isUpdating } = useUpdateUserShippingDetails();
 
   const country = watch("country");
@@ -39,28 +37,13 @@ function CartDeliveryDetails() {
       updateShipping({ shippingDetails });
   };
 
-  const submitWithGuaranteedDate = () => {
-    dispatch(clearEDD());
-    dispatch(addEDD(guaranteedDelivery.date));
+  const onSubmit = () => {
+    setIsSubmitting(true);
+    setTimeout(() => setIsSubmitting(false), 1000);
+
+    dispatch(setTotalAmount(totalAmount));
     canUpdateShippingDetails();
     navigate("/cart/payment");
-  };
-
-  const submitWithoutGuaranteedDate = () => {
-    dispatch(clearEDD());
-    dispatch(addEDD(deliveryDates));
-    canUpdateShippingDetails();
-    navigate("/cart/payment");
-  };
-
-  const onSubmit = async ({ guaranteedDate }) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    if (guaranteedDate) {
-      submitWithGuaranteedDate();
-      return;
-    }
-    submitWithoutGuaranteedDate();
   };
 
   if (!shippingDetails)
@@ -77,10 +60,7 @@ function CartDeliveryDetails() {
   }
 
   return (
-    <form
-      className="flex h-full w-full flex-col items-start gap-6"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <section className="flex h-full w-full flex-col items-start gap-6">
       <h1 className="text-lg font-medium md:text-[20px]">delivery options</h1>
 
       <div className="border-grayDF w-full border"></div>
@@ -96,13 +76,7 @@ function CartDeliveryDetails() {
         </span>
       </div>
 
-      <div className="flex w-full flex-col justify-between gap-3 sm:flex-row sm:items-center">
-        <span className="text-gray86 w-full text-base font-medium sm:w-1/2">
-          expected date:
-        </span>
-
-        <span className="text-neutral-black text-sm">{formattedDates}</span>
-      </div>
+      <ExpectedDates dates={deliveryDates} formattedDates={formattedDates} />
 
       <div className="border-grayDF w-full border"></div>
 
@@ -115,6 +89,7 @@ function CartDeliveryDetails() {
           }
           linkText={"information"}
           goBackUrl={"/cart/information"}
+          onClick={onSubmit}
           disabledStyle={
             isUpdating || isSubmitting
               ? "bg-primary-750! w-[177px] cursor-not-allowed! hover:text-white!"
@@ -123,7 +98,7 @@ function CartDeliveryDetails() {
           isDisabled={isUpdating || isSubmitting}
         />
       </div>
-    </form>
+    </section>
   );
 }
 

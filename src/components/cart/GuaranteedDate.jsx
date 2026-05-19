@@ -1,24 +1,34 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useCheckoutForm } from "../../hooks/useCheckoutForm";
 import CheckBox from "../CheckBox";
 import {
+  addEDD,
+  clearEDD,
   clearGuaranteedDate,
   setGuaranteedDate,
 } from "../../features/cart/checkoutSlice";
 import { formatCurrency } from "../../utils/numberFormatter";
 
 function GuaranteedDate({ dates, guaranteedDate }) {
-  const { register, watch } = useCheckoutForm();
   const dispatch = useDispatch();
-  const { guaranteedDelivery } = useSelector((store) => store.checkoutReducer);
-
-  const hasGuaranteedDate = watch("guaranteedDate", "");
+  const { guaranteedDelivery, expectedDeliveryDate } = useSelector(
+    (store) => store.checkoutReducer,
+  );
 
   const handleClick = () => {
-    if (hasGuaranteedDate) {
+    if (guaranteedDelivery.date) {
       dispatch(clearGuaranteedDate());
+      dispatch(clearEDD());
       return;
     }
+
+    if (expectedDeliveryDate) {
+      dispatch(clearEDD());
+      dispatch(addEDD(dates[0]));
+      dispatch(setGuaranteedDate(dates[0]));
+      return;
+    }
+
+    dispatch(addEDD(dates[0]));
     dispatch(setGuaranteedDate(dates[0]));
   };
 
@@ -29,14 +39,13 @@ function GuaranteedDate({ dates, guaranteedDate }) {
       </span>
 
       <div className="flex items-center gap-3 max-sm:w-full max-sm:justify-between">
-        <div onClick={handleClick}>
-          <CheckBox
-            label={guaranteedDate}
-            className={"[&>span]:text-sm!"}
-            shape="round"
-            {...register("guaranteedDate")}
-          />
-        </div>
+        <CheckBox
+          label={guaranteedDate}
+          isChecked={typeof expectedDeliveryDate !== "object"}
+          handleChange={handleClick}
+          className={"[&>span]:text-sm!"}
+          shape="round"
+        />
 
         <span className="text-base font-semibold text-black">
           {formatCurrency(guaranteedDelivery.cost, 0)}
