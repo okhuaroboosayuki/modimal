@@ -1,8 +1,14 @@
 import CartItem from "../../features/cart/CartItem";
 import EmptyCart from "../header/cart/EmptyCart";
+import { SmallLoader } from "../Loaders";
 import CartDetailsSummary from "./CartDetailsSummary";
 
-function CheckoutRightPanel({ cartItems, totalCartCount, cartSummaryDetails }) {
+function CheckoutRightPanel({
+  cartItems,
+  totalCartCount,
+  cartSummaryDetails,
+  isCartLoading,
+}) {
   return (
     <section
       className={`${totalCartCount === 0 && "w-full items-center justify-center capitalize"} lg:bg-primary-25 hide-scrollbar order-1 flex flex-col gap-10 bg-white px-5 pt-10 pb-10 lg:order-2 lg:overflow-y-scroll lg:pb-20 xl:pr-28 xl:pl-6`}
@@ -32,6 +38,8 @@ function CheckoutRightPanel({ cartItems, totalCartCount, cartSummaryDetails }) {
             />
           </div>
         </>
+      ) : isCartLoading ? (
+        <SmallLoader />
       ) : (
         <EmptyCart flow={"checkout"} />
       )}

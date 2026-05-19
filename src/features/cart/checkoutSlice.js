@@ -22,6 +22,9 @@ const checkoutSlice = createSlice({
     addEDD(state, action) {
       state.expectedDeliveryDate = action.payload;
     },
+    clearEDD(state) {
+      state.expectedDeliveryDate = null;
+    },
     setGuaranteedDate(state, action) {
       state.guaranteedDelivery.date = action.payload;
     },
@@ -39,6 +42,7 @@ export const {
   setShippingDetails,
   clearShippingDetails,
   addEDD,
+  clearEDD,
   setGuaranteedDate,
   clearGuaranteedDate,
   clearDates,

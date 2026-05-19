@@ -19,7 +19,6 @@ import {
   OtherProtectedRoutes,
   ProtectedRoutes,
 } from "./components/ProtectedRoutes";
-import CartFlowLayout from "./components/cart/CartFlowLayout";
 import ScrollToTopEffect from "./components/ScrollToTopEffect";
 import { CheckoutFormProvider } from "./context/CheckoutFormProvider";
 
@@ -40,6 +39,7 @@ const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const Favorites = lazy(() => import("./pages/Favorites"));
 const CartPage = lazy(() => import("./pages/CartPage"));
+const CartFlowLayout = lazy(() => import("./components/cart/CartFlowLayout"));
 const CartInfoPage = lazy(() => import("./pages/CartInfo"));
 const CartShippingPage = lazy(() => import("./pages/CartShipping"));
 
@@ -127,8 +127,17 @@ function App() {
               >
                 <Route path="cart/information" element={<CartInfoPage />} />
 
-                <Route path="cart/shipping" element={<CartShippingPage />} />
+                <Route
+                  path="cart/shipping"
+                  element={
+                    <OtherProtectedRoutes>
+                      <CartShippingPage />
+                    </OtherProtectedRoutes>
+                  }
+                />
               </Route>
+
+              <Route path="cart/payment" element={<div>payments</div>} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

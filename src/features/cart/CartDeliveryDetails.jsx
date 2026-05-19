@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import EmptyDetails from "../../components/cart/EmptyDetails";
 import { useDerivedCart } from "../../hooks/useDerivedCart";
 import CheckoutFormActions from "../../components/cart/CheckoutFormActions";
@@ -7,22 +8,59 @@ import { useCheckoutForm } from "./../../hooks/useCheckoutForm";
 import { SmallLoader } from "./../../components/Loaders";
 import { formatDeliveryDates } from "../../utils/dateFormatters";
 import GuaranteedDate from "../../components/cart/GuaranteedDate";
+import { addEDD, clearEDD } from "./checkoutSlice";
+import { useUpdateUserShippingDetails } from "./useUpdateUserShippingDetails";
 
 function CartDeliveryDetails() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { totalCartCount } = useDerivedCart();
-  const { shippingDetails } = useSelector((store) => store.checkoutReducer);
-  const { watch, handleSubmit } = useCheckoutForm();
+  const { shippingDetails, guaranteedDelivery } = useSelector(
+    (store) => store.checkoutReducer,
+  );
+  const {
+    watch,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useCheckoutForm();
+  const { updateShipping, isUpdating } = useUpdateUserShippingDetails();
 
   const country = watch("country");
   const { deliveryDates, isLoading } = useDeliveryDates(
     country,
     totalCartCount,
   );
-  const formattedDates = formatDeliveryDates(deliveryDates);
 
-  const onSubmit = ({ guaranteedDate }) => {
-    console.log(guaranteedDate);
-    console.log(guaranteedDate);
+  const formattedDates = formatDeliveryDates(deliveryDates);
+  const tomorrow = formatDeliveryDates(deliveryDates, false);
+
+  const canUpdateShippingDetails = () => {
+    if (shippingDetails.saveShippingAddress)
+      updateShipping({ shippingDetails });
+  };
+
+  const submitWithGuaranteedDate = () => {
+    dispatch(clearEDD());
+    dispatch(addEDD(guaranteedDelivery.date));
+    canUpdateShippingDetails();
+    navigate("/cart/payment");
+  };
+
+  const submitWithoutGuaranteedDate = () => {
+    dispatch(clearEDD());
+    dispatch(addEDD(deliveryDates));
+    canUpdateShippingDetails();
+    navigate("/cart/payment");
+  };
+
+  const onSubmit = async ({ guaranteedDate }) => {
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    if (guaranteedDate) {
+      submitWithGuaranteedDate();
+      return;
+    }
+    submitWithoutGuaranteedDate();
   };
 
   if (!shippingDetails)
@@ -68,19 +106,21 @@ function CartDeliveryDetails() {
 
       <div className="border-grayDF w-full border"></div>
 
-      <GuaranteedDate date={deliveryDates} />
+      <GuaranteedDate dates={deliveryDates} guaranteedDate={tomorrow} />
 
       <div className="mt-24 w-full">
         <CheckoutFormActions
-          btnText={"continue to payment"}
+          btnText={
+            isSubmitting || isUpdating ? "loading" : "continue to payment"
+          }
           linkText={"information"}
           goBackUrl={"/cart/information"}
           disabledStyle={
-            totalCartCount === 0
-              ? "bg-gray86! cursor-not-allowed! text-white!"
-              : ""
+            isUpdating || isSubmitting
+              ? "bg-primary-750! w-[177px] cursor-not-allowed! hover:text-white!"
+              : "hover:bg-primary-600! hover:text-white!"
           }
-          isDisabled={totalCartCount === 0}
+          isDisabled={isUpdating || isSubmitting}
         />
       </div>
     </form>

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { formatCurrency } from "../../utils/numberFormatter";
 
 function CartFlowLayout() {
-  const { derivedCart, totalCartCount } = useDerivedCart();
+  const { derivedCart, totalCartCount, isLoading } = useDerivedCart();
   const { guaranteedDelivery } = useSelector((store) => store.checkoutReducer);
 
   const cartSubtotal = derivedCart?.reduce((acc, item) => {
@@ -43,6 +43,7 @@ function CartFlowLayout() {
         cartItems={derivedCart}
         totalCartCount={totalCartCount}
         cartSummaryDetails={cartSummaryDetails}
+        isCartLoading={isLoading}
       />
     </div>
   );

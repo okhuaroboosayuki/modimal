@@ -78,14 +78,14 @@ export async function updateCurrentUserData({ password, shippingDetails }) {
   if (shippingDetails) {
     updateData.data = {
       subscribeToNewsletter: shippingDetails.subscribeToNewsletter,
-      address: shippingDetails.address,
-      apartment: shippingDetails.apartment,
+      address: shippingDetails.address.trim(),
+      apartment: shippingDetails.apartment.trim(),
       country: shippingDetails.country,
       state: shippingDetails.state,
-      postalCode: shippingDetails.postalCode,
+      postalCode: shippingDetails.postalCode.trim(),
       fullName: shippingDetails.fullName.trim(),
-      company: shippingDetails.company,
-      phone: shippingDetails.phone,
+      company: shippingDetails.company.trim(),
+      phone: shippingDetails.phone.trim(),
     };
   }
 

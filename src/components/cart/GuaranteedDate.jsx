@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCheckoutForm } from "../../hooks/useCheckoutForm";
-import { formatDeliveryDates } from "../../utils/dateFormatters";
 import CheckBox from "../CheckBox";
 import {
   clearGuaranteedDate,
@@ -8,12 +7,11 @@ import {
 } from "../../features/cart/checkoutSlice";
 import { formatCurrency } from "../../utils/numberFormatter";
 
-function GuaranteedDate({ date }) {
+function GuaranteedDate({ dates, guaranteedDate }) {
   const { register, watch } = useCheckoutForm();
   const dispatch = useDispatch();
   const { guaranteedDelivery } = useSelector((store) => store.checkoutReducer);
 
-  const tomorrow = formatDeliveryDates(date, false);
   const hasGuaranteedDate = watch("guaranteedDate", "");
 
   const handleClick = () => {
@@ -21,7 +19,7 @@ function GuaranteedDate({ date }) {
       dispatch(clearGuaranteedDate());
       return;
     }
-    dispatch(setGuaranteedDate(date[0]));
+    dispatch(setGuaranteedDate(dates[0]));
   };
 
   return (
@@ -33,7 +31,7 @@ function GuaranteedDate({ date }) {
       <div className="flex items-center gap-3 max-sm:w-full max-sm:justify-between">
         <div onClick={handleClick}>
           <CheckBox
-            label={tomorrow}
+            label={guaranteedDate}
             className={"[&>span]:text-sm!"}
             shape="round"
             {...register("guaranteedDate")}

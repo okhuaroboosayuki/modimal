@@ -7,14 +7,20 @@ import CartShippingDetails from "./CartShippingDetails";
 import { useDispatch } from "react-redux";
 import { setShippingDetails } from "./checkoutSlice";
 import { useDerivedCart } from "./../../hooks/useDerivedCart";
+import { useUser } from "../auth/useUser";
 
 function InfoPageDetails() {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useCheckoutForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useCheckoutForm();
   const dispatch = useDispatch();
   const { totalCartCount } = useDerivedCart();
+  const { isAuthenticated } = useUser();
 
-  const onSubmit = ({
+  const onSubmit = async ({
     email,
     subscribeToNewsletter,
     country,
@@ -44,6 +50,8 @@ function InfoPageDetails() {
       phone,
       saveShippingAddress,
     };
+
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
     dispatch(setShippingDetails(shippingDetails));
     navigate("/cart/shipping");
@@ -78,15 +86,31 @@ function InfoPageDetails() {
       </div>
 
       <CheckoutFormActions
-        btnText={"continue to shipping"}
+        btnText={
+          isSubmitting
+            ? "loading..."
+            : isAuthenticated
+              ? "continue to shipping"
+              : "login to continue"
+        }
         linkText={"return to cart"}
         goBackUrl={"/cart"}
-        disabledStyle={
-          totalCartCount === 0
-            ? "bg-gray86! cursor-not-allowed! text-white!"
-            : ""
+        onClick={
+          !isAuthenticated
+            ? (e) => {
+                e.preventDefault();
+                navigate("/login", { state: { from: "/cart/information" } });
+              }
+            : null
         }
-        isDisabled={totalCartCount === 0}
+        disabledStyle={
+          isSubmitting
+            ? "bg-primary-750! w-[177px] cursor-not-allowed! hover:text-white!"
+            : totalCartCount === 0 && isAuthenticated
+              ? "bg-gray86! cursor-not-allowed! text-white!"
+              : ""
+        }
+        isDisabled={isSubmitting || totalCartCount === 0}
       />
     </form>
   );
