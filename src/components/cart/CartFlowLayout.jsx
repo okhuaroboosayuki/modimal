@@ -1,7 +1,7 @@
-import CheckoutRightPanel from "./CheckoutRightPanel ";
-import CheckoutLeftPanel from "./CheckoutLeftPanel ";
-import { useDerivedCart } from "../../hooks/useDerivedCart";
 import { useSelector } from "react-redux";
+import CheckoutRightPanel from "./CheckoutRightPanel";
+import CheckoutLeftPanel from "./CheckoutLeftPanel";
+import { useDerivedCart } from "../../hooks/useDerivedCart";
 import { formatCurrency } from "../../utils/numberFormatter";
 
 function CartFlowLayout() {
