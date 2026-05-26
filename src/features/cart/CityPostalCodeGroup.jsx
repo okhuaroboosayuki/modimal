@@ -7,6 +7,7 @@ function CityPostalCodeGroup() {
   const {
     register,
     watch,
+    setValue,
     formState: { errors },
   } = useCheckoutForm();
 
@@ -28,6 +29,11 @@ function CityPostalCodeGroup() {
         {...register("postalCode", {
           required: "This field is required",
           pattern: validationRule,
+          onChange: (e) => {
+            const digits = e.target.value.replace(/\D/g, "");
+            setValue("postalCode", digits);
+            e.target.value = digits;
+          },
         })}
         error={errors.postalCode?.message}
       />

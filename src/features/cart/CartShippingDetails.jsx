@@ -9,6 +9,7 @@ function CartShippingDetails() {
   const {
     register,
     watch,
+    setValue,
     formState: { errors },
   } = useCheckoutForm();
 
@@ -67,6 +68,11 @@ function CartShippingDetails() {
           {...register("phone", {
             required: "This field is required",
             pattern: phoneRule,
+            onChange: (e) => {
+              const digits = e.target.value.replace(/\D/g, "");
+              setValue("phone", digits);
+              e.target.value = digits;
+            },
           })}
           error={errors.phone?.message}
         />
