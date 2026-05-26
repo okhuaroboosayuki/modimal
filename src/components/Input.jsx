@@ -10,6 +10,8 @@ function Input({
   onFocus,
   inputMode,
   disabled,
+  maxLength,
+  ref,
   ...rest
 }) {
   return (
@@ -28,6 +30,8 @@ function Input({
       spellCheck={type === "search"}
       aria-label={type === "search" ? "Search through site content" : undefined}
       disabled={disabled}
+      ref={ref}
+      maxLength={maxLength}
       {...rest}
     />
   );
