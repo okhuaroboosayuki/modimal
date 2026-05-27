@@ -42,6 +42,7 @@ const CartPage = lazy(() => import("./pages/CartPage"));
 const CartFlowLayout = lazy(() => import("./components/cart/CartFlowLayout"));
 const CartInfoPage = lazy(() => import("./pages/CartInfo"));
 const CartShippingPage = lazy(() => import("./pages/CartShipping"));
+const PaymentPage = lazy(() => import("./pages/Payment"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -137,7 +138,16 @@ function App() {
                 />
               </Route>
 
-              <Route path="cart/payment" element={<div>payments</div>} />
+              <Route
+                path="cart/payment"
+                element={
+                  <OtherProtectedRoutes>
+                    <CheckoutFormProvider>
+                      <PaymentPage />
+                    </CheckoutFormProvider>
+                  </OtherProtectedRoutes>
+                }
+              />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

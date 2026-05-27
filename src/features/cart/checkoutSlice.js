@@ -1,13 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loadCheckoutState } from "../../utils/checkoutStorage";
 
-const initialState = {
+const defaultState = {
   shippingDetails: null,
   expectedDeliveryDate: null,
   guaranteedDelivery: {
     date: null,
     cost: 2000,
   },
+  deliveryAddress: null,
+  totalAmount: 0,
 };
+const initialState = loadCheckoutState(defaultState);
 
 const checkoutSlice = createSlice({
   name: "checkout",
@@ -31,9 +35,15 @@ const checkoutSlice = createSlice({
     clearGuaranteedDate(state) {
       state.guaranteedDelivery.date = null;
     },
-    clearDates(state) {
+    setTotalAmount(state, action) {
+      state.totalAmount = action.payload;
+    },
+    clearState(state) {
+      state.shippingDetails = null;
       state.expectedDeliveryDate = null;
       state.guaranteedDelivery.date = null;
+      state.deliveryAddress = null;
+      state.totalAmount = 0;
     },
   },
 });
@@ -45,6 +55,7 @@ export const {
   clearEDD,
   setGuaranteedDate,
   clearGuaranteedDate,
-  clearDates,
+  setTotalAmount,
+  clearState,
 } = checkoutSlice.actions;
 export default checkoutSlice.reducer;
