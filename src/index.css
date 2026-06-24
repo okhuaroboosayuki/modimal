@@ -116,6 +116,12 @@
     }
   }
 
+  .big-icon {
+    & svg {
+      @apply h-[3.75rem] w-[3.75rem];
+    }
+  }
+
   .header-modal,
   .profile-button-modal,
   .cart-modal {

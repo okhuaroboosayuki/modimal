@@ -21,6 +21,8 @@ import {
 } from "./components/ProtectedRoutes";
 import ScrollToTopEffect from "./components/ScrollToTopEffect";
 import { CheckoutFormProvider } from "./context/CheckoutFormProvider";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
+import CheckoutError from "./pages/CheckoutError";
 
 const SearchPage = lazy(() => import("./pages/SearchPage"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
@@ -145,6 +147,24 @@ function App() {
                     <CheckoutFormProvider>
                       <PaymentPage />
                     </CheckoutFormProvider>
+                  </OtherProtectedRoutes>
+                }
+              />
+
+              <Route
+                path="checkout/success"
+                element={
+                  <OtherProtectedRoutes>
+                    <CheckoutSuccess />
+                  </OtherProtectedRoutes>
+                }
+              />
+
+              <Route
+                path="checkout/error"
+                element={
+                  <OtherProtectedRoutes>
+                    <CheckoutError />
                   </OtherProtectedRoutes>
                 }
               />

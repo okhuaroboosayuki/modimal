@@ -1,76 +1,42 @@
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import CartPageHeader from "../cart/CartPageHeader";
 import EmptyDetails from "../cart/EmptyDetails";
 import CartFlowBreadCrumbs from "../cart/CartFlowBreadCrumbs";
 import CheckBox from "../CheckBox";
 import AlternativeBillingAddress from "../../features/payment/AlternativeBillingAddress";
-import PaymentForm from "../../features/payment/PaymentForm";
+import PayStackPayment from "../../features/payment/PayStackPayment";
+import { useDerivedCart } from "../../hooks/useDerivedCart";
+import { usePayment } from "../../features/payment/usePayment";
+import useBillingAddress from "../../hooks/useBillingAddress";
 
 function PaymentContainer() {
+  const { derivedCart } = useDerivedCart();
+
   const {
     register,
     watch,
     setValue,
     setError,
     clearErrors,
-    trigger,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  const { shippingDetails, expectedDeliveryDate } = useSelector(
+  const { pay, isLoading } = usePayment();
+
+  const { shippingDetails, expectedDeliveryDate, totalAmount } = useSelector(
     (store) => store.checkoutReducer,
   );
-  const [isSameAsShippingChecked, setIsSameAsShippingChecked] = useState(true);
-  const [
+
+  const {
+    isSameAsShippingChecked,
     isAlternativeBillingAddressChecked,
-    setIsAlternativeBillingAddressChecked,
-  ] = useState(false);
-
-  const handleSameAsShippingClick = () => {
-    if (isSameAsShippingChecked) {
-      setIsSameAsShippingChecked(false);
-      clearErrors();
-      return;
-    }
-
-    if (isAlternativeBillingAddressChecked) {
-      setIsAlternativeBillingAddressChecked(false);
-      setIsSameAsShippingChecked(true);
-      clearErrors();
-      return;
-    }
-
-    clearErrors();
-    setIsSameAsShippingChecked(true);
-  };
-
-  const handleAlternativeBillingAddressClick = () => {
-    if (isAlternativeBillingAddressChecked) {
-      setIsAlternativeBillingAddressChecked(false);
-      clearErrors();
-      return;
-    }
-
-    if (isSameAsShippingChecked) {
-      setIsSameAsShippingChecked(false);
-      setIsAlternativeBillingAddressChecked(true);
-      clearErrors();
-      return;
-    }
-
-    clearErrors();
-    setIsAlternativeBillingAddressChecked(true);
-  };
+    handleSameAsShippingClick,
+    handleAlternativeBillingAddressClick,
+  } = useBillingAddress(clearErrors);
 
   const handlePaymentSubmit = (data) => {
-    console.log(
-      "submit hit",
-      isSameAsShippingChecked,
-      isAlternativeBillingAddressChecked,
-    );
     if (!isSameAsShippingChecked && !isAlternativeBillingAddressChecked) {
       setError("billingAddress", {
         type: "manual",
@@ -80,7 +46,6 @@ function PaymentContainer() {
     }
 
     let shippingDetailsToSubmit = null;
-    console.log(data);
 
     if (isSameAsShippingChecked) {
       setError("billingAddress", null);
@@ -94,7 +59,16 @@ function PaymentContainer() {
         postalCode: shippingDetails.postalCode,
         phone: shippingDetails.phone,
       };
-      console.log("Payment Data:", shippingDetailsToSubmit);
+
+      pay({
+        email: shippingDetailsToSubmit.email,
+        firstName: shippingDetailsToSubmit.fullName.split(" ")[0],
+        lastName: shippingDetailsToSubmit.fullName.split(" ")[1],
+        amount: totalAmount,
+        cartItems: derivedCart,
+        shippingAddress: shippingDetailsToSubmit.address,
+      });
+
       return;
     }
 
@@ -109,12 +83,10 @@ function PaymentContainer() {
       postalCode: data.altPostalCode,
       phone: data.altPhone,
     };
-
-    console.log("Payment Data:", shippingDetailsToSubmit);
   };
 
   return (
-    <section className="flex w-full flex-col items-start justify-start gap-8 px-5 pb-30 capitalize sm:px-8 lg:px-12 lg:pt-8 xl:px-15">
+    <section className="flex w-full flex-col items-start justify-start gap-8 px-5 pb-20 capitalize sm:px-8 lg:px-12 lg:pt-8 xl:px-15">
       <CartPageHeader />
 
       <CartFlowBreadCrumbs />
@@ -161,13 +133,7 @@ function PaymentContainer() {
               </section>
             </section>
 
-            <PaymentForm
-              register={register}
-              watch={watch}
-              errors={errors}
-              setValue={setValue}
-              trigger={trigger}
-            />
+            <PayStackPayment totalAmount={totalAmount} disabled={isLoading} />
           </form>
         )}
       </>
