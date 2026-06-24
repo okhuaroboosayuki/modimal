@@ -112,3 +112,13 @@ export async function updateCartColorOrSize({
 
   if (error) throw new Error(error.message);
 }
+
+export async function clearCart() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { error } = await supabase.from("cart").delete().eq("user_id", user.id);
+
+  if (error) throw new Error(error.message);
+}
