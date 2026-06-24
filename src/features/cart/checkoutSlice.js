@@ -10,6 +10,7 @@ const defaultState = {
   },
   deliveryAddress: null,
   totalAmount: 0,
+  orderNumber: null,
 };
 const initialState = loadCheckoutState(defaultState);
 
@@ -38,6 +39,12 @@ const checkoutSlice = createSlice({
     setTotalAmount(state, action) {
       state.totalAmount = action.payload;
     },
+    setOrderNumber(state, action) {
+      state.orderNumber = action.payload;
+    },
+    clearOrderNumber(state) {
+      state.orderNumber = null;
+    },
     clearState(state) {
       state.shippingDetails = null;
       state.expectedDeliveryDate = null;
@@ -56,6 +63,8 @@ export const {
   setGuaranteedDate,
   clearGuaranteedDate,
   setTotalAmount,
+  setOrderNumber,
+  clearOrderNumber,
   clearState,
 } = checkoutSlice.actions;
 export default checkoutSlice.reducer;
