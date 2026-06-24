@@ -38,20 +38,21 @@ function InfoPageDetails() {
       return;
 
     const shippingDetails = {
-      email: email.toLowerCase(),
+      email: email.trim().toLowerCase(),
       subscribeToNewsletter,
       country: country.toLowerCase(),
-      fullName: `${firstName.toLowerCase()} ${lastName.toLowerCase()}`,
-      company: company.toLowerCase(),
-      address: address.toLowerCase(),
-      apartment: apartment.toLowerCase(),
+      fullName: `${firstName.trim().toLowerCase()} ${lastName.trim().toLowerCase()}`,
+      company: company.trim().toLowerCase(),
+      address: apartment?.trim()
+        ? `${apartment.trim().toLowerCase()}, ${address.trim().toLowerCase()}`
+        : address.toLowerCase(),
       postalCode,
       state: state.toLowerCase(),
       phone,
       saveShippingAddress,
     };
 
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     dispatch(setShippingDetails(shippingDetails));
     navigate("/cart/shipping");
