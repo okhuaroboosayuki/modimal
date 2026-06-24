@@ -39,7 +39,7 @@ function MobileMenu({ ref, closemodal }) {
         </div>
 
         <AuthButtonContainer
-          closeModal={closemodal}
+          closemodal={closemodal}
           ref={ref}
           isActive={isActive}
           isMobileMenu={true}

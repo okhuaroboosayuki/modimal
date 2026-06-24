@@ -1,11 +1,24 @@
+import { useDispatch } from "react-redux";
 import { useLogOut } from "../../features/auth/useLogOut";
 import { useUser } from "../../features/auth/useUser";
 import AuthButton from "./AuthButton";
+import {
+  clearOrderNumber,
+  clearState,
+} from "../../features/cart/checkoutSlice";
 
 function AuthButtonGroup({ closeModal, ref, isActive }) {
+  const dispatch = useDispatch();
   const { logout } = useLogOut();
   const { data } = useUser();
   const firstName = data?.user_metadata?.fullName.split(" ")[0];
+
+  const handleLogoutClick = () => {
+    dispatch(clearState());
+    dispatch(clearOrderNumber());
+    closeModal();
+    logout();
+  };
 
   return (
     <div
@@ -26,10 +39,7 @@ function AuthButtonGroup({ closeModal, ref, isActive }) {
 
           <AuthButton
             text={"log out"}
-            onClick={() => {
-              closeModal();
-              logout();
-            }}
+            onClick={handleLogoutClick}
             authenticated={isActive}
           />
         </>
