@@ -1,13 +1,7 @@
 import FormField from "../auth/FormField";
 
 function AlternativeBillingForm({ register, watch, errors, setValue }) {
-  const fullNameValue = watch("fullName", "");
-  const altEmailValue = watch("altEmail", "");
-  const altCountryValue = watch("altCountry", "");
-  const altAddressValue = watch("altAddress", "");
-  const altCityValue = watch("altCity", "");
-  const altPostalCodeValue = watch("altPostalCode", "");
-  const altPhoneValue = watch("altPhone", "");
+  const watchedFields = watch();
 
   return (
     <section className="flex w-full flex-col gap-2">
@@ -15,7 +9,7 @@ function AlternativeBillingForm({ register, watch, errors, setValue }) {
         inputType={"text"}
         name={"fullName"}
         placeholder={"full name"}
-        inputValue={fullNameValue}
+        inputValue={watchedFields.fullName ?? ""}
         {...register("fullName", {
           required: "This field is required",
         })}
@@ -26,7 +20,7 @@ function AlternativeBillingForm({ register, watch, errors, setValue }) {
         inputType={"email"}
         name={"altEmail"}
         placeholder={"email"}
-        inputValue={altEmailValue}
+        inputValue={watchedFields.altEmail ?? ""}
         {...register("altEmail", {
           required: "This field is required",
         })}
@@ -37,7 +31,7 @@ function AlternativeBillingForm({ register, watch, errors, setValue }) {
         inputType={"text"}
         name={"altCountry"}
         placeholder={"country"}
-        inputValue={altCountryValue}
+        inputValue={watchedFields.altCountry ?? ""}
         {...register("altCountry", {
           required: "This field is required",
         })}
@@ -48,7 +42,7 @@ function AlternativeBillingForm({ register, watch, errors, setValue }) {
         inputType={"text"}
         name={"altAddress"}
         placeholder={"address"}
-        inputValue={altAddressValue}
+        inputValue={watchedFields.altAddress ?? ""}
         {...register("altAddress", {
           required: "This field is required",
         })}
@@ -59,7 +53,7 @@ function AlternativeBillingForm({ register, watch, errors, setValue }) {
         inputType={"text"}
         name={"altCity"}
         placeholder={"city"}
-        inputValue={altCityValue}
+        inputValue={watchedFields.altCity ?? ""}
         {...register("altCity", {
           required: "This field is required",
         })}
@@ -70,7 +64,7 @@ function AlternativeBillingForm({ register, watch, errors, setValue }) {
         inputType={"text"}
         name={"altPostalCode"}
         placeholder={"postal code"}
-        inputValue={altPostalCodeValue}
+        inputValue={watchedFields.altPostalCode ?? ""}
         {...register("altPostalCode", {
           required: "This field is required",
           onChange: (e) => {
@@ -86,7 +80,7 @@ function AlternativeBillingForm({ register, watch, errors, setValue }) {
         inputType={"text"}
         name={"altPhone"}
         placeholder={"phone"}
-        inputValue={altPhoneValue}
+        inputValue={watchedFields.altPhone ?? ""}
         inputMode={"numeric"}
         {...register("altPhone", {
           required: "This field is required",
