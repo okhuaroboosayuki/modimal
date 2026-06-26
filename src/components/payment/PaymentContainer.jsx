@@ -83,6 +83,15 @@ function PaymentContainer() {
       postalCode: data.altPostalCode,
       phone: data.altPhone,
     };
+
+    pay({
+      email: shippingDetailsToSubmit.email,
+      firstName: shippingDetailsToSubmit.fullName.split(" ")[0],
+      lastName: shippingDetailsToSubmit.fullName.split(" ")[1],
+      amount: totalAmount,
+      cartItems: derivedCart,
+      shippingAddress: shippingDetailsToSubmit.address,
+    });
   };
 
   return (
