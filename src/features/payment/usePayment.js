@@ -1,7 +1,7 @@
 import PaystackPop from "@paystack/inline-js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { verifyPayment } from "../../services/apiPayment";
 import {
@@ -16,6 +16,7 @@ export function usePayment() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handler = new PaystackPop();
+  const queryClient = useQueryClient();
 
   const { mutate: pay, isPending: isLoading } = useMutation({
     mutationFn: ({
@@ -89,6 +90,7 @@ export function usePayment() {
         dispatch(clearState());
         clearCheckoutState();
         await clearCart();
+        await queryClient.invalidateQueries(["cart"]);
       } else {
         toast.error("Payment failed");
         navigate("/checkout/error");
@@ -104,6 +106,7 @@ export function usePayment() {
         navigate("/checkout/error", { replace: true });
       }
     },
+    onSettled: () => queryClient.invalidateQueries(["cart"]),
   });
 
   return { pay, isLoading };
