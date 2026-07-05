@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
 
 @theme {
   --font-montserrat: "Montserrat", sans-serif;
+  --font-cabin: "Cabin", sans-serif;
 
   /* State Colors */
   --color-error: #c30000;
@@ -234,20 +235,118 @@
   }
 
   .hide-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+    display: none;
+  }
+}
+
+.product-img-carousel,
+.rp-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+}
+
+.product-img-carousel::scroll-marker-group,
+.rp-carousel::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 15px;
+}
+
+.product-img-carousel::-webkit-scrollbar,
+.rp-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.product-img-carousel-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+.product-img-carousel-card::scroll-marker,
+.rp-carousel-card::scroll-marker {
+  content: "";
+  height: 8px;
+  width: 8px;
+  background-color: var(--color-grayAD);
+  border-radius: 50%;
+}
+
+.product-img-carousel-card::scroll-marker:target-current,
+.rp-carousel-card::scroll-marker:target-current {
+  background-color: var(--color-grayDF);
+  width: 12px;
+  height: 12px;
+}
+
+.rp-carousel-card {
+  flex: 0 0 392px;
+  scroll-snap-align: start;
+}
+
+@media screen and (min-width: 1480px) {
+  .rp-carousel::scroll-marker-group {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .bs-carousel {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scroll-marker-group: after;
   }
 
-  .drag-scroll {
-    -webkit-overflow-scrolling: touch;
-    cursor: grab;
+  .bs-carousel::scroll-marker-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
   }
 
-  .drag-scroll:active {
-    cursor: grabbing;
+  .bs-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bs-carousel .card {
+    flex: 0 0 20em;
+    align-content: center;
+    scroll-snap-align: start;
+  }
+
+  .bs-carousel .card::scroll-marker {
+    content: "";
+    height: 8px;
+    width: 8px;
+    background-color: var(--color-grayAD);
+    border-radius: 50%;
+  }
+
+  .bs-carousel .card::scroll-marker:target-current {
+    background-color: var(--color-grayDF);
+    padding: 2px;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .bs-carousel .card {
+    flex: 0 0 100%;
+  }
+
+  .rp-carousel-card {
+    flex: 0 0 100%;
   }
 }

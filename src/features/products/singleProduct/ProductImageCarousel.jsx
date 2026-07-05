@@ -1,114 +1,61 @@
 import { useState } from "react";
 
 function ProductImageCarousel({ productImages, productName }) {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(
+    () => productImages?.[0] ?? null,
+  );
 
-  const displayedImage =
-    selectedImage ||
-    (productImages && productImages.length > 0 ? productImages[0] : null);
-
-  const handleImageSelect = (image) => {
-    setSelectedImage(image);
-  };
-
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (!productImages || productImages.length === 0) return;
-
-    const currentIndex = productImages.findIndex(
-      (img) => img.url === displayedImage?.url,
-    );
-
-    // Swipe left - next image
-    if (isLeftSwipe && currentIndex < productImages.length - 1) {
-      setSelectedImage(productImages[currentIndex + 1]);
-    }
-
-    // Swipe right - previous image
-    if (isRightSwipe && currentIndex > 0) {
-      setSelectedImage(productImages[currentIndex - 1]);
-    }
-  };
-
-  const getCurrentImageIndex = () => {
-    if (!productImages || !displayedImage) return 0;
-    return productImages.findIndex((img) => img.url === displayedImage.url);
-  };
+  const displayedImage = selectedImage ?? productImages?.[0] ?? null;
 
   return (
-    <section className="flex w-full items-center justify-center lg:w-fit">
-      <div className="flex h-[512px] items-center justify-center gap-4">
-        {/* image carousel */}
-        <div className="hidden h-full w-fit flex-col gap-4 overflow-y-scroll md:flex">
-          {productImages &&
-            productImages.map((image, index) => (
+    <section className="w-full lg:w-fit">
+      {/* MOBILE: horizontal snap carousel */}
+      <div className="lg:hidden">
+        <div className="product-img-carousel flex w-full">
+          {productImages?.map((image, index) => (
+            <div
+              key={index}
+              className="product-img-carousel-card w-full shrink-0"
+            >
               <img
                 src={image.url}
-                alt={`${productName}'s ${image.type} image`}
-                width={125}
-                height={160}
-                key={index}
-                onClick={() => handleImageSelect(image)}
-                className={`cursor-pointer transition-opacity duration-200 ${
-                  displayedImage && displayedImage.url === image.url
-                    ? "opacity-100"
-                    : displayedImage
-                      ? "opacity-50"
-                      : "opacity-100"
-                }`}
-              />
-            ))}
-        </div>
-
-        <div className="flex w-full flex-col gap-2">
-          <div
-            className="flex w-full touch-pan-y"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            {displayedImage && (
-              <img
-                src={displayedImage.url}
-                alt={`${productName}'s ${displayedImage.type} image`}
-                className="transition-500-in-out h-[480px] w-[427px] select-none sm:h-[512px]"
+                alt={`${productName} image ${index + 1}`}
+                className="h-[480px] w-full object-center"
                 draggable={false}
               />
-            )}
-          </div>
-
-          <div className="flex items-center gap-1.5 self-center md:hidden">
-            {productImages &&
-              productImages.map((_, index) => (
-                <span
-                  key={index}
-                  className={`transition-500-in-out rounded-full ${
-                    getCurrentImageIndex() === index
-                      ? "bg-grayDF h-3 w-3"
-                      : "bg-grayAD h-2 w-2"
-                  }`}
-                ></span>
-              ))}
-          </div>
+            </div>
+          ))}
         </div>
+      </div>
+
+      {/* DESKTOP: vertical thumbnails & main image */}
+      <div className="hidden items-start gap-4 lg:flex">
+        {/* thumbnail column */}
+        <div className="flex h-[512px] flex-col gap-4 overflow-y-scroll">
+          {productImages?.map((image, index) => (
+            <img
+              key={index}
+              src={image.url}
+              alt={`${productName} thumbnail ${index + 1}`}
+              width={125}
+              height={160}
+              onClick={() => setSelectedImage(image)}
+              className={`h-[160px] w-[125px] shrink-0 cursor-pointer object-center transition-opacity duration-200 ${
+                displayedImage?.url === image.url ? "opacity-100" : "opacity-40"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* main image */}
+        {displayedImage && (
+          <img
+            src={displayedImage.url}
+            alt={`${productName} - ${displayedImage.type}`}
+            className="h-[512px] w-[427px] min-w-0 flex-1 object-center"
+            draggable={false}
+          />
+        )}
       </div>
     </section>
   );
