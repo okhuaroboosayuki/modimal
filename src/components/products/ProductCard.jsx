@@ -11,7 +11,11 @@ import ProductCardFavoriteButton from "./ProductCardFavoriteButton";
 import ProductCardButton from "./ProductCardButton";
 import useCartFunctions from "../../hooks/useCartFunctions";
 
-function ProductCard({ product, isRelatedProductPage = false }) {
+function ProductCard({
+  product,
+  isRelatedProductPage = false,
+  className = "",
+}) {
   const {
     id,
     created_at,
@@ -63,9 +67,11 @@ function ProductCard({ product, isRelatedProductPage = false }) {
   };
 
   return (
-    <div className="flex h-fit w-full flex-col items-start gap-4">
+    <div
+      className={`flex h-fit w-full flex-col items-start gap-4 ${className}`}
+    >
       <div
-        className={`relative h-[20rem] w-full overflow-hidden sm:h-[27.375rem]`}
+        className={`relative aspect-[392/438] w-full overflow-hidden`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -119,7 +125,10 @@ function ProductCard({ product, isRelatedProductPage = false }) {
         <div className="flex w-full flex-col items-start gap-2">
           <div className="flex w-full flex-col justify-between sm:flex-row">
             <div className="flex w-full flex-col items-start gap-2">
-              <ProgressLink to={`/product/${id}`} className="font-semibold">
+              <ProgressLink
+                to={`/product/${id}`}
+                className="font-semibold capitalize"
+              >
                 {productName}
               </ProgressLink>
 
