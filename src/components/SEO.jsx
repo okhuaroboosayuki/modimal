@@ -3,6 +3,8 @@ import { Helmet } from "react-helmet-async";
 const BASE_URL = "https://modimal-store.vercel.app";
 const DEFAULT_IMAGE = "/frame-427319608.png";
 
+const DEFAULT_DESCRIPTION = "Shop stylish women's clothing at Modimal.";
+
 export default function SEO({
   title,
   description,
@@ -18,7 +20,7 @@ export default function SEO({
   return (
     <Helmet>
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      <meta name="description" content={description || DEFAULT_DESCRIPTION} />
       <link rel="canonical" href={fullUrl} />
 
       <meta property="og:title" content={fullTitle} />
@@ -43,7 +45,7 @@ export function ProductStructuredData({ product }) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.productName,
-    description: product.description,
+    description: product.description || DEFAULT_DESCRIPTION,
     image: product.productImages?.[0]?.url,
     brand: {
       "@type": "Brand",
