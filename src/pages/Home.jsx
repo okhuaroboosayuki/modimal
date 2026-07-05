@@ -1,5 +1,5 @@
-// import Uploader from "../data/Uploader";
-
+import Bestsellers from "../components/homepage/Bestsellers";
+import Hero from "../components/homepage/Hero";
 import SEO from "../components/SEO";
 
 function Home() {
@@ -11,12 +11,13 @@ function Home() {
         url={""}
       />
 
-      <div>
-        <div>Home</div>
-        {/* <div aria-disabled> */}
-        {/* <Uploader /> */}
-        {/* </div> */}
-      </div>
+      <section className="flex h-full w-full flex-col">
+        <Hero />
+
+        <section className="flex w-full flex-col px-6 py-20 md:px-14 lg:px-28">
+          <Bestsellers />
+        </section>
+      </section>
     </>
   );
 }
