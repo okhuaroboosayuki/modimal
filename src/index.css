@@ -245,7 +245,9 @@
 }
 
 .product-img-carousel,
-.rp-carousel {
+.rp-carousel,
+.modiweek-carousel,
+.bs-carousel {
   display: flex;
   gap: 24px;
   overflow-x: auto;
@@ -255,7 +257,9 @@
 }
 
 .product-img-carousel::scroll-marker-group,
-.rp-carousel::scroll-marker-group {
+.rp-carousel::scroll-marker-group,
+.modiweek-carousel::scroll-marker-group,
+.bs-carousel::scroll-marker-group {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,7 +268,9 @@
 }
 
 .product-img-carousel::-webkit-scrollbar,
-.rp-carousel::-webkit-scrollbar {
+.rp-carousel::-webkit-scrollbar,
+.modiweek-carousel::-webkit-scrollbar,
+.bs-carousel::-webkit-scrollbar {
   display: none;
 }
 
@@ -273,34 +279,24 @@
   scroll-snap-align: start;
 }
 
-.product-img-carousel-card::scroll-marker,
-.rp-carousel-card::scroll-marker {
-  content: "";
-  height: 8px;
-  width: 8px;
-  background-color: var(--color-grayAD);
-  border-radius: 50%;
-}
-
-.product-img-carousel-card::scroll-marker:target-current,
-.rp-carousel-card::scroll-marker:target-current {
-  background-color: var(--color-grayDF);
-  width: 12px;
-  height: 12px;
-}
-
 .rp-carousel-card {
   flex: 0 0 392px;
   scroll-snap-align: start;
 }
 
+.modiweek-card {
+  flex: 0 0 288px;
+  scroll-snap-align: start;
+}
+
 @media screen and (min-width: 1480px) {
-  .rp-carousel::scroll-marker-group {
+  .rp-carousel::scroll-marker-group,
+  .modiweek-carousel::scroll-marker-group {
     display: none;
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1025px) {
   .bs-carousel {
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -308,7 +304,8 @@
     scroll-marker-group: after;
   }
 
-  .bs-carousel::scroll-marker-group {
+  .bs-carousel::scroll-marker-group,
+  .modiweek-carousel::scroll-marker-group {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -320,12 +317,13 @@
   }
 
   .bs-carousel .card {
-    flex: 0 0 20em;
+    flex: 0 0 320px;
     align-content: center;
     scroll-snap-align: start;
   }
 
-  .bs-carousel .card::scroll-marker {
+  .bs-carousel .card::scroll-marker,
+  .modiweek-card::scroll-marker {
     content: "";
     height: 8px;
     width: 8px;
@@ -333,7 +331,8 @@
     border-radius: 50%;
   }
 
-  .bs-carousel .card::scroll-marker:target-current {
+  .bs-carousel .card::scroll-marker:target-current,
+  .modiweek-card::scroll-marker:target-current {
     background-color: var(--color-grayDF);
     padding: 2px;
     width: 12px;
@@ -342,11 +341,9 @@
 }
 
 @media screen and (max-width: 500px) {
-  .bs-carousel .card {
-    flex: 0 0 100%;
-  }
-
-  .rp-carousel-card {
-    flex: 0 0 100%;
+  .bs-carousel .card,
+  .rp-carousel-card,
+  .modiweek-card {
+    flex: 0 0 48%;
   }
 }
