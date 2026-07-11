@@ -90,7 +90,7 @@ function ProductCard({
                 src={displayedImage?.url}
                 alt={`${productName} product image`}
                 loading="lazy"
-                className="h-full w-full object-center"
+                className="h-full w-full object-cover object-center"
                 draggable="false"
               />
             </ProgressLink>
