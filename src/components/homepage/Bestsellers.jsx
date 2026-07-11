@@ -8,7 +8,7 @@ function Bestsellers() {
   return (
     <div className="flex flex-col justify-center gap-6 capitalize">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-[32px] font-semibold">bestsellers</h1>
+        <h1 className="text-2xl font-semibold md:text-[32px]">bestsellers</h1>
 
         <ProgressLink
           to={"/best-seller"}
@@ -24,7 +24,7 @@ function Bestsellers() {
             product={product}
             key={product.id}
             isRelatedProductPage={true}
-            className="card min-w-0 flex-1"
+            className="card"
           />
         ))}
       </div>
