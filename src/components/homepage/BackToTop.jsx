@@ -5,7 +5,7 @@ function BackToTop() {
   const [isVisble, setIsVisible] = useState(false);
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 2000) {
+    if (window.scrollY > 1000) {
       setIsVisible(true);
     } else {
       setIsVisible(false);

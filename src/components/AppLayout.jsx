@@ -7,6 +7,7 @@ import { useOnlineStatus } from "../hooks/useOnlineStatus";
 import Header from "./header/Header";
 import Footer from "./Footer";
 import ConnectionStatusBanner from "./ConnectionStatusBanner";
+import BackToTop from "./homepage/BackToTop";
 
 function AppLayout() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function AppLayout() {
       </main>
 
       <Footer />
+      <BackToTop />
     </div>
   );
 }
