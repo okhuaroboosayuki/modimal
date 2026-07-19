@@ -1,5 +1,5 @@
 import { RiLogoutBoxLine } from "react-icons/ri";
-import UserIcon from "../icons/UserIcon";
+import UserIcon from "../../assets/icons/UserIcon";
 import { ProgressLink } from "../ProgressLinks";
 
 function AuthButton({

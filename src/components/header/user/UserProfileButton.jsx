@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useUser } from "../../../features/auth/useUser";
 import Modal from "../../../features/modal/Modal";
-import UserIcon from "../../icons/UserIcon";
+import UserIcon from "../../../assets/icons/UserIcon";
 import AuthButtonContainer from "../AuthButtonContainer";
 
 function UserProfileButton() {

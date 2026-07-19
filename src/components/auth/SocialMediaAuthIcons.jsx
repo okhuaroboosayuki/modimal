@@ -1,6 +1,6 @@
-import AppleIcon from "../icons/AppleIcon";
-import FacebookIcon from "../icons/FacebookIcon";
-import GoogleIcon from "../icons/GoogleIcon";
+import AppleIcon from "../../assets/icons/AppleIcon";
+import FacebookIcon from "../../assets/icons/FacebookIcon";
+import GoogleIcon from "../../assets/icons/GoogleIcon";
 
 function SocialMediaAuthIcons() {
   return (

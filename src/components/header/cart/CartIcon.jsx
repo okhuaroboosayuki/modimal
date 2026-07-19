@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getGuestCart } from "../../../utils/guestCart";
-import ShoppingBagIcon from "./../../icons/ShoppingBagIcon";
+import ShoppingBagIcon from "../../../assets/icons/ShoppingBagIcon";
 import { useUser } from "../../../features/auth/useUser";
 import { useCart } from "../../../features/cart/useCart";
 

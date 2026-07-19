@@ -1,6 +1,6 @@
-import AmericanExpressIcon from "../icons/AmericanExpressIcon";
-import MastercardIcon from "../icons/MastercardIcon";
-import VisaIcon from "../icons/VisaIcon";
+import AmericanExpressIcon from "../../assets/icons/AmericanExpressIcon";
+import MastercardIcon from "../../assets/icons/MastercardIcon";
+import VisaIcon from "../../assets/icons/VisaIcon";
 
 function PaymentMethodIcons() {
   return (

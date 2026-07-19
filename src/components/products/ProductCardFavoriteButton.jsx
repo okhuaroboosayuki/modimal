@@ -1,5 +1,5 @@
 import { RiHeartFill } from "react-icons/ri";
-import HeartIcon from "../icons/HeartIcon";
+import HeartIcon from "../../assets/icons/HeartIcon";
 
 function ProductCardFavoriteButton({
   handleAddFavorite,

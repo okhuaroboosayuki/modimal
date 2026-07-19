@@ -1,7 +1,7 @@
 import { CiCreditCard2 } from "react-icons/ci";
-import AmericanExpressIcon from "../../components/icons/AmericanExpressIcon";
-import MastercardIcon from "../../components/icons/MastercardIcon";
-import VisaIcon from "../../components/icons/VisaIcon";
+import AmericanExpressIcon from "../../assets/icons/AmericanExpressIcon";
+import MastercardIcon from "../../assets/icons/MastercardIcon";
+import VisaIcon from "../../assets/icons/VisaIcon";
 import Input from "../../components/Input";
 import { formatCardNumber } from "../../utils/formatCardNumber";
 import { getCardType } from "../../utils/getCardType";

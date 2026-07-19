@@ -1,6 +1,6 @@
 import { RiHeartFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
-import HeartIcon from "../../icons/HeartIcon";
+import HeartIcon from "../../../assets/icons/HeartIcon";
 import { useUser } from "../../../features/auth/useUser";
 
 function FavoriteButton() {
