@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import { setProducts } from "../filter/filterSlice";
 import {
   clearSearchQuerySate,
@@ -21,7 +23,7 @@ function ProductsPageContent({
   data,
   totalCount,
   isLoading,
-  heroImage,
+  imgObj,
   hasNextPage,
   isFetchingNextPage,
   fetchNextPage,
@@ -78,9 +80,27 @@ function ProductsPageContent({
               <BreadCrumbs pageName={pageName} />
             </div>
 
-            {heroImage && (
+            {imgObj && (
               <div className="w-full">
-                <img src={heroImage} loading="lazy" className="w-full" />
+                {/* <img src={heroImage} loading="lazy" className="w-full" /> */}
+                <LazyLoadImage
+                  src={imgObj.src}
+                  srcSet={imgObj.srcSet}
+                  sizes="100vw"
+                  placeholderSrc={imgObj.blur}
+                  effect="blur"
+                  alt=""
+                  fetchPriority="high"
+                  threshold={100}
+                  delayMethod="debounce"
+                  delayTime={500}
+                  visibleByDefault
+                  className="w-full"
+                  wrapperClassName="inset-0 block w-full"
+                  wrapperProps={{
+                    style: { transitionDelay: "1s" },
+                  }}
+                />
               </div>
             )}
 

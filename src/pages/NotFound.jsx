@@ -1,8 +1,14 @@
 import { TbArrowBackUp } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-import fisherman from "/images/man_fishing.png";
-import particles from "/images/sea_particles.png";
-import waves from "/images/sea_wave.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import fisherman from "../assets/images/man_fishing.png";
+import fishermanBlur from "../assets/images/man_fishing.png?w=20&blur=2&format=webp&as=base64";
+import fishermanSrcSet from "../assets/images/man_fishing.png?w=320;480;768;1024;1440&format=webp&as=srcset";
+import particles from "../assets/images/sea_particles.png";
+import waves from "../assets/images/sea_wave.png";
+import wavesBlur from "../assets/images/sea_wave.png?w=20&blur=2&format=webp&as=base64";
+import wavesSrcSet from "../assets/images/sea_wave.png?w=320;480;768;1024;1440&format=webp&as=srcset";
 import Header from "../components/header/Header";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
@@ -34,17 +40,31 @@ function NotFound() {
           </div>
 
           <div className="hidden sm:block">
-            <img
+            <LazyLoadImage
               src={fisherman}
-              alt="a man fishing on a boat with a fishing hook"
-              className="absolute top-[5%] left-[10%] z-20 w-[300px] sm:w-[380px] md:left-[20%] lg:left-[30%]"
-              loading="lazy"
+              srcSet={fishermanSrcSet}
+              placeholderSrc={fishermanBlur}
+              fetchPriority="high"
+              visibleByDefault={true}
+              alt={"a man fishing on a boat with a fishing hook"}
+              sizes="(max-width:780px)300px,380px"
+              className={
+                "absolute top-[5%] left-[10%] z-20 md:left-[20%] lg:left-[30%]"
+              }
+              wrapperClassName="block w-full h-full"
             />
-            <img
+            <LazyLoadImage
               src={waves}
-              alt="sea wave illustration"
-              className="absolute top-[27%] left-0 w-[500px] sm:top-[18%] sm:left-[8%] md:w-[550px] lg:left-[20%]"
-              loading="lazy"
+              srcSet={wavesSrcSet}
+              placeholderSrc={wavesBlur}
+              fetchPriority="high"
+              visibleByDefault={true}
+              alt={"sea wave illustration"}
+              sizes="(max-width:768px)500px,550px"
+              className={
+                "absolute top-[27%] left-0 sm:top-[18%] sm:left-[8%] lg:left-[20%]"
+              }
+              wrapperClassName="block w-full h-full"
             />
             <img
               src={particles}

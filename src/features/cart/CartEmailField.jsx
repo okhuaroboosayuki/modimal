@@ -1,5 +1,5 @@
 import FormField from "../auth/FormField";
-import UserIcon from "./../../components/icons/UserIcon";
+import UserIcon from "../../assets/icons/UserIcon";
 import { useFloatingLabel } from "../../hooks/useFloatingLabel";
 import Input from "../../components/Input";
 import FloatingInputLabel from "../../components/FloatingInputLabel";
