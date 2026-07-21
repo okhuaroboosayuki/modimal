@@ -3,7 +3,7 @@ import Modal from "../../features/modal/Modal";
 import MobileMenuContainer from "./mobile-menu/MobileMenuContainer";
 import SearchContainer from "./search/SearchContainer";
 import NavLists from "./nav/NavLists";
-import Logo from "./../icons/Logo";
+import Logo from "../../assets/icons/Logo";
 import { ProgressLink } from "../ProgressLinks";
 import UserProfileButton from "./user/UserProfileButton";
 import FavoriteButton from "./user/FavoriteButton";

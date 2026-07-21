@@ -64,7 +64,9 @@ function SubNavLists({ menuName, ref, closemodal }) {
         <NavImageCardContainer>
           {collectionImageCards.map((card) => (
             <NavImageCard
-              src={card.image}
+              src={card.src}
+              srcSet={card.srcSet}
+              placholderSrc={card.placeholderSrc}
               alt={card.alt}
               url={card.url}
               title={card.title}
@@ -79,7 +81,9 @@ function SubNavLists({ menuName, ref, closemodal }) {
         <NavImageCardContainer>
           {newImageCards.map((card) => (
             <NavImageCard
-              src={card.image}
+              src={card.src}
+              srcSet={card.srcSet}
+              placeholderSrc={card.placeholderSrc}
               alt={card.alt}
               url={card.url}
               title={card.title}
@@ -94,7 +98,9 @@ function SubNavLists({ menuName, ref, closemodal }) {
         <NavImageCardContainer>
           {plusSizeImageCards.map((card) => (
             <NavImageCard
-              src={card.image}
+              src={card.src}
+              srcSet={card.srcSet}
+              placholderSrc={card.placeholderSrc}
               alt={card.alt}
               url={card.url}
               title={card.title}
@@ -109,7 +115,9 @@ function SubNavLists({ menuName, ref, closemodal }) {
         <NavImageCardContainer>
           {sustainabilityImageCards.map((card) => (
             <NavImageCard
-              src={card.image}
+              src={card.src}
+              srcSet={card.srcSet}
+              placholderSrc={card.placeholderSrc}
               alt={card.alt}
               key={card.alt}
               onCloseModal={closemodal}

@@ -1,17 +1,55 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/black-and-white.css";
 import { ProgressLink } from "../../ProgressLinks";
 
-function NavImageCard({ src, alt, title, url, onCloseModal }) {
+function NavImageCard({
+  src,
+  srcSet,
+  placeholderSrc,
+  alt,
+  title,
+  url,
+  onCloseModal,
+}) {
   return (
     <>
       {!url && !title ? (
-        <img src={src} alt={alt} loading="lazy" height={420} />
+        <LazyLoadImage
+          src={src}
+          srcSet={srcSet}
+          placeholderSrc={placeholderSrc}
+          alt={alt}
+          effect="black-and-white"
+          loading="lazy"
+          threshold={100}
+          delayMethod="throttle"
+          delayTime={500}
+          className="h-[420px]"
+          wrapperProps={{
+            style: { transitionDelay: "1s" },
+          }}
+        />
       ) : (
         <ProgressLink
           to={url}
           onClick={onCloseModal}
           className="flex flex-col items-start gap-3 capitalize"
         >
-          <img src={src} alt={alt} loading="lazy" height={420} />
+          <LazyLoadImage
+            src={src}
+            srcSet={srcSet}
+            placeholderSrc={placeholderSrc}
+            alt={alt}
+            effect="black-and-white"
+            loading="lazy"
+            threshold={100}
+            delayMethod="throttle"
+            delayTime={500}
+            className="h-[420px]"
+            wrapperProps={{
+              style: { transitionDelay: "1s" },
+            }}
+          />
 
           <p>{title}</p>
         </ProgressLink>
