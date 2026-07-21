@@ -1,7 +1,9 @@
 import SEO from "../components/SEO";
 import ProductsPageContent from "../features/products/ProductsPageContent";
 import { usePlusSizeProducts } from "../features/products/usePlusSizeProducts";
-import PlusSizeHero from "/images/plus_size_hero.png";
+import PlusSizeHero from "../assets/images/plus_size_hero.png";
+import PlusSizeHeroSrcSet from "../assets/images/plus_size_hero.png?w=640;768;1024;1440;1920&format=webp&as=srcset";
+import PlusSizeHeroBlur from "../assets/images/plus_size_hero.png?w=20&blur=2&format=webp&as=base64";
 
 const PLUS_SIZE_IMAGE = "plus_size_hero.png";
 
@@ -13,6 +15,12 @@ function PlusSize() {
     isFetchingNextPage,
     fetchNextPage,
   } = usePlusSizeProducts();
+
+  const imageObject = {
+    src: PlusSizeHero,
+    srcSet: PlusSizeHeroSrcSet,
+    blur: PlusSizeHeroBlur,
+  };
 
   return (
     <>
@@ -27,7 +35,7 @@ function PlusSize() {
         key={"plus size"}
         data={plusSizeProducts}
         isLoading={isPlusSizeProductLoading}
-        heroImage={PlusSizeHero}
+        imgObj={imageObject}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
