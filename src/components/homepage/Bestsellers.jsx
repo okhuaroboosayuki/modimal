@@ -1,9 +1,11 @@
 import { useBestSellingProducts } from "../../features/products/useBestSellingProducts";
-import ProductCard from "../products/ProductCard";
 import { ProgressLink } from "../ProgressLinks";
+import { ProductCardSkeleton } from "../Loaders";
+import ProductCard from "../products/ProductCard";
 
 function Bestsellers() {
-  const { bestSellingProducts } = useBestSellingProducts();
+  const { bestSellingProducts, isBestSellerProductLoading } =
+    useBestSellingProducts();
 
   return (
     <div className="flex flex-col justify-center gap-6 capitalize">
@@ -19,14 +21,20 @@ function Bestsellers() {
       </div>
 
       <div className="bs-carousel flex w-full items-start gap-6">
-        {bestSellingProducts?.slice(0, 3).map((product) => (
-          <ProductCard
-            product={product}
-            key={product.id}
-            isRelatedProductPage={true}
-            className="card"
-          />
-        ))}
+        {isBestSellerProductLoading
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <ProductCardSkeleton key={i} />
+            ))
+          : bestSellingProducts
+              ?.slice(0, 3)
+              .map((product) => (
+                <ProductCard
+                  product={product}
+                  key={product.id}
+                  isRelatedProductPage={true}
+                  className="card"
+                />
+              ))}
       </div>
     </div>
   );

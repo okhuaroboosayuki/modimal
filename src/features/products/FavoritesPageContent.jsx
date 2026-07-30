@@ -1,4 +1,4 @@
-import { LoadingSpinner } from "../../components/Loaders";
+import { LoadingSpinner, ProductCardSkeleton } from "../../components/Loaders";
 import EmptyProduct from "../../components/products/EmptyProduct";
 import ProductCard from "../../components/products/ProductCard";
 import { useFavoriteProducts } from "../favorites/useFavoriteProducts";
@@ -25,7 +25,11 @@ function FavoritesPageContent() {
       </section>
 
       {isFavoriteLoading ? (
-        <LoadingSpinner />
+        <div className="grid w-full grid-cols-1 items-start justify-center gap-4 gap-x-4 gap-y-10 self-start max-[1279px]:grid-cols-3 max-[1000px]:grid-cols-2 sm:gap-10 xl:grid-cols-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <ProductCardSkeleton key={i} />
+          ))}
+        </div>
       ) : products?.length === 0 ? (
         <EmptyProduct message="you have no favorites." />
       ) : (

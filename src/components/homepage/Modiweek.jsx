@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useModiweekProducts } from "../../features/products/useModiweekProducts";
 import { ProgressLink } from "../ProgressLinks";
+import { ModiweekCardSkeleton } from "../Loaders";
 
 function ModiweekCard({ id, productName, imageUrl, dayOfTheWeek }) {
   return (
@@ -21,7 +22,8 @@ function ModiweekCard({ id, productName, imageUrl, dayOfTheWeek }) {
 }
 
 function Modiweek() {
-  const { productsByModiweek } = useModiweekProducts();
+  const { productsByModiweek, isModiweekProductLoading } =
+    useModiweekProducts();
 
   const uniqueModiweekProducts = useMemo(() => {
     const seen = new Set();
@@ -39,15 +41,19 @@ function Modiweek() {
       <h1 className="text-2xl font-semibold md:text-[32px]">modiweek</h1>
 
       <div className="modiweek-carousel">
-        {uniqueModiweekProducts?.map((product) => (
-          <ModiweekCard
-            key={product.id}
-            id={product.id}
-            productName={product.productName}
-            imageUrl={product.productImages[0]?.url}
-            dayOfTheWeek={product.modiweek}
-          />
-        ))}
+        {isModiweekProductLoading
+          ? Array.from({ length: 7 }).map((_, i) => (
+              <ModiweekCardSkeleton key={i} />
+            ))
+          : uniqueModiweekProducts?.map((product) => (
+              <ModiweekCard
+                key={product.id}
+                id={product.id}
+                productName={product.productName}
+                imageUrl={product.productImages[0]?.url}
+                dayOfTheWeek={product.modiweek}
+              />
+            ))}
       </div>
     </div>
   );

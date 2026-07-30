@@ -13,7 +13,7 @@ import Modal from "./../modal/Modal";
 import Search from "../search/Search";
 import ProductsList from "./../../components/products/ProductsList";
 import EmptyProduct from "../../components/products/EmptyProduct";
-import { LoadingSpinner } from "../../components/Loaders";
+import { LoadingSpinner, ProductCardSkeleton } from "../../components/Loaders";
 import MobileFilter from "../../components/filter/MobileFilter";
 import MobileFilterButton from "../../components/filter/MobileFilterButton";
 import BreadCrumbs from "../../components/BreadCrumbs";
@@ -82,7 +82,6 @@ function ProductsPageContent({
 
             {imgObj && (
               <div className="w-full">
-                {/* <img src={heroImage} loading="lazy" className="w-full" /> */}
                 <LazyLoadImage
                   src={imgObj.src}
                   srcSet={imgObj.srcSet}
@@ -126,8 +125,10 @@ function ProductsPageContent({
           </section>
 
           {isLoading ? (
-            <div className="grid-body mt-9 w-full">
-              <LoadingSpinner />
+            <div className="grid-body mt-8 grid w-full grid-cols-2 gap-x-4 gap-y-10 max-md:px-5 md:w-[650px] md:gap-x-10 xl:w-[680px]">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <ProductCardSkeleton key={i} />
+              ))}
             </div>
           ) : !products || products.length === 0 ? (
             <div className="grid-body mt-9 w-full">

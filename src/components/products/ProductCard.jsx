@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useToggleFavorite } from "../../hooks/useToggleFavorite";
 import { isDaysUpToTwoWeeks } from "../../utils/dateFormatters";
-import { formatCurrency } from "../../utils/numberFormatter";
-import { SmallLoader } from "../Loaders";
 import { ProductImgLoadMsg } from "./EmptyProduct";
 import { ProgressLink } from "../ProgressLinks";
 import ColorWidget from "../ColorWidget";
@@ -10,6 +10,7 @@ import useImageStatus from "../../hooks/useImageStatus";
 import ProductCardFavoriteButton from "./ProductCardFavoriteButton";
 import ProductCardButton from "./ProductCardButton";
 import useCartFunctions from "../../hooks/useCartFunctions";
+import ProductCardDetails from "./ProductCardDetails";
 
 function ProductCard({
   product,
@@ -39,6 +40,12 @@ function ProductCard({
   const [displayedImage, setDisplayedImage] = useState(
     productImages[0] || null,
   );
+  const [outgoingImage, setOutgoingImage] = useState(null);
+  const fadeTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(fadeTimeoutRef.current);
+  }, []);
 
   const productImageUrl = productImages.find(
     (image) => image.type === "poster",
@@ -52,6 +59,17 @@ function ProductCard({
   );
   const isLastImage = currentIndex === productImages.length - 1;
 
+  const goToImage = (nextImage) => {
+    if (!nextImage || nextImage.url === displayedImage?.url) return;
+
+    clearTimeout(fadeTimeoutRef.current);
+    setOutgoingImage(displayedImage);
+    setDisplayedImage(nextImage);
+
+    // after the fade duration finishes, discard the old image completely
+    fadeTimeoutRef.current = setTimeout(() => setOutgoingImage(null), 500);
+  };
+
   const handleNextClick = () => {
     if (isLastImage) {
       handleAddToCart({
@@ -63,7 +81,7 @@ function ProductCard({
       });
       return;
     }
-    setDisplayedImage(productImages[currentIndex + 1]);
+    goToImage(productImages[currentIndex + 1]);
   };
 
   return (
@@ -76,7 +94,13 @@ function ProductCard({
         onMouseLeave={() => setHovered(false)}
       >
         {imgLoading || isFavoriteLoading ? (
-          <SmallLoader />
+          <Skeleton
+            height="100%"
+            width="100%"
+            containerClassName="absolute inset-0 h-full w-full leading-none"
+            baseColor="var(--color-grayCB)"
+            highlightColor="var(--color-grayDF)"
+          />
         ) : imgLoadError ? (
           <ProductImgLoadMsg />
         ) : (
@@ -87,12 +111,23 @@ function ProductCard({
               draggable="false"
             >
               <img
+                key={displayedImage?.url}
                 src={displayedImage?.url}
                 alt={`${productName} product image`}
                 loading="lazy"
-                className="h-full w-full object-cover object-center"
                 draggable="false"
+                className="absolute inset-0 z-0 h-full w-full object-cover object-center"
               />
+              {outgoingImage && (
+                <img
+                  key={outgoingImage.url}
+                  src={outgoingImage.url}
+                  alt=""
+                  aria-hidden="true"
+                  draggable="false"
+                  className="absolute inset-0 z-10 h-full w-full animate-[cardFadeOut_1000ms_ease-out_forwards] object-cover object-center"
+                />
+              )}
             </ProgressLink>
             <div className="absolute top-2.5 left-2 md:top-6 md:left-4">
               {isProductNew && (
@@ -121,32 +156,13 @@ function ProductCard({
         )}
       </div>
 
-      <div className="flex w-full items-start justify-between text-sm sm:text-base">
-        <div className="flex w-full flex-col items-start gap-2">
-          <div className="flex w-full flex-col justify-between sm:flex-row">
-            <div className="flex w-full flex-col items-start gap-2">
-              <ProgressLink
-                to={`/product/${id}`}
-                className="font-semibold capitalize"
-              >
-                {productName}
-              </ProgressLink>
-
-              <p className="font-light">{productTag}</p>
-            </div>
-
-            <span className="self-end font-semibold">
-              {formatCurrency(price)}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {availableColors.map((color) => (
-              <ColorWidget key={color} color={color} />
-            ))}
-          </div>
-        </div>
-      </div>
+      <ProductCardDetails
+        id={id}
+        productName={productName}
+        productTag={productTag}
+        price={price}
+        colors={availableColors}
+      />
     </div>
   );
 }

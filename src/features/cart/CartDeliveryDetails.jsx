@@ -6,7 +6,7 @@ import { useDerivedCart } from "../../hooks/useDerivedCart";
 import CheckoutFormActions from "../../components/cart/CheckoutFormActions";
 import { useDeliveryDates } from "./../../hooks/useDeliveryDates";
 import { useCheckoutForm } from "./../../hooks/useCheckoutForm";
-import { SmallLoader } from "./../../components/Loaders";
+import { CartDeliveryDetailsSkeleton } from "./../../components/Loaders";
 import { formatDeliveryDates } from "../../utils/dateFormatters";
 import GuaranteedDate from "../../components/cart/GuaranteedDate";
 import { setTotalAmount } from "./checkoutSlice";
@@ -56,7 +56,7 @@ function CartDeliveryDetails() {
     );
 
   if (isLoading) {
-    return <SmallLoader />;
+    return <CartDeliveryDetailsSkeleton />;
   }
 
   return (
