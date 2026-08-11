@@ -96,6 +96,7 @@ export const plusSizeImageCards = [
     src: plusBlouses,
     srcSet: plusBlousesSrcSet,
     placeholderSrc: plusBlousesPlaceholderSrc,
+    title: "blouses",
     alt: "image showing a plus sized model in a jean and a black sleeve shirt",
     url: "/tops-&-blouses",
   },
