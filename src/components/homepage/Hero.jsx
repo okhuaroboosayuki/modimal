@@ -7,7 +7,7 @@ import heroBlur from "../../assets/images/hero_image.png?w=20&blur=2&format=webp
 
 function Hero() {
   return (
-    <section className="relative flex h-[551px] w-full items-end justify-start pb-31 pl-5 sm:h-[760px] md:pl-16 lg:pl-28">
+    <section className="bg-grayDF relative flex h-[551px] w-full items-end justify-start pb-31 pl-5 sm:h-[760px] md:pl-16 lg:pl-28">
       <LazyLoadImage
         src={hero}
         srcSet={heroSrcSet}
@@ -17,8 +17,6 @@ function Hero() {
         alt="Two models in black fringe-trim fashion pieces posed beside a fireplace mantel"
         fetchPriority="high"
         threshold={100}
-        delayMethod="debounce"
-        delayTime={500}
         visibleByDefault
         className="absolute inset-0 h-full w-full object-cover"
         wrapperClassName="absolute inset-0 block h-full w-full"
@@ -35,7 +33,7 @@ function Hero() {
 
         <ProgressLink
           to="/new-in"
-          className="transition-500-in-out border-primary-600 sm:hover:bg-primary-600 bg-primary-600 border px-6 py-3.5 text-center text-sm font-medium text-white capitalize hover:bg-white hover:text-black sm:bg-white sm:text-black sm:hover:text-white"
+          className="transition-500-in-out border-grayED hover:border-primary-600 sm:hover:bg-primary-600 bg-primary-600 border px-6 py-3.5 text-center text-sm font-medium text-white capitalize hover:bg-white hover:text-black sm:bg-white sm:text-black sm:hover:text-white"
         >
           new in
         </ProgressLink>

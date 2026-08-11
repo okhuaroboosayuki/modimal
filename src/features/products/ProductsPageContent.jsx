@@ -81,7 +81,7 @@ function ProductsPageContent({
             </div>
 
             {imgObj && (
-              <div className="w-full">
+              <div className="bg-grayDF w-full">
                 <LazyLoadImage
                   src={imgObj.src}
                   srcSet={imgObj.srcSet}
@@ -91,8 +91,6 @@ function ProductsPageContent({
                   alt=""
                   fetchPriority="high"
                   threshold={100}
-                  delayMethod="debounce"
-                  delayTime={500}
                   visibleByDefault
                   className="w-full"
                   wrapperClassName="inset-0 block w-full"
