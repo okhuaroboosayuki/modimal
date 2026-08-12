@@ -24,7 +24,7 @@ function Home() {
 
           <Collection />
 
-          <Modiweek />
+          {/* <Modiweek /> */}
         </section>
 
         <Sustainability />
