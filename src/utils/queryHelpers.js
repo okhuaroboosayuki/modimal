@@ -3,7 +3,10 @@ export function applySort(query, sortBy) {
 
   switch (sortBy) {
     case "featured":
-      return query.order("modiweek", { ascending: true });
+      return query.order("modiweek_look_id", {
+        ascending: true,
+        nullsFirst: false,
+      });
     case "bestseller":
       return query.order("totalSold", { ascending: false });
     case "price-asc":
