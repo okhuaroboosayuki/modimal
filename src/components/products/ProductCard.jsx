@@ -131,7 +131,9 @@ function ProductCard({
             </ProgressLink>
             <div className="absolute top-2.5 left-2 md:top-6 md:left-4">
               {isProductNew && (
-                <span className="bg-white px-4 py-2 text-sm">new</span>
+                <span className="border border-gray-100 bg-white px-4 py-2 text-sm shadow-lg">
+                  new
+                </span>
               )}
             </div>
             <ProductCardFavoriteButton
