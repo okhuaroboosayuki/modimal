@@ -19,7 +19,7 @@ function ProductCardDetails({ id, productName, productTag, colors, price }) {
           </div>
 
           <span className="self-end font-semibold">
-            {formatCurrency(price)}
+            {formatCurrency(price, 0)}
           </span>
         </div>
 
