@@ -1,15 +1,9 @@
 import SEO from "../components/SEO";
-import ProductsPageContent from "../features/products/ProductsPageContent";
-import { useModiweekProducts } from "../features/products/useModiweekProducts";
+import ModiweekPageContent from "../features/products/ModiweekPageContent";
+import { useModiweekProductByDay } from "../features/products/useModiweekProductByDay";
 
 function Modiweek() {
-  const {
-    isModiweekProductLoading,
-    productsByModiweek,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useModiweekProducts();
+  const { modiweekDayProduct, isLoading } = useModiweekProductByDay();
 
   return (
     <>
@@ -19,14 +13,7 @@ function Modiweek() {
         url={"modiweek"}
       />
 
-      <ProductsPageContent
-        key={"modiweek"}
-        data={productsByModiweek}
-        isLoading={isModiweekProductLoading}
-        hasNextPage={hasNextPage}
-        isFetchingNextPage={isFetchingNextPage}
-        fetchNextPage={fetchNextPage}
-      />
+      <ModiweekPageContent product={modiweekDayProduct} isLoading={isLoading} />
     </>
   );
 }

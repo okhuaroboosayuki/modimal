@@ -88,6 +88,7 @@ function App() {
                 <Route path="shorts-&-skirts" element={<ShortsAndSkirts />} />
                 <Route path="new-in" element={<NewProducts />} />
                 <Route path="modiweek" element={<Modiweek />} />
+                <Route path="modiweek/:day" element={<Modiweek />} />
                 <Route path="plus-size" element={<PlusSize />} />
                 <Route path="best-seller" element={<BestSeller />} />
                 <Route path="bundles" element={<AllProducts />} />
