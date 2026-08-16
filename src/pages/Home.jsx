@@ -2,7 +2,7 @@ import BackToTop from "../components/homepage/BackToTop";
 import Bestsellers from "../components/homepage/Bestsellers";
 import Collection from "../components/homepage/Collection";
 import Hero from "../components/homepage/Hero";
-import Modiweek from "../components/homepage/Modiweek";
+import HomeModiweek from "../components/homepage/HomeModiweek";
 import Socials from "../components/homepage/Socials";
 import Sustainability from "../components/homepage/Sustainability";
 import SEO from "../components/SEO";
@@ -24,7 +24,7 @@ function Home() {
 
           <Collection />
 
-          {/* <Modiweek /> */}
+          <HomeModiweek />
         </section>
 
         <Sustainability />
