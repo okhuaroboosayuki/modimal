@@ -46,7 +46,9 @@ export async function getProducts({
     query = applyFilters(query, filters);
   }
 
-  const { data, error, count } = await query.range(from, to);
+  const { data, error, count } = await query
+    .order("created_at", { ascending: false })
+    .range(from, to);
 
   if (error) {
     toast.error("Products could not be loaded");
@@ -94,7 +96,9 @@ export async function getProductsByCategory(
   query = applyFilters(query, filters);
   query = query.range(from, to);
 
-  const { data, error, count } = await query;
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) {
     toast.error("Products could not be loaded");
@@ -128,7 +132,9 @@ export async function getNewProducts({
 
   query = query.range(from, to);
 
-  const { data, error, count } = await query;
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
 
   if (error) {
     toast.error("Products could not be loaded");
@@ -181,8 +187,9 @@ export async function getProductsByPlusSize({
 
   query = query.range(from, to);
 
-  const { data, error, count } = await query;
-
+  const { data, error, count } = await query.order("created_at", {
+    ascending: false,
+  });
   if (error) {
     toast.error("Products could not be loaded");
   }
