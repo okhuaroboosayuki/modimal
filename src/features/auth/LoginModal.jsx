@@ -13,8 +13,8 @@ function LoginModal({ closeLoginModal }) {
         </h1>
 
         <p>
-          we've sent an email to email.com to verify your email address and
-          activate your account. the link in the email will expire in 24 hours
+          we've sent an email to verify your email address and activate your
+          account. the link in the email will expire in 24 hours
         </p>
 
         <p>

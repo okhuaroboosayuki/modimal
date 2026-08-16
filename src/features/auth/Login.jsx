@@ -5,7 +5,7 @@ import { useLogin } from "./useLogin";
 import Button from "../../components/Button";
 import FormField from "./FormField";
 import PasswordField from "./PasswordField";
-import { useState } from "react";
+// import { useState } from "react";
 import LoginModal from "./LoginModal";
 import AuthFooterSection from "../../components/AuthFooterSection";
 import SEO from "../../components/SEO";
@@ -14,9 +14,9 @@ const AUTH_IMAGE = "/images/authImage.png";
 
 function Login() {
   const location = useLocation();
-  const accountCreated = location.state?.accountCreated !== undefined || false;
+  // const accountCreated = location.state?.accountCreated !== undefined || false;
   const redirectTo = location.state?.from;
-  const [isModalOpen, setIsModalOpen] = useState(accountCreated);
+  // const [isModalOpen, setIsModalOpen] = useState(accountCreated);
 
   const {
     register,
@@ -34,9 +34,9 @@ function Login() {
     login({ email, password, redirectTo }, { onSettled: () => reset() });
   };
 
-  const closeLoginModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeLoginModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   return (
     <>
@@ -47,7 +47,7 @@ function Login() {
         image={AUTH_IMAGE}
       />
 
-      {isModalOpen && <LoginModal closeLoginModal={closeLoginModal} />}
+      {/* {isModalOpen && <LoginModal closeLoginModal={closeLoginModal} />} */}
 
       <section className="flex w-full flex-col items-center justify-start gap-8 capitalize lg:mt-36">
         <h1 className="text-2xl font-medium lg:text-[2rem]">log in</h1>
