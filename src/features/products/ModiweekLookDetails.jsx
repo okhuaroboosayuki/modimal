@@ -34,7 +34,7 @@ function ModiweekLookDetails({
             isMoreThanTwoProducts
               ? "min-w-0 min-[1440px]:grid-cols-3"
               : "xl:grid-cols-2"
-          } grid-cols-2 gap-6`}
+          } grid-cols-2 gap-6 max-[359px]:grid-cols-1`}
         >
           {productsAttachedToLook.map((product) => (
             <ProductCard

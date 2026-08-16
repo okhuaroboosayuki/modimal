@@ -95,7 +95,7 @@ function ProductCardButton({
   if (isLastImage && isSingleImage && !hovered) return null;
   return (
     <Button
-      className="bg-primary-600 w-full border-transparent! text-white max-sm:p-3"
+      className="bg-primary-600 w-full border-transparent! p-3! text-white"
       clickHandler={onNextClick}
     >
       {isLastImage ? "add to cart" : "next image"}

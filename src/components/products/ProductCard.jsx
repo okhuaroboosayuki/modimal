@@ -89,7 +89,11 @@ function ProductCard({
       className={`flex h-fit w-full flex-col items-start gap-4 ${className}`}
     >
       <div
-        className={`relative aspect-[392/438] w-full overflow-hidden`}
+        className={`transition-500-in-out relative w-full overflow-hidden ${
+          className.includes("shop-the-look-card")
+            ? "aspect-[392/438] max-[1440px]:aspect-[400/250] max-xl:aspect-[392/300] max-lg:aspect-square"
+            : "aspect-[392/438]"
+        }`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
