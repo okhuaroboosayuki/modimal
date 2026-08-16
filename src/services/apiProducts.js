@@ -35,7 +35,7 @@ export async function getProducts({
     query = supabase
       .from("products")
       .select(
-        "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+        "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek_look_id",
         { count: "exact" },
       );
   }
@@ -82,7 +82,7 @@ export async function getProductsByCategory(
   let query = supabase
     .from("products")
     .select(
-      "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+      "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek_look_id",
       { count: "exact" },
     );
 
@@ -116,7 +116,7 @@ export async function getNewProducts({
   let query = supabase
     .from("products")
     .select(
-      "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+      "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek_look_id",
       { count: "exact" },
     );
 
@@ -137,35 +137,32 @@ export async function getNewProducts({
   return { data, count };
 }
 
-export async function getProductsByModiweek({
-  sortBy,
-  filters,
-  page = 0,
-  pageSize = 12,
-}) {
-  const from = page * pageSize;
-  const to = from + pageSize - 1;
-
-  let query = supabase
-    .from("products")
-    .select(
-      "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
-      { count: "exact" },
-    );
-
-  query = query.neq("modiweek", null);
-  query = applySort(query, sortBy);
-  query = applyFilters(query, filters);
-
-  // query = query;
-
-  const { data, error, count } = await query.range(from, to);
+export async function getModiweekProducts() {
+  const { data, error } = await supabase
+    .from("modiweek_looks")
+    .select("id, created_at, day_of_week, is_published, main_image");
 
   if (error) {
     toast.error("Products could not be loaded");
   }
 
-  return { data, count };
+  return { data };
+}
+
+export async function getModiweekProductByDay({ dayOfTheWeek }) {
+  const { data, error } = await supabase
+    .from("modiweek_looks")
+    .select(
+      "id, created_at, day_of_week, is_published, main_image, products(*)",
+    )
+    .eq("day_of_week", dayOfTheWeek)
+    .single();
+
+  if (error) {
+    toast.error("Products could not be loaded");
+  }
+
+  return { data };
 }
 
 export async function getProductsByPlusSize({
@@ -205,7 +202,7 @@ export async function getProductsByBestSeller({
   let query = supabase
     .from("products")
     .select(
-      "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek",
+      "id, created_at, productName, category, price, availableColors, fabricDetails, stockQuantity, totalSold, availableSizes, productTag, productImages, discountPercentage, modiweek_look_id",
       { count: "exact" },
     );
 
