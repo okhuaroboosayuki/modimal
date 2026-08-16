@@ -136,7 +136,7 @@ function SignUp() {
               </ProgressLink>
             </div>
 
-            <SocialMediaAuthIcons />
+            {/* <SocialMediaAuthIcons /> */}
 
             <div className="[&>span]:text-primary [&>span]:hover:text-primary-900 mt-2 text-center text-sm capitalize [&>span]:cursor-pointer [&>span]:underline">
               by clicking register now, you agree to our{" "}
