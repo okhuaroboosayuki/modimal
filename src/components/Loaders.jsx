@@ -163,6 +163,55 @@ export function CartDeliveryDetailsSkeleton() {
   );
 }
 
+function ShopTheLookProductSkeleton() {
+  return (
+    <div className="relative w-full">
+      <div className="relative aspect-[392/438] w-full overflow-hidden">
+        <Skeleton
+          height="100%"
+          width="100%"
+          containerClassName="h-full w-full leading-none"
+        />
+      </div>
+
+      <div className="mt-2 flex items-start justify-between gap-3">
+        <div className="flex flex-1 flex-col gap-1.5">
+          <Skeleton width="70%" height={12} />
+          <Skeleton width="40%" height={12} />
+          <Skeleton circle width={18} height={18} />
+        </div>
+        <Skeleton width={40} height={16} />
+      </div>
+    </div>
+  );
+}
+
+export function ModiweekLookSkeleton() {
+  return (
+    <section className="relative flex w-full flex-col gap-15 min-[1440px]:gap-32 lg:justify-between min-[75rem]:flex-row">
+      <div className="relative left-0 -mx-[50vw] h-[800px] w-screen self-start max-[75rem]:self-center md:static md:left-auto md:mx-0 md:w-full md:self-center lg:w-[496px] min-[75rem]:shrink-0 xl:h-[746px]">
+        <Skeleton
+          height="100%"
+          width="100%"
+          containerClassName="h-full w-full leading-none"
+        />
+      </div>
+
+      <div className="flex w-full flex-col self-center">
+        <Skeleton width={140} height={20} />
+        <div className="mt-1">
+          <Skeleton width={60} height={16} />
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-6 xl:grid-cols-2">
+          <ShopTheLookProductSkeleton />
+          <ShopTheLookProductSkeleton />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 NProgress.configure({ showSpinner: false, speed: 300, minimum: 0.1 });
 export default function TopPageLoader() {
   const location = useLocation();
