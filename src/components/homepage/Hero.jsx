@@ -33,7 +33,7 @@ function Hero() {
 
         <ProgressLink
           to="/new-in"
-          className="transition-500-in-out border-grayED hover:border-primary-600 sm:hover:bg-primary-600 bg-primary-600 border px-6 py-3.5 text-center text-sm font-medium text-white capitalize hover:bg-white hover:text-black sm:bg-white sm:text-black sm:hover:text-white"
+          className="transition-500-in-out hover:border-primary-600 sm:hover:bg-primary-600 bg-primary-600 px-6 py-3.5 text-center text-sm font-medium text-white capitalize hover:bg-white hover:text-black sm:bg-white sm:text-black sm:hover:text-white"
         >
           new in
         </ProgressLink>
