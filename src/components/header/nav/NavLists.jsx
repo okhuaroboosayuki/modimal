@@ -40,7 +40,7 @@ function NavLists() {
         <SubNavLists menuName={"plus-size"} />
       </Modal.Window>
 
-      <Modal.Open opens="sustainability">
+      {/* <Modal.Open opens="sustainability">
         <NavTitle title={"sustainability"} />
       </Modal.Open>
       <Modal.Window
@@ -49,7 +49,7 @@ function NavLists() {
         styles={"header-modal"}
       >
         <SubNavLists menuName={"sustainability"} />
-      </Modal.Window>
+      </Modal.Window> */}
     </ul>
   );
 }

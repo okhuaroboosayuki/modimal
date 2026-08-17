@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import MenuItem from "./MenuItem";
-import { categoryList, sustainabilityList, trendingList } from "../subNavTags";
+import { categoryList, trendingList } from "../subNavTags";
 import { useUser } from "../../../features/auth/useUser";
 import AuthButtonContainer from "../AuthButtonContainer";
 
@@ -31,7 +31,7 @@ function MobileMenu({ ref, closemodal }) {
 
           <MenuItem content={trendingList} onCloseModal={closemodal} />
 
-          <MenuItem content={sustainabilityList} onCloseModal={closemodal} />
+          {/* <MenuItem content={sustainabilityList} onCloseModal={closemodal} /> */}
 
           <MenuItem heading={"modiweek"} onCloseModal={closemodal} />
 
