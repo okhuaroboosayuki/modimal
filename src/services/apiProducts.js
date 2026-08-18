@@ -9,7 +9,7 @@ export async function getProducts({
   sortBy = null,
   filters = {},
   page = 0,
-  pageSize = 12,
+  pageSize = 6,
 }) {
   const from = page * pageSize;
   const to = from + pageSize - 1;
@@ -48,10 +48,14 @@ export async function getProducts({
 
   const { data, error, count } = await query
     .order("created_at", { ascending: false })
+    .order("id", {
+      ascending: false,
+    })
     .range(from, to);
 
   if (error) {
     toast.error("Products could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data, count };
@@ -66,6 +70,7 @@ export async function getProduct(id) {
 
   if (error) {
     toast.error("Product could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data };
@@ -74,9 +79,7 @@ export async function getProduct(id) {
 // get products by category
 export async function getProductsByCategory(
   category,
-  { sortBy = null, filters = {} },
-  page = 0,
-  pageSize = 12,
+  { sortBy = null, filters = {}, page = 0, pageSize = 6 },
 ) {
   const from = page * pageSize;
   const to = from + pageSize - 1;
@@ -91,17 +94,23 @@ export async function getProductsByCategory(
   if (category) {
     query = query.eq("category", category);
   }
-
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
+  query = query
+    .order("created_at", {
+      ascending: false,
+    })
+    .order("id", {
+      ascending: false,
+    });
+
   query = query.range(from, to);
 
-  const { data, error, count } = await query.order("created_at", {
-    ascending: false,
-  });
+  const { data, error, count } = await query;
 
   if (error) {
     toast.error("Products could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data, count };
@@ -112,7 +121,7 @@ export async function getNewProducts({
   sortBy = null,
   filters = {},
   page = 0,
-  pageSize = 12,
+  pageSize = 6,
 }) {
   const from = page * pageSize;
   const to = from + pageSize - 1;
@@ -132,12 +141,17 @@ export async function getNewProducts({
 
   query = query.range(from, to);
 
-  const { data, error, count } = await query.order("created_at", {
-    ascending: false,
-  });
+  const { data, error, count } = await query
+    .order("created_at", {
+      ascending: false,
+    })
+    .order("id", {
+      ascending: false,
+    });
 
   if (error) {
     toast.error("Products could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data, count };
@@ -150,6 +164,7 @@ export async function getModiweekProducts() {
 
   if (error) {
     toast.error("Products could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data };
@@ -166,6 +181,7 @@ export async function getModiweekProductByDay({ dayOfTheWeek }) {
 
   if (error) {
     toast.error("Products could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data };
@@ -175,7 +191,7 @@ export async function getProductsByPlusSize({
   sortBy,
   filters,
   page = 0,
-  pageSize = 12,
+  pageSize = 6,
 }) {
   const from = page * pageSize;
   const to = from + pageSize - 1;
@@ -187,11 +203,17 @@ export async function getProductsByPlusSize({
 
   query = query.range(from, to);
 
-  const { data, error, count } = await query.order("created_at", {
-    ascending: false,
-  });
+  const { data, error, count } = await query
+    .order("created_at", {
+      ascending: false,
+    })
+    .order("id", {
+      ascending: false,
+    });
+
   if (error) {
     toast.error("Products could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data, count };
@@ -201,7 +223,7 @@ export async function getProductsByBestSeller({
   sortBy,
   filters,
   page = 0,
-  pageSize = 12,
+  pageSize = 6,
 }) {
   const from = page * pageSize;
   const to = from + pageSize - 1;
@@ -215,7 +237,9 @@ export async function getProductsByBestSeller({
 
   query = applySort(query, sortBy);
   query = applyFilters(query, filters);
-  query = query.order("totalSold", { ascending: false });
+  query = query.order("totalSold", { ascending: false }).order("id", {
+    ascending: false,
+  });
 
   query = query.range(from, to);
 
@@ -223,6 +247,7 @@ export async function getProductsByBestSeller({
 
   if (error) {
     toast.error("Products could not be loaded");
+    throw new Error(error.message);
   }
 
   return { data, count };

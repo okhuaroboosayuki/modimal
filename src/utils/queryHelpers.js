@@ -3,16 +3,24 @@ export function applySort(query, sortBy) {
 
   switch (sortBy) {
     case "featured":
-      return query.order("modiweek_look_id", {
-        ascending: true,
-        nullsFirst: false,
-      });
+      return query
+        .order("modiweek_look_id", {
+          ascending: true,
+          nullsFirst: false,
+        })
+        .order("id", { ascending: true });
     case "bestseller":
-      return query.order("totalSold", { ascending: false });
+      return query
+        .order("totalSold", { ascending: false })
+        .order("id", { ascending: true });
     case "price-asc":
-      return query.order("price", { ascending: true });
+      return query
+        .order("price", { ascending: true })
+        .order("id", { ascending: true });
     case "price-desc":
-      return query.order("price", { ascending: false });
+      return query
+        .order("price", { ascending: false })
+        .order("id", { ascending: true });
     default:
       return query;
   }
