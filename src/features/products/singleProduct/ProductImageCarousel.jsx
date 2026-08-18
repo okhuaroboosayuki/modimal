@@ -40,7 +40,7 @@ function ProductImageCarousel({ productImages, productName }) {
               width={125}
               height={160}
               onClick={() => setSelectedImage(image)}
-              className={`h-[160px] w-[125px] shrink-0 cursor-pointer object-center transition-opacity duration-200 ${
+              className={`h-[160px] min-w-[125px] shrink-0 cursor-pointer object-center transition-opacity duration-200 ${
                 displayedImage?.url === image.url ? "opacity-100" : "opacity-40"
               }`}
             />
@@ -52,7 +52,7 @@ function ProductImageCarousel({ productImages, productName }) {
           <img
             src={displayedImage.url}
             alt={`${productName} - ${displayedImage.type}`}
-            className="h-[512px] w-[427px] min-w-0 flex-1 object-center"
+            className="h-[512px] min-w-[427px] flex-1 object-center"
             draggable={false}
           />
         )}
